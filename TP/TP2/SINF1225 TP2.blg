@@ -1,0 +1,9 @@
+[0] Config.pm:354> INFO - This is Biber 2.7
+[0] Config.pm:357> INFO - Logfile is 'SINF1225 TP2.blg'
+[57] biber-darwin:303> INFO - === Thu Feb 15, 2018, 22:08:14
+[84] Biber.pm:359> INFO - Reading 'SINF1225 TP2.bcf'
+[182] Biber.pm:835> INFO - Found 0 citekeys in bib section 0
+[189] Utils.pm:164> WARN - The file 'SINF1225 TP2.bcf' does not contain any citations!
+[196] bbl.pm:608> INFO - Writing 'SINF1225 TP2.bbl' with encoding 'UTF-8'
+[197] bbl.pm:712> INFO - Output to SINF1225 TP2.bbl
+[197] Biber.pm:109> INFO - WARNINGS: 1
