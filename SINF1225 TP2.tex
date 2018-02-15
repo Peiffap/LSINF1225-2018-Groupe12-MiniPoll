@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{preamble}
+
+\title{SINF1225 TP2}
+\author{Gilles Peiffer}
+\date{February 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Faits élémentaires}
+
+\subsection{Relations unaires}
+
+$$\phantom{.} e^{i\pi} + 1 = 0.$$
+\begin{itemize}
+    \item Utilisateur a
+        \begin{itemize}
+        \item (id) "JB007"
+        \item (pseudo) "JamesBond";
+        \item (password) "vesperlynd";
+        \item (mail) "james.bond@MI6.com";
+        \item (pic) "pdp/JB007.jpg";
+        \item (surname) "Bond";
+        \item (name) "James".
+    \end{itemize}
+    \item RelationAmi a
+    \begin{itemize}
+        \item (user1) "JB007";
+        \item (user2) "VL069";
+        \item (status) "bestfriend";
+        \item (date) "01/01/1953";
+        \item (initiator) "JB007".
+    \end{itemize}
+    \item SondageAccord a
+    \begin{itemize}
+        \item (author) "JB007";
+        \item (pollid) "A123";
+        \item (question) "Date?";
+        \item (isclosed) "false";
+    \end{itemize}
+    \item PollRelation a
+    \begin{itemize}
+        \item (pollid) "A123";
+        \item (participant) "VL069";
+        \item (hasanswered) "false";
+    \end{itemize}
+    \item Choix a
+    \begin{itemize}
+        \item (pollid) "A123";
+        \item (option) "Yes";
+        \item (score) "0";
+    \end{itemize}
+\end{itemize}
+
+\subsection{Commentaires}
+
+    \begin{itemize}
+        \item La raison d'utiliser un identificateur est pour éviter de devoir revérifier tout quand un utilisateur change une des données. Avec un \textit{id}, qu'on ne peut pas changer, cela ne pose pas problème.
+
+        C'est également valable pour les sondages. On prend des \textit{pollid} pour permettre de modéliser proprement les participants à un poll.
+        \item
+    \end{itemize}
+\end{document}
