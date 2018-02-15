@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{../../preamble}
+
+\title{SINF1225 TP1}
+\author{Gilles Peiffer}
+\date{February 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Premiers pas dans les bases de données}
+\subsection{Insertions dans la BDD}
+
+    Rempli à la main, en créant manuellement les colonnes (2 éléments rajoutés par table).
+
+\subsection{Requêtes sur une seule table}
+
+    \begin{lstlisting}[language=SQL]
+    SELECT nom
+    FROM Personne
+    WHERE sex = 'M'; \end{lstlisting}
+
+    Renvoie un tableau contenant 'Yoda' et 'Darth Maul'.
+
+\subsubsection{Requêtes à faire}
+
+    Sont repris ici uniquement les codes permettant d'arriver au résultat demandé.
+
+\begin{enumerate}
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT ncli, nom, adresse, localite, cat, compte
+    FROM Client
+    WHERE localite = 'Namur'; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT ncli, nom, adresse, localite, cat, compte
+    FROM Client
+    WHERE localite = 'Lille' and compte >= 0; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT nom, adresse
+    FROM Client
+    WHERE cat = 'C1'; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT strftime('%Y', datecom)
+    FROM Commande; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT npro, prix*qstock
+    FROM Produit; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT sum(prix*qstock)
+    FROM Produit; \end{lstlisting}
+\end{enumerate}
+
+\subsection{Requêtes sur plusieurs tables}
+\subsubsection{Requêtes à faire}
+
+    Sont repris ici uniquement les codes permettant d'arriver au résultat demandé.
+
+\begin{enumerate}
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT DISTINCT C.nom, C.adresse, C.localite
+    FROM Client C, Commande M
+    WHERE C.ncli == M.ncli; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT P.npro, P.libelle, D.qcom
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and C.nom == 'Ferard' and D.ncom == M.ncom and D.npro = P.npro; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT P.npro, P.libelle, D.qcom, date(M.datecom)
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and C.nom == 'Ferard' and D.ncom == M.ncom and D.npro = P.npro; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT M.ncom, sum(D.qcom*P.prix)
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and C.nom == 'Ferard' and D.ncom == M.ncom and D.npro = P.npro
+    GROUP BY M.ncom; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT sum(D.qcom*P.prix)
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and C.nom == 'Ferard' and D.ncom == M.ncom and D.npro = P.npro; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT C.nom, sum(D.qcom*P.prix)
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and D.ncom == M.ncom and D.npro = P.npro
+    GROUP BY C.nom; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    SELECT C.nom, sum(D.qcom*P.prix)
+    FROM Client C, Commande M, Detail D, Produit P
+    WHERE C.ncli == M.ncli and D.ncom == M.ncom and D.npro = P.npro
+    GROUP BY C.nom
+    ORDER BY -sum(D.qcom*P.prix); \end{lstlisting}
+\end{enumerate}
+
+\subsection{Faire des changements dans la BDD}
+
+    Sont repris ici uniquement les codes permettant d'arriver au résultat demandé.
+
+\begin{enumerate}
+    \item
+    \begin{lstlisting}[language=SQL]
+    ALTER TABLE Client
+    ADD planete TEXT
+    DEFAULT 'Terre'; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    UPDATE Client
+    SET planete = 'Tatooine', nom = 'Skywalker'
+    WHERE ncli == 'C123'; \end{lstlisting}
+
+    \item
+    \begin{lstlisting}[language=SQL]
+    DELETE FROM Client
+    WHERE planete == 'Tatooine'; \end{lstlisting}
+\end{enumerate}
+\end{document}
