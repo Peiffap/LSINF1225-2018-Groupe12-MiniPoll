@@ -1,0 +1,29 @@
+Utilisateur
+ - id
+ - pseudo
+ - password 
+ - mail
+ - pic
+ - surname
+ - name
+
+RelationAmitié
+ - id1
+ - id2
+ - status
+ - initiator
+
+SondageAccord
+ - id
+ - pollid
+ - question
+ - isclosed
+
+Choix
+ - pollid
+ - id
+ - option
+
+PollParticipation
+ - id
+ - pollid
