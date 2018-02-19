@@ -2,7 +2,7 @@
 \usepackage{../../preamble}
 
 \title{SINF1225 TP2}
-\author{Gilles Peiffer}
+\author{Groupe 12}
 \date{February 2018}
 
 \begin{document}
@@ -14,43 +14,50 @@
 \subsection{Relations unaires}
 
 \begin{itemize}
-    \item Utilisateur a
+    \item Utilisateur
         \begin{itemize}
-        \item (id) "JB007"
-        \item (pseudo) "JamesBond";
-        \item (password) "vesperlynd";
-        \item (mail) "james.bond@MI6.com";
-        \item (pic) "pdp/JB007.jpg";
-        \item (surname) "Bond";
-        \item (name) "James".
+        \item est identifié par (id) "JB007"
+        \item a (pseudo) "JamesBond";
+        \item a (password) "vesperlynd";
+        \item a (mail) "james.bond@MI6.com";
+        \item a (pic) "pdp/JB007.jpg";
+        \item a (surname) "Bond";
+        \item a (name) "James".
     \end{itemize}
-    \item RelationAmi a
+    \item RelationAmitie
     \begin{itemize}
-        \item (user1) "JB007";
-        \item (user2) "VL069";
-        \item (status) "bestfriend";
-        \item (date) "01/01/1953";
-        \item (initiator) "JB007".
+        \item concerne (id1) "JB007";
+        \item concerne (id2) "VL069";
+        \item est à l'état (status) "bestfriend";
+        \item est initiée par (initiator) "JB007".
     \end{itemize}
-    \item SondageAccord a
+    \item SondageAccord
     \begin{itemize}
-        \item (author) "JB007";
-        \item (pollid) "A123";
-        \item (question) "Date?";
-        \item (isclosed) "false";
+        \item a (id) "JB007";
+        \item a (pollid) "A123";
+        \item a (question) "Date?";
+        \item a (isclosed) "false".
     \end{itemize}
-    \item PollRelation a
+    \item PollParticipation
     \begin{itemize}
-        \item (pollid) "A123";
-        \item (participant) "VL069";
-        \item (hasanswered) "false";
+        \item se réfère à (pollid) "A123";
+        \item concerne (id) "VL069".
     \end{itemize}
-    \item Choix a
+    \item Choix
     \begin{itemize}
-        \item (pollid) "A123";
-        \item (option) "Yes";
-        \item (score) "0";
+        \item appartient à (pollid) "A123";
+        \item propose (option) "Yes";
+        \item concerne (id) "VB069".
     \end{itemize}
+\end{itemize}
+
+\subsection{Relations binaires}
+
+\begin{itemize}
+     \item Utilisateur
+     \begin{itemize}
+          \item est invité à (pollid) "A123";
+     \end{itemize}
 \end{itemize}
 
 \subsection{Commentaires}

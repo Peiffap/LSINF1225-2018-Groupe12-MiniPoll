@@ -1,10 +1,10 @@
 # Fdb version 3
-["biber SINF1225 TP1"] 1518729095 "SINF1225 TP1.bcf" "SINF1225 TP1.bbl" "SINF1225 TP1" 1518729100
+["biber SINF1225 TP1"] 1518729095 "SINF1225 TP1.bcf" "SINF1225 TP1.bbl" "SINF1225 TP1" 1518774144
   "SINF1225 TP1.bcf" 1518729100 93636 0055494935fe131e7ec1f6b0ceb50621 ""
   (generated)
-  "SINF1225 TP1.bbl"
   "SINF1225 TP1.blg"
-["pdflatex"] 1518729098 "SINF1225 TP1.tex" "SINF1225 TP1.pdf" "SINF1225 TP1" 1518729100
+  "SINF1225 TP1.bbl"
+["pdflatex"] 1518729098 "SINF1225 TP1.tex" "SINF1225 TP1.pdf" "SINF1225 TP1" 1518774144
   "../../preamble.sty" 1518713665 2173 5f10027e2baa7a9325afe28967eec6ca ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1480098666 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1480098666 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -222,9 +222,9 @@
   "SINF1225 TP1.run.xml" 1518729100 2407 99005f231c1914489dff49e90aaa7de5 ""
   "SINF1225 TP1.tex" 1518729093 3998 d063861576e06fd859917a8741334f24 ""
   (generated)
-  "SINF1225 TP1.bcf"
+  "SINF1225 TP1.aux"
   "SINF1225 TP1.log"
+  "SINF1225 TP1.bcf"
+  "SINF1225 TP1.run.xml"
   "SINF1225 TP1.pdf"
   "SINF1225 TP1.out"
-  "SINF1225 TP1.run.xml"
-  "SINF1225 TP1.aux"
