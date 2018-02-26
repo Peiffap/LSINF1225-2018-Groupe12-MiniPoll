@@ -22,7 +22,8 @@
         \item a (mail) "james.bond@MI6.com";
         \item a (pic) "pdp/JB007.jpg";
         \item a (surname) "Bond";
-        \item a (name) "James".
+        \item a (name) "James";
+        \item est invité à (pollid) "A123".
     \end{itemize}
     \item RelationAmitie
     \begin{itemize}
@@ -33,7 +34,7 @@
     \end{itemize}
     \item SondageAccord
     \begin{itemize}
-        \item a (id) "JB007";
+        \item créé par (id) "JB007";
         \item a (pollid) "A123";
         \item a (question) "Date?";
         \item a (isclosed) "false".
@@ -47,7 +48,22 @@
     \begin{itemize}
         \item appartient à (pollid) "A123";
         \item propose (option) "Yes";
-        \item concerne (id) "VB069".
+        \item concerne (id) "VL069".
+    \end{itemize}
+    \item SondageChoix
+    \begin{itemize}
+        \item a (pollid) "B456";
+        \item créé par (id1) "JB007";
+        \item concerne (id2) "VL069";
+        \item a (option1) "Londres";
+        \item a (option2) "New York";
+        \item a (isclosed) "false";
+    \end{itemize}
+    \item SondageQuestionnaire
+    \begin{itemize}
+        \item appartient à (pollid) "C789";
+        \item propose (option) "Yes";
+        \item concerne (id) "VL069".
     \end{itemize}
 \end{itemize}
 
@@ -56,7 +72,7 @@
 \begin{itemize}
      \item Utilisateur
      \begin{itemize}
-          \item est invité à (pollid) "A123";
+
      \end{itemize}
 \end{itemize}
 
@@ -66,6 +82,5 @@
         \item La raison d'utiliser un identificateur est pour éviter de devoir revérifier tout quand un utilisateur change une des données. Avec un \textit{id}, qu'on ne peut pas changer, cela ne pose pas problème.
 
         C'est également valable pour les sondages. On prend des \textit{pollid} pour permettre de modéliser proprement les participants à un poll.
-        \item
     \end{itemize}
 \end{document}
