@@ -17,6 +17,8 @@ import be.uclouvain.lsinf1225.musicplayer.MusicPlayerApp;
 import be.uclouvain.lsinf1225.musicplayer.R;
 import be.uclouvain.lsinf1225.musicplayer.model.User;
 
+//ceci est une ligne de commentaire bidon
+
 /**
  * Gère l'écran de connexion des utilisateurs à l'application.
  *
