@@ -8,30 +8,44 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void profile(View v){
+
+    public void profile(View v)
+    {
 
     }
-    public void friends(View v){
+
+    public void friends(View v)
+    {
 
     }
-    public void create(View v){
+
+    public void create(View v)
+    {
         Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
     }
-    public void choice(View v){
+
+    public void choice(View v)
+    {
 
     }
-    public void poll(View v){
+
+    public void poll(View v)
+    {
 
     }
-    public void MCQ(View v){
+
+    public void MCQ(View v)
+    {
 
     }
 }

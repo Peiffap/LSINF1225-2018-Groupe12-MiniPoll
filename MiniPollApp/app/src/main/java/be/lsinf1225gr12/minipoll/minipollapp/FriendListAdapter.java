@@ -15,20 +15,22 @@ public class FriendListAdapter extends ArrayAdapter<User>
     private Context mContext;
     int mResource;
 
-    public FriendListAdapter(Context context, int resource, ArrayList<User> objects) {
+    public FriendListAdapter(Context context, int resource, ArrayList<User> objects)
+    {
         super(context, resource, objects);
-        mContext=context;
+        mContext = context;
         mResource = resource;
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        //Faire un string pour chaque attribut à mettre dans le layout
-        LayoutInflater inflater =  LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource,parent,false);
-        //faire un TextView nom = (TextView) convertView.findViewById(R.id.l'id); pour chaque élement du layout
-        //ensuite faire un nom.setText(attribut); pour chaque éléments du layout
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+        // Make a string for every attribute in the layout.
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        convertView = inflater.inflate(mResource, parent, false);
+        // Make a TextView name = (TextView) convertView.findViewById(R.id.l'id); for every element of the layout.
+        // Then do name.setText(attribut); for every element of the layout.
         return convertView;
     }
 }

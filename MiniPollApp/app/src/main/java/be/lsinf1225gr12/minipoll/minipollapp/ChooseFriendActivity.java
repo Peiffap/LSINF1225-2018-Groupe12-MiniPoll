@@ -8,19 +8,21 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ChooseFriendActivity extends AppCompatActivity {
+public class ChooseFriendActivity extends AppCompatActivity
+{
 
     private static final String TAG = "ChooseFriendActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_friend);
         Log.d(TAG, "onCreate: Started.");
-        ListView mListView = (ListView) findViewById(R.id.listView);
+        ListView mListView = findViewById(R.id.listView);
 
         ArrayList<User> friendList= new ArrayList<>();
-        // Set une ArrayList avec tous les amis
+        // Set an ArrayList with all friends.
 
         FriendListAdapter adapter = new FriendListAdapter (this, R.layout.adapter_view_layout, friendList);
         mListView.setAdapter(adapter);
