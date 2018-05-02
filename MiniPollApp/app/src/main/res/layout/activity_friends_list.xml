@@ -12,7 +12,7 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Identifiant"
+        android:text="@string/identifier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Nom"
+        android:text="@string/name"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="348dp" />
 
@@ -32,7 +32,7 @@
         android:layout_width="368dp"
         android:layout_height="19dp"
         android:gravity="center"
-        android:text="Adresse mail "
+        android:text="@string/email"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="398dp" />
 

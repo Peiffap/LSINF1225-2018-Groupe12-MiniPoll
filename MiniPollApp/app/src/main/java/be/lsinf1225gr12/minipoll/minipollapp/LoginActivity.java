@@ -1,65 +1,114 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
-
-// import database.handler.Config;
-import database.handler.DatabaseHelper;
-import database.object.Message;
-import database.object.Photo;
-import database.object.Preference;
-import database.object.Relationship;
-import database.object.User;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that allows users to connect to the MiniPoll app.
  */
 
-class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>
+public class LoginActivity extends Activity implements TextView.OnEditorActionListener
 {
-    DatabaseHelper db;
 
-    private UserLoginTask mAuthTask = null;
-    // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private Spinner userSpinner;
 
-    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        /*
+         @note : Le titre de l'activité de lancement donné dans l'AndroidManifest.xml est repris
+         comme nom du lanceur de l'application par Android. Pour ce premier écran, on va donc
+         utiliser la méthode setTitle afin de définir le titre de l'activité (s'il est différent du
+         titre de l'application).
+         */
+        setTitle(R.string.login_activity_title);
+
+
+        /*
+         * @note La liste des utilisateurs est affichées dans un Spinner, pour en savoir plus lisez
+         * http://d.android.com/guide/topics/ui/controls/spinner.html
+         */
+        userSpinner = findViewById(R.id.login_username);
+
+        // Obtention de la liste des utilisateurs.
+        ArrayList<User> users = User.getUtilisateurs();
+        // TODO Add User.getUtilisateurs().
+
+        // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
+        ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
+        // On lie l'adapter au spinner.
+        userSpinner.setAdapter(adapter);
+
+
+        // On indique qu'il faut appeler onEditorAction de cette classe lorsqu'une action (valider ici)
+        // est faite depuis le clavier lorsqu'on est en train de remplir le mot de passe.
+        EditText passwordEditText = findViewById(R.id.login_password);
+        passwordEditText.setOnEditorActionListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // On efface le mot de passe qui était écrit quand on se déconnecte.
+        EditText passwordEditText = findViewById(R.id.login_password);
+        passwordEditText.setText("");
+    }
+
+    /**
+     * Vérifie le mot de passe et connecte l'utilisateur.
+     * <p>
+     * Cette méthode vérifie le mot de passe saisi. Si celui-ci est bon, connecte l'utilisateur et
+     * affiche le menu principal, sinon un message est affiché à l'utilisateur.
+     * <p>
+     * Cette méthode est appelée grâce à l'attribut onClick indiqué dans le fichier xml de layout
+     * sur le bouton de connexion. Elle peut également être appelée depuis la méthode
+     * "onEditorAction" de cette classe.
+     *
+     * @param v Une vue quelconque (n'est pas utilisé ici, mais requis par le onClick)
+     */
+    public void login(View v) {
+        // Lorsqu'on clique sur le bouton "Se connecter" on qu'on valide depuis le clavier.
+        User user = (User) userSpinner.getSelectedItem();
+        EditText passwordEditText = findViewById(R.id.login_password);
+        String password = passwordEditText.getText().toString();
+
+        // TODO Add user.login().
+        if (user.login(password)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            MiniPollApp.notifyShort(R.string.login_wrong_password_msg);
+        }
+    }
+
+    /**
+     * Récupère les actions faites depuis le clavier.
+     * <p>
+     * Récupère les actions faites depuis le clavier lors de l'édition du champ du mot de passe afin
+     * de permettre de se connecter depuis le bouton "Terminer" du clavier. (Cela évite à
+     * l'utilisateur de devoir fermer le clavier et de cliquer sur le bouton se connecter).
+     */
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        // L'attribut android:imeOptions="actionNext" est défini dans le fichier xml de layout
+        // (activity_login.xml), L'actionId attendue est donc IME_ACTION_NEXT.
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            login(v);
+            return true;
+        }
+        return false;
+    }
 }
