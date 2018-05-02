@@ -30,7 +30,7 @@ public class FriendListAdapter extends ArrayAdapter<User>
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
         // Make a TextView name = (TextView) convertView.findViewById(R.id.l'id); for every element of the layout.
-        // Then do name.setText(attribut); for every element of the layout.
+        // Then do name.setText(attribute); for every element of the layout.
         return convertView;
     }
 }

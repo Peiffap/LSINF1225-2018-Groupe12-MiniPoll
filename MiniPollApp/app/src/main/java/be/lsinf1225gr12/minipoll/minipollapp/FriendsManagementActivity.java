@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 /**
- * Gere le menu des amis (liste d'amis et ajout d'amis)
+ * Controls the friends list.
  *
  * @author Augustin Delecluse
  * @version 1
  */
 
 public class FriendsManagementActivity extends Activity {
-//Tous les noms d'activites sont a changer
+// TODO Change activity names.
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

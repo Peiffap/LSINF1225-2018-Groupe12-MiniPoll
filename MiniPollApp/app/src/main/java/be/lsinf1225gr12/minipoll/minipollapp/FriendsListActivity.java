@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
- * Gere l'affichage de la liste d'amis connus
+ * Lists all known friends.
  *
  * @author Augustin Delecluse
  * @version 1
@@ -21,7 +21,7 @@ public class FriendsListActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
-        viewPager=(ViewPager)findViewById(R.id.view_paper);
+        viewPager = findViewById(R.id.view_paper);
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
 
