@@ -1,8 +1,8 @@
-package be.uclouvain.lsinf1225.musicplayer;
+package be.lsinf1225gr12.minipoll.minipollapp;
 
 import android.app.Application;
-        import android.view.Gravity;
-        import android.widget.Toast;
+import android.view.Gravity;
+import android.widget.Toast;
 
 /**
  * Classe générale de l'application.
@@ -21,19 +21,19 @@ import android.app.Application;
  * (...)>(...)</application>
  */
 
-public class MusicPlayerApp extends Application {
+public class MiniPollApp extends Application {
 
     /**
      * Référence au contexte de l'application
      */
-    private static MusicPlayerApp context;
+    private static MiniPollApp context;
 
     /**
      * Fournit le contexte de l'application.
      *
      * @return Contexte de l'application.
      */
-    public static MusicPlayerApp getContext() {
+    public static MiniPollApp getContext() {
         return context;
     }
 
@@ -42,7 +42,7 @@ public class MusicPlayerApp extends Application {
      *
      * @param resId Id de la ressource (R.string.* ) contenant le message à afficher.
      *
-     * @see MusicPlayerApp#notify
+     * @see MiniPollApp#notify
      */
     public static void notifyShort(int resId) {
         notify(resId, Toast.LENGTH_SHORT);
@@ -53,7 +53,7 @@ public class MusicPlayerApp extends Application {
      *
      * @param resId Id de la ressource (R.string.* ) contenant le message à afficher.
      *
-     * @see MusicPlayerApp#notify
+     * @see MiniPollApp#notify
      */
     public static void notifyLong(int resId) {
         notify(resId, Toast.LENGTH_LONG);
@@ -74,6 +74,7 @@ public class MusicPlayerApp extends Application {
 
     public void onCreate() {
         super.onCreate();
-        context = (MusicPlayerApp) getApplicationContext();
+        context = (MiniPollApp) getApplicationContext();
     }
 }
+

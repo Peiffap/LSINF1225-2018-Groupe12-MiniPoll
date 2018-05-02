@@ -21,32 +21,32 @@ public class MainMenuActivity extends Activity {
     }
 
     public void create(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
     }
 
     public void choice(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
     public void profile(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
     public void MCQ(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
     public void friends(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, FriendsManagementActivity.class);
         startActivity(intent);
     }
 
     public void poll(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
