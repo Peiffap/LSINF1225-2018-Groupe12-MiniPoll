@@ -1,5 +1,11 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -7,139 +13,106 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.regex.Pattern;
+public class MySQLiteHelper extends SQLiteOpenHelper
+{
+    private static String TAG = "DataBaseHelper"; // Tag just for the LogCat window
+    //destination path (location) of our database on device
+    private static String DB_PATH = "";
+    private static String DB_NAME ="MiniPollApp_database.sqlite";// Database name
+    private SQLiteDatabase mDataBase;
+    private final Context mContext;
 
-/**
- * Classe utilitaire qui va gérer la connexion, la création et la mise à jour de la base de données.
- * <p>
- * Cette classe va s'occuper de gérer la base de données. Elle s'occupera d'en créer une nouvelle
- * lors du premier lancement de l'application. Ensuite, en cas d'évolution de version de la base de
- * données (par exemple lors d'une amélioration de votre application), elle mettra à jour celle-ci
- * de manière adéquate.
- *
- * @author Damien Mercier
- * @version 1
- * @see <a href="http://d.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html">SQLiteOpenHelper</a>
- */
-public class MySQLiteHelper extends SQLiteOpenHelper {
-
-    /**
-     * Nom du fichier sql contenant les instructions de création de la base de données. Le fichier
-     * doit être placé dans le dossier assets/
-     */
-    private static final String DATABASE_SQL_FILENAME = "database.sql";
-    /**
-     * Nom du fichier de la base de données.
-     */
-    private static final String DATABASE_NAME = "minipoll_database.sqlite";
-
-    /**
-     * Version de la base de données (à incrémenter en cas de modification de celle-ci afin que la
-     * méthode onUpgrade soit appelée).
-     *
-     * @note Le numéro de version doit changer de manière monotone.
-     */
-    private static final int DATABASE_VERSION = 1;
-
-    /**
-     * Instance de notre classe afin de pouvoir y accéder facilement depuis n'importe quel objet.
-     */
-    private static MySQLiteHelper instance;
-
-    /**
-     * Constructeur. Instancie l'utilitaire de gestion de la base de données.
-     *
-     * @param context Contexte de l'application.
-     */
-    private MySQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        instance = this;
-    }
-
-    /**
-     * Fournit une instance de notre MySQLiteHelper.
-     *
-     * @return MySQLiteHelper
-     */
-    public static MySQLiteHelper get() {
-        if (instance == null) {
-            return new MySQLiteHelper(MiniPollApp.getContext());
+    public MySQLiteHelper(Context context)
+    {
+        super(context, DB_NAME, null, 1);// 1? Its database Version
+        if(android.os.Build.VERSION.SDK_INT >= 17){
+            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
         }
-        return instance;
+        else
+        {
+            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        }
+        this.mContext = context;
     }
 
-    /**
-     * Méthode d'initialisation appelée lors de la création de la base de données.
-     *
-     * @param db Base de données à initialiser
-     */
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        initDatabase(db);
+    public void createDataBase() throws IOException
+    {
+        //If the database does not exist, copy it from the assets.
+
+        boolean mDataBaseExist = checkDataBase();
+        if(!mDataBaseExist)
+        {
+            this.getReadableDatabase();
+            this.close();
+            try
+            {
+                //Copy the database from assests
+                copyDataBase();
+                Log.e(TAG, "createDatabase database created");
+            }
+            catch (IOException mIOException)
+            {
+                throw new Error("ErrorCopyingDataBase");
+            }
+        }
     }
 
-    /**
-     * Méthode de mise à jour lors du changement de version de la base de données.
-     *
-     * @param db         Base de données à mettre à jour.
-     * @param oldVersion Numéro de l'ancienne version.
-     * @param newVersion Numéro de la nouvelle version.
-     *
-     * @pre La base de données est dans la version oldVersion.
-     * @post La base de données a été mise à jour vers la version newVersion.
-     */
+    //Check that the database exists here: /data/data/your package/databases/Da Name
+    private boolean checkDataBase()
+    {
+        File dbFile = new File(DB_PATH + DB_NAME);
+        //Log.v("dbFile", dbFile + "   "+ dbFile.exists());
+        return dbFile.exists();
+    }
+
+    //Copy the database from assets
+    private void copyDataBase() throws IOException
+    {
+        InputStream mInput = mContext.getAssets().open(DB_NAME);
+        String outFileName = DB_PATH + DB_NAME;
+        OutputStream mOutput = new FileOutputStream(outFileName);
+        byte[] mBuffer = new byte[1024];
+        int mLength;
+        while ((mLength = mInput.read(mBuffer))>0)
+        {
+            mOutput.write(mBuffer, 0, mLength);
+        }
+        mOutput.flush();
+        mOutput.close();
+        mInput.close();
+    }
+
+    //Open the database, so we can query it
+    public boolean openDataBase() throws SQLException
+    {
+        String mPath = DB_PATH + DB_NAME;
+        //Log.v("mPath", mPath);
+        mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+        return mDataBase != null;
+    }
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /*
-         * @note : Ici on se contente juste de supprimer toutes les données et de les re-créer par
-         * après. Dans une vraie application en production (par ex. sur le Play Store), il faudra
-         * faire en sorte que les données enregistrées par l'utilisateur ne soient pas complètement
-         * effacées lorsqu'on veut mettre à jour la structure de la base de données.
-         */
+    public synchronized void close()
+    {
+        if(mDataBase != null)
+            mDataBase.close();
+        super.close();
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        try {
+            createDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         deleteDatabase(db);
         onCreate(db);
-    }
-
-    /**
-     * Crée les tables de la base de données et les remplit.
-     *
-     * @param db Base de données à initialiser.
-     *
-     * @note À l'avenir on peut imaginer aller chercher les requêtes à effectuer dans un fichier
-     * local (dans le dossier assets) ou sur internet (sur un server distant), au lieu de les
-     * encoder en dur ici. (En fait c’est une mauvaise pratique de les encoder en dur comme on a
-     * fait ici, mais on a voulu simplifier le code pour des raisons didactiques.) Vous trouverez en
-     * commentaires dans cette méthode le code permettant de charger la base de données depuis un
-     * fichier SQL placé dans le dossier assets/.
-     * @post Les tables nécessaires à l'application sont créées et les données initiales y sont
-     * enregistrées.
-     */
-    private void initDatabase(SQLiteDatabase db) {
-        try {
-            // Ouverture du fichier sql.
-            Scanner scan = new Scanner(MiniPollApp.getContext().getAssets().open(DATABASE_SQL_FILENAME));
-            scan.useDelimiter(Pattern.compile(";"));
-            while (scan.hasNext()) {
-                String sqlQuery = scan.next();
-                /*
-                 * @note : Pour des raisons de facilité, on ne prend en charge ici que les fichiers
-                 * contenant une instruction par ligne. Si des instructions SQL se trouvent sur deux
-                 * lignes, cela produira des erreurs (car l'instruction sera coupée)
-                 */
-                if (!sqlQuery.trim().isEmpty() && !sqlQuery.trim().startsWith("--")) {
-                    Log.d("MySQL query", sqlQuery);
-                    db.execSQL(sqlQuery);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Erreur de lecture du fichier " + DATABASE_SQL_FILENAME + " : " + e.getMessage(), e);
-        } catch (SQLException e) {
-            throw new RuntimeException("Erreur SQL lors de la création de la base de données." +
-                    "Vérifiez que chaque instruction SQL est au plus sur une ligne." +
-                    "L'erreur est : " + e.getMessage(), e);
-        }
     }
 
     /**
@@ -157,5 +130,4 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             c.moveToNext();
         }
     }
-
 }
