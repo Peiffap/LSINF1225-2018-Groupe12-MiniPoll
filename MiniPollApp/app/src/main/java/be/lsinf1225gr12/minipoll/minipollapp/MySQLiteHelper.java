@@ -13,6 +13,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Pour employer la DB, faire ceci :
+ *
+ *
+ TestAdapter mDbHelper = new TestAdapter(urContext);
+ mDbHelper.createDatabase();
+ mDbHelper.open();
+
+ Cursor testdata = mDbHelper.getTestData();
+
+ mDbHelper.close();
+ */
 public class MySQLiteHelper extends SQLiteOpenHelper
 {
     private static String TAG = "DataBaseHelper"; // Tag just for the LogCat window
