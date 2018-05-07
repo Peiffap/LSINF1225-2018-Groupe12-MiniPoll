@@ -22,6 +22,12 @@
         <activity
             android:name=".ChooseFriendActivity"/>
         <activity
+            android:name=".CreateQuestionnaireActivity"/>
+        <activity 
+            android:name=".CreateChoixActivity"/>
+        <activity
+            android:name=".CreateSondageActivity"/>
+        <activity
             android:name=".Friend_List_Activity"/>
     </application>
 
