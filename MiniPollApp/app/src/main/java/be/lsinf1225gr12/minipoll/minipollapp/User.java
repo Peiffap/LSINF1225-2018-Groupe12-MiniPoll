@@ -1,5 +1,6 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -7,6 +8,7 @@ public class User
 {
     /* Variables de la classe */
     private Set<AssociationEval> associationEval;
+    private List<AssociationMCQ> listAssociationMCQ;
     private String id;
     private String login;
     private String password;
@@ -14,6 +16,7 @@ public class User
     private String mail;
     private String firstname;
     private String name;
+
 
     /* Constructeurs */
     public User(){
@@ -28,6 +31,7 @@ public class User
         this.mail = mail;
         this.firstname = firstname;
         this.name = name;
+        this.listAssociationMCQ = new ArrayList<AssociationMCQ>();
     }
 
     /* Getters and setters */
@@ -138,5 +142,16 @@ public class User
     public static List<User> getUtilisateurs(){
         List<User> list = null;
         return list;
+    }
+
+    /* Nécessaire au bon fonctionnement de AssociationMCQ */
+    public void addAssociationMCQ(AssociationMCQ associationMCQ){
+        this.listAssociationMCQ.add(associationMCQ);
+    }
+    public void deleteAssociationMCQ(AssociationMCQ associationMCQ){
+        this.listAssociationMCQ.remove(associationMCQ);
+    }
+    public List<AssociationMCQ> getListAssociationMCQ(){
+        return this.listAssociationMCQ;
     }
 }
