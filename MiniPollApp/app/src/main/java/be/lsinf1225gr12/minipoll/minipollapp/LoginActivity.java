@@ -85,8 +85,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
-        // TODO Add user.login().
-        if (user.login(password)) {
+        if (user.checkLogin(password)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
