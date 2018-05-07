@@ -26,20 +26,4 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Adapter Choose Friend -->
-    <string name="text_view">TextView</string>
-
-    <!-- Fragment Swipe -->
-    <string name="login">Login</string>
-    <string name="first_name">Prénom</string>
-    <string name="email_address">Adresse Email</string>
-
-
-    <string name="friends_list">Liste d\'amis</string>
-    <string name="friends_management">Gestion des amis</string>
-    <string name="add_friend">Ajouter un ami</string>
-    <string name="choice_poll">Sondage pour un choix</string>
-    <string name="create_poll">Créer un sondage</string>
-    <string name="decision_poll">Sondage pour un accord</string>
-
 </resources>
