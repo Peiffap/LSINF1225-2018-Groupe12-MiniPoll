@@ -20,7 +20,7 @@ public class ChooseFriendActivity extends AppCompatActivity
         ListView mListView = findViewById(R.id.listView);
 
         String[] friendList= {"Mario","Luigi"}; // example, to be removed
-        // Set a String[] with every friends' name
+        // Set a String[] with every friend's name
 
         ChooseFriendAdapter adapter = new ChooseFriendAdapter (this, friendList);
         mListView.setAdapter(adapter);
