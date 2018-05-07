@@ -4,7 +4,7 @@ package be.lsinf1225gr12.minipoll.minipollapp;
 import java.util.Set;
 
 public class Poll extends PollAbstract {
-    Set<AssociationEval> associationEval;
+    private Set<AssociationEval> associationEval;
     private int number_top;
     private int number_answer;
     private boolean isChoice;

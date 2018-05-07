@@ -1,13 +1,13 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
 public abstract class PollAbstract {
-    boolean closedStatus;
-    String format;
-    String name;
-    User author;
-    String date;
+    protected boolean closedStatus;
+    protected String format;
+    protected String name;
+    protected User author;
+    protected String date;
 
-    public PollAbstract(boolean closedStatus, String format, String name, User author, String date) {
+    protected PollAbstract(boolean closedStatus, String format, String name, User author, String date) {
         this.closedStatus =false;
         this.format = format;
         this.name = name;
