@@ -6,7 +6,7 @@ import java.util.Set;
 public class User
 {
     /* Variables de la classe */
-    Set<AssociationEval> associationEval;
+    private Set<AssociationEval> associationEval;
     private String id;
     private String login;
     private String password;
@@ -132,5 +132,11 @@ public class User
     /* A FAIRE */
     public void computePollResult(PollAbstract pollAbstract){
 
+    }
+
+    /* Fonction qui renvoie la liste de tous les utilisateurs */
+    public static List<User> getUtilisateurs(){
+        List<User> list = null;
+        return list;
     }
 }
