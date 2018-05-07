@@ -1,49 +1,57 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
 public abstract class PollAbstract {
-    boolean ClosedStatus;
-    String Format;
-    String Name;
-    User Author;
-    String Date;
+    boolean closedStatus;
+    String format;
+    String name;
+    User author;
+    String date;
 
-    public PollAbstract(String format, String name, User author, String date) {
-        ClosedStatus = false;
-        Format = format;
-        Name = name;
-        Author=author;
-        Date = date;
+    public PollAbstract(boolean closedStatus, String format, String name, User author, String date) {
+        this.closedStatus =false;
+        this.format = format;
+        this.name = name;
+        this.author = author;
+        this.date = date;
     }
 
     public boolean isClosedStatus() {
-        return ClosedStatus;
+        return closedStatus;
     }
 
     public void setClosedStatus(boolean closedStatus) {
-        ClosedStatus = closedStatus;
+        this.closedStatus = closedStatus;
     }
 
     public String getFormat() {
-        return Format;
+        return format;
     }
 
     public void setFormat(String format) {
-        Format = format;
+        this.format = format;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
     }
 }

@@ -7,13 +7,8 @@ public class Poll extends PollAbstract {
     Set<AssociationEval> associationEval;
     private int number_top;
     private int number_answer;
-    private String date;
-    private User author;
-    private String name;
-    private String format;
     private boolean isChoice;
     private String question;
-    private boolean closedStatus;
     private PollAnswer[] pollAnswers ;
 
 
@@ -27,12 +22,12 @@ public class Poll extends PollAbstract {
         this.pollAnswers=pollAnswers;
     }
 
-    public PollAnswer[] getPollAnswers() {
-        return pollAnswers;
+    public Set<AssociationEval> getAssociationEval() {
+        return associationEval;
     }
 
-    public void setPollAnswers(PollAnswer[] pollAnswers) {
-        this.pollAnswers = pollAnswers;
+    public void setAssociationEval(Set<AssociationEval> associationEval) {
+        this.associationEval = associationEval;
     }
 
     public int getNumber_top() {
@@ -51,38 +46,6 @@ public class Poll extends PollAbstract {
         this.number_answer = number_answer;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
     public boolean isChoice() {
         return isChoice;
     }
@@ -99,11 +62,11 @@ public class Poll extends PollAbstract {
         this.question = question;
     }
 
-    public boolean isClosedStatus() {
-        return closedStatus;
+    public PollAnswer[] getPollAnswers() {
+        return pollAnswers;
     }
 
-    public void setClosedStatus(boolean closedStatus) {
-        this.closedStatus = closedStatus;
+    public void setPollAnswers(PollAnswer[] pollAnswers) {
+        this.pollAnswers = pollAnswers;
     }
 }
