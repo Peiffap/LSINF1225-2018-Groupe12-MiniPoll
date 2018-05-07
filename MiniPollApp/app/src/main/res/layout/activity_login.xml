@@ -12,7 +12,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher"
+        android:background="@mipmap/ic_launcher"
         android:contentDescription="@string/app_name"
 
         app:layout_constraintLeft_toLeftOf="parent"
@@ -51,8 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:drawableEnd="@drawable/ic_go"
-        android:drawableRight="@drawable/ic_go"
+
         android:onClick="login"
         android:text="@string/login_btn"
         app:layout_constraintRight_toRightOf="parent"

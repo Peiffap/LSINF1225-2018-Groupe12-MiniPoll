@@ -11,20 +11,18 @@ import java.util.ArrayList;
 public class ChooseFriendActivity extends AppCompatActivity
 {
 
-    private static final String TAG = "ChooseFriendActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_friend);
-        Log.d(TAG, "onCreate: Started.");
         ListView mListView = findViewById(R.id.listView);
 
-        ArrayList<User> friendList= new ArrayList<>();
-        // Set an ArrayList with all friends.
+        String[] friendList= {"Mario","Luigi"}; // example, to be removed
+        // Set a String[] with every friends' name
 
-        FriendListAdapter adapter = new FriendListAdapter (this, R.layout.adapter_view_layout, friendList);
+        ChooseFriendAdapter adapter = new ChooseFriendAdapter (this, friendList);
         mListView.setAdapter(adapter);
     }
 }
