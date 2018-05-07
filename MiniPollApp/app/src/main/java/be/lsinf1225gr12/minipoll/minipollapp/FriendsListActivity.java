@@ -22,13 +22,10 @@ public class FriendsListActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
-        viewPager = findViewById(R.id.view_paper);
-        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(swipeAdapter);
 
     }
     public void onTouch(MotionEvent touch){
-        float x1, y1, x2, y2;
+        float x1=0, y1, x2, y2;
         switch(touch.getAction()){
             case MotionEvent.ACTION_DOWN: x1= touch.getX(); y1=touch.getY(); break;
             case MotionEvent.ACTION_UP:  x2= touch.getX(); y2=touch.getY();
