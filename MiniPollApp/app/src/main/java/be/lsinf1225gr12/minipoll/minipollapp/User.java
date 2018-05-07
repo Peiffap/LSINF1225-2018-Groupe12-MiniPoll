@@ -90,7 +90,7 @@ public class User
 
     /* Functions qui check un bon identifiant */
     public boolean connexion(String typedLogin, String typedPassword){
-        return(this.login.equals(typedLogin) && this.password.equals(typedPassword));
+        return (this.login.equals(typedLogin) && this.password.equals(typedPassword));
     }
 
     public boolean checkLogin(String typedLogin){
@@ -118,7 +118,7 @@ public class User
 
     /* Fonction qui renvoie la liste d'amis de l'user
     * A FAIRE */
-    public List<User> fiendList(){
+    public List<User> friendList(){
         List<User> list = null;
         return list;
     }
