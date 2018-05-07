@@ -12,10 +12,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PageFragment extends android.support.v4.app.Fragment {
-    TextView textView;
+public class SwipeFragment extends android.support.v4.app.Fragment {
+    TextView viewID;
 
-    public PageFragment() {
+
+
+    public SwipeFragment() {
         // Required empty public constructor
     }
 
@@ -24,12 +26,12 @@ public class PageFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.page_fragment_layout,container, false);
-        textView = (TextView) view.findViewById(R.id.textViewSwipe);
-        Bundle bundle = getArguments();
-        String message = Integer.toString(bundle.getInt("count"));
-        textView.setText("this is the "+message+" Swipe View Page");
-        return view;
+        View v = inflater.inflate(R.layout.fragment_swipe, container, false);
+        viewID = (TextView) v.findViewById(R.id.textView2);
+        Bundle bdl = getArguments();
+        String text = Integer.toString(bdl.getInt("count"));
+        viewID.setText("Here's the test "+text);
+        return v;
     }
 
 }

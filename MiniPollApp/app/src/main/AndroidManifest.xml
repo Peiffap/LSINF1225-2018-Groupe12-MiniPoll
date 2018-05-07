@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".CreateActivity" />
         <activity android:name=".ChooseFriendActivity" />
-        <activity android:name=".ChooseFriendAdapter"></activity>
+        <activity android:name=".Friend_List_Activity"></activity>
     </application>
 
 </manifest>
