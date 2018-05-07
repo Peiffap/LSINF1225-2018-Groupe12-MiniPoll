@@ -19,7 +19,7 @@ public class ChooseFriendActivity extends AppCompatActivity
         setContentView(R.layout.activity_choose_friend);
         ListView mListView = findViewById(R.id.listView);
 
-        String[] friendList= {"Mario","Luigi"}; // example, to be removed
+        String[] friendList= {"Mario","Luigi","Peach","Daisy","Bowser","Wario","Waluigi","Koopa","Goomba","Yoshi","Donkey Kong"}; // example, to be removed
         // Set a String[] with every friends' name
 
         ChooseFriendAdapter adapter = new ChooseFriendAdapter (this, friendList);

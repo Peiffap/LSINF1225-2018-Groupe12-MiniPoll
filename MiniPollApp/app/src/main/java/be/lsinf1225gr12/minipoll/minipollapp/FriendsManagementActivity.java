@@ -21,12 +21,12 @@ public class FriendsManagementActivity extends Activity {
     }
 
     public void listFriend(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
     public void addFriend(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 }

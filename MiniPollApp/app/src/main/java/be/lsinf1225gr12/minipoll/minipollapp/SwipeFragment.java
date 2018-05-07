@@ -31,9 +31,10 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
         viewID = (TextView) v.findViewById(R.id.textView2);
         viewName = (TextView) v.findViewById(R.id.textView3);
         viewMail = (TextView) v.findViewById(R.id.textView4);
+        String[] list={"Donald Trump","Barack Obama", "Georges Bush","Bill Clinton", "Ronald Reagan"}; //examples, to be removed
         Bundle bdl = getArguments();
         String text = Integer.toString(bdl.getInt("count"));
-        viewID.setText("This is the login #"+text);
+        viewID.setText(list[bdl.getInt("count")-1]); //example, to be removed
         viewName.setText("This is the first name #"+text);
         viewMail.setText("This is the mail adress #"+text);
         return v;
