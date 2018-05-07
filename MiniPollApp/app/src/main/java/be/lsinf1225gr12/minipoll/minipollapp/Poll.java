@@ -13,8 +13,8 @@ public class Poll extends PollAbstract {
 
 
 
-    public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format,PollAnswer[] pollAnswers ) {
-        super (format, name, author, date);
+    public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format,PollAnswer[] pollAnswers, boolean closedStatus ) {
+        super (closedStatus,format, name, author, date);
         this.number_top = number_top;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
