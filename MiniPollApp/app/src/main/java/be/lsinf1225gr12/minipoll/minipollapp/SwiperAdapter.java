@@ -22,6 +22,7 @@ public class SwiperAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return 5;
+        // Replace 5 by the numbers of friend in the friend list
     }
 }
