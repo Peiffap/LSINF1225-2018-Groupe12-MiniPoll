@@ -1,34 +1,34 @@
 package database.object;
-import java.util.Hashtable;
+
+
+import be.lsinf1225gr12.minipoll.minipollapp.User;
 
 
 public class Poll {
     private int number_top;
     private int number_answer;
     private String date;
-    private int id;
+    private User author;
     private String name;
-    private boolean isChoise;
+    private String format;
+    private boolean isChoice;
     private String question;
     private boolean closedStatus;
-    private Hashtable pollAnswer ;
 
     public Poll() {
 
     }
 
-    public Poll(int number_top, int number_answer, String date, int id, String name, boolean isChoise, String question, boolean closedStatus, Hashtable pollAnswer) {
+    public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format ) {
         this.number_top = number_top;
         this.number_answer = number_answer;
         this.date = date;
-        this.id = id;
+        this.author = author;
         this.name = name;
-        this.isChoise = isChoise;
+        this.isChoice = isChoice;
         this.question = question;
-        this.closedStatus = closedStatus;
-        this.pollAnswer= pollAnswer;
-
-
+        this.closedStatus = false;
+        this.format=format;
     }
 
     public int getNumber_top() {
@@ -55,12 +55,12 @@ public class Poll {
         this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getName() {
@@ -71,12 +71,20 @@ public class Poll {
         this.name = name;
     }
 
-    public boolean getIsChoise() {
-        return isChoise;
+    public String getFormat() {
+        return format;
     }
 
-    public void setIsChoise(boolean isChoise) {
-        this.isChoise = isChoise;
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public boolean isChoice() {
+        return isChoice;
+    }
+
+    public void setChoice(boolean choice) {
+        isChoice = choice;
     }
 
     public String getQuestion() {
@@ -87,15 +95,11 @@ public class Poll {
         this.question = question;
     }
 
-    public boolean getClosedStatus() {
+    public boolean isClosedStatus() {
         return closedStatus;
     }
 
     public void setClosedStatus(boolean closedStatus) {
         this.closedStatus = closedStatus;
-    }
-
-    public void setPollAnswer(Hashtable pollAnswer, int i, String p) {
-        pollAnswer.put(i,p);
     }
 }
