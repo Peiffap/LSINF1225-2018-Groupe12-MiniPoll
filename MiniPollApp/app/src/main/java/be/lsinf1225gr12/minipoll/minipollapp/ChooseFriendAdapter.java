@@ -23,7 +23,7 @@ public class ChooseFriendAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
+        View rowView = inflater.inflate(R.layout.adapter_choose_friend, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.name);
         textView.setText(friends[position]);
 

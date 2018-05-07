@@ -1,10 +1,10 @@
-package database.object;
+package be.lsinf1225gr12.minipoll.minipollapp;
 
 
-import be.lsinf1225gr12.minipoll.minipollapp.User;
-
+import java.util.Set;
 
 public class Poll {
+    Set<AssociationEval> associationEval;
     private int number_top;
     private int number_answer;
     private String date;
@@ -14,12 +14,13 @@ public class Poll {
     private boolean isChoice;
     private String question;
     private boolean closedStatus;
+    private PollAnswer[] pollAnswers ;
 
     public Poll() {
 
     }
 
-    public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format ) {
+    public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format,PollAnswer[] pollAnswers ) {
         this.number_top = number_top;
         this.number_answer = number_answer;
         this.date = date;
@@ -29,6 +30,15 @@ public class Poll {
         this.question = question;
         this.closedStatus = false;
         this.format=format;
+        this.pollAnswers=pollAnswers;
+    }
+
+    public PollAnswer[] getPollAnswers() {
+        return pollAnswers;
+    }
+
+    public void setPollAnswers(PollAnswer[] pollAnswers) {
+        this.pollAnswers = pollAnswers;
     }
 
     public int getNumber_top() {
