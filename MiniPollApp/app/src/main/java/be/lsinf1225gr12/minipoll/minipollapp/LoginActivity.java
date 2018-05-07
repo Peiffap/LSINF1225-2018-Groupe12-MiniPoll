@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * A login screen that allows users to connect to the MiniPoll app.
@@ -43,8 +43,9 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         userSpinner = findViewById(R.id.login_username);
 
         // Obtention de la liste des utilisateurs.
-        ArrayList<User> users = User.getUtilisateurs();
-        // TODO Add User.getUtilisateurs().
+        List<User> tmp = User.getUtilisateurs();
+        ArrayList<User> users = new ArrayList<>(tmp.size());
+        users.addAll(tmp);
 
         // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
         ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -85,8 +86,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
-        // TODO Add user.login().
-        if (user.login(password)) {
+        if (user.checkLogin(password)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {

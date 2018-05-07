@@ -6,7 +6,7 @@ import java.util.Set;
 public class User
 {
     /* Variables de la classe */
-    Set<AssociationEval> associationEval;
+    private Set<AssociationEval> associationEval;
     private String id;
     private String login;
     private String password;
@@ -90,7 +90,7 @@ public class User
 
     /* Functions qui check un bon identifiant */
     public boolean connexion(String typedLogin, String typedPassword){
-        return(this.login.equals(typedLogin) && this.password.equals(typedPassword));
+        return (this.login.equals(typedLogin) && this.password.equals(typedPassword));
     }
 
     public boolean checkLogin(String typedLogin){
@@ -118,7 +118,7 @@ public class User
 
     /* Fonction qui renvoie la liste d'amis de l'user
     * A FAIRE */
-    public List<User> fiendList(){
+    public List<User> friendList(){
         List<User> list = null;
         return list;
     }
@@ -132,5 +132,11 @@ public class User
     /* A FAIRE */
     public void computePollResult(PollAbstract pollAbstract){
 
+    }
+
+    /* Fonction qui renvoie la liste de tous les utilisateurs */
+    public static List<User> getUtilisateurs(){
+        List<User> list = null;
+        return list;
     }
 }
