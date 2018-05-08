@@ -1,15 +1,19 @@
 package be.lsinf1225gr12.minipoll.minipollapp;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class PollAnswer {
-    Set<AssociationEval> associationEval;
+
 
     private String description;
-    private int position;
-    public PollAnswer(User author, String date,String description, int position){
+    private int inPollPosition;
+    private List<AssociationEval> listAssociationEval;
+    public PollAnswer(User author, String date,String description, int inPollPosition){
         this.description=description;
-        this.position=position;
+        this.inPollPosition=inPollPosition;
+        this.listAssociationEval = new ArrayList<AssociationEval>();
 
     }
 
@@ -22,11 +26,22 @@ public class PollAnswer {
         this.description = description;
     }
 
-    public int getPosition() {
-        return position;
+    public int getInPollPosition() {
+        return inPollPosition;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setInPollPosition(int inPollPosition) {
+        this.inPollPosition =inPollPosition;
+    }
+
+    /* Nécessaire au bon fonctionnement de AssociationEval */
+    public void addAssociationEval(AssociationEval associationEval){
+        this.listAssociationEval.add(associationEval);
+    }
+    public void deleteAssociationEval(AssociationEval associationEval){
+        this.listAssociationEval.remove(associationEval);
+    }
+    public List<AssociationEval> getListAssociationEval(){
+        return this.listAssociationEval;
     }
 }

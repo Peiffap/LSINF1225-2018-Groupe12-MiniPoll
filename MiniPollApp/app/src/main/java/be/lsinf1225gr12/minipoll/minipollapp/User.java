@@ -7,7 +7,7 @@ import java.util.Set;
 public class User
 {
     /* Variables de la classe */
-    private Set<AssociationEval> associationEval;
+    private List<AssociationEval> listAssociationEval;
     private List<AssociationMCQ> listAssociationMCQ;
     private String id;
     private String login;
@@ -33,6 +33,7 @@ public class User
         this.firstname = firstname;
         this.name = name;
         this.listAssociationMCQ = new ArrayList<AssociationMCQ>();
+        this.listAssociationEval = new ArrayList<AssociationEval>();
         this.bestFriend=null;
     }
 
@@ -161,5 +162,15 @@ public class User
     }
     public List<AssociationMCQ> getListAssociationMCQ(){
         return this.listAssociationMCQ;
+    }
+    /* Nécessaire au bon fonctionnement de AssociationEval */
+    public void addAssociationEval(AssociationEval associationEval){
+        this.listAssociationEval.add(associationEval);
+    }
+    public void deleteAssociationEval(AssociationEval associationEval){
+        this.listAssociationEval.remove(associationEval);
+    }
+    public List<AssociationEval> getListAssociationEval(){
+        return this.listAssociationEval;
     }
 }
