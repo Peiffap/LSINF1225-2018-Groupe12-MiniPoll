@@ -114,40 +114,53 @@ public class User
         return (this.mail.equals(typedMail));
     }
 
-    /* Retourne la liste des utilisateurs qui ont envoyé une demande
-    * A FAIRE */
+    /**
+     * Retourne la liste des utilisateurs qui ont envoyé une demande
+     * TODO
+     */
     public List<User> notifications(){
         List<User> list = null;
         return list;
     }
 
-    /* Fonction qui envoie une demande à un ami
-    * Renvoie true si la demande a bien été envoyée
-    * Renvoie false si une erreur s'est produite (ex: user n'existe pas, déjà ami, ...)
-    * A FAIRE */
+    /**
+     * Fonction qui envoie une demande à un ami
+     * Renvoie true si la demande a bien été envoyée
+     * Renvoie false si une erreur s'est produite (ex: user n'existe pas, déjà ami, ...)
+     * TODO
+     */
     public boolean addFriend(User user){
         return false;
     }
 
-    /* Fonction qui renvoie la liste d'amis de l'user
-    * A FAIRE */
+    /**
+     * Fonction qui renvoie la liste d'amis de l'user
+     * TODO
+     */
     public List<User> friendList(){
         List<User> list = null;
         return list;
     }
 
-    /* Aucune idée de à quoi ça sert ça retourne rien
-    * A FAIRE */
+    /**
+     * Aucune idée de à quoi ça sert ça retourne rien
+     * TODO
+     */
     public void viewFriendList(List<User> list){
 
     }
 
-    /* A FAIRE */
+    /**
+     * TODO
+     */
     public void computePollResult(PollAbstract pollAbstract){
 
     }
 
-    /* Fonction qui renvoie la liste de tous les utilisateurs */
+    /**
+     * Fonction qui renvoie la liste de tous les utilisateurs
+     * TODO
+     */
     public static List<User> getUtilisateurs(){
         List<User> list = null;
         return list;
