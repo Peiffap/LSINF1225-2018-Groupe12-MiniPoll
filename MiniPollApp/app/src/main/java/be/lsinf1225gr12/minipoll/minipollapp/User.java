@@ -16,6 +16,7 @@ public class User
     private String mail;
     private String firstname;
     private String name;
+    private User bestFriend;
 
 
     /* Constructeurs */
@@ -32,9 +33,16 @@ public class User
         this.firstname = firstname;
         this.name = name;
         this.listAssociationMCQ = new ArrayList<AssociationMCQ>();
+        this.bestFriend=null;
     }
 
     /* Getters and setters */
+
+    public User getBestFriend(){return bestFriend;}
+
+    public String getBestFriendId(){return bestFriend.getId();}
+
+    public void setBestFriend(User bestFriend) {this.bestFriend=bestFriend;}
 
     public String getId() {
         return id;
@@ -76,11 +84,11 @@ public class User
         this.mail = mail;
     }
 
-    public String getFirstname() {
+    public String getFirstName() {
         return firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public void setFirstName(String firstname) {
         this.firstname = firstname;
     }
 
