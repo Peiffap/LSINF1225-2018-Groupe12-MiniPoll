@@ -41,7 +41,7 @@ public class MainMenuActivity extends Activity {
     }
 
     public void friends(View v){
-        Intent intent = new Intent(this, Friend_List_Activity.class);
+        Intent intent = new Intent(this, FriendMenuActivity.class);
         startActivity(intent);
     }
 
