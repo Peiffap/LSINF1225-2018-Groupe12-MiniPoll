@@ -3,13 +3,17 @@ package be.lsinf1225gr12.minipoll.minipollapp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseArray;
+
 
 public class User
 {
     /* Variables de la classe */
     private List<AssociationEval> listAssociationEval;
     private List<AssociationMCQ> listAssociationMCQ;
-    private String id;
+    private int id;
     private String login;
     private String password;
     private String picture;
@@ -18,13 +22,40 @@ public class User
     private String name;
     private User bestFriend;
 
+    private static final String DB_COLUMN_ID = "u_id";
+    private static final String DB_COLUMN_NAME = "u_name";
+    private static final String DB_COLUMN_PASSWORD = "u_password";
+    private static final String DB_TABLE = "users";
+
+    /**
+     * Contient les instances déjà existantes des utilisateurs afin d'éviter de créer deux instances
+     * du même utilisateur.
+     */
+    private static SparseArray<User> userSparseArray = new SparseArray<>();
+
+
 
     /* Constructeurs */
     public User(){
 
     }
 
-    public User(String id , String login, String password, String picture, String mail, String firstname, String name){
+    /**
+     * Constructeur de l'utilisateur. Initialise une instance de l'utilisateur présent dans la base
+     * de données.
+     *
+     * @note Ce constructeur est privé (donc utilisable uniquement depuis cette classe). Cela permet
+     * d'éviter d'avoir deux instances différentes d'un même utilisateur.
+     */
+    private User(int uId, String uName, String uPassword) {
+
+        this.id = uId;
+        this.name = uName;
+        this.password = uPassword;
+        User.userSparseArray.put(uId, this);
+    }
+
+    public User(int id , String login, String password, String picture, String mail, String firstname, String name){
         this.id = id;
         this.login = login;
         this.password = password;
@@ -41,15 +72,15 @@ public class User
 
     public User getBestFriend(){return bestFriend;}
 
-    public String getBestFriendId(){return bestFriend.getId();}
+    public int getBestFriendId(){return bestFriend.getId();}
 
     public void setBestFriend(User bestFriend) {this.bestFriend=bestFriend;}
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -161,9 +192,48 @@ public class User
      * Fonction qui renvoie la liste de tous les utilisateurs
      * TODO
      */
-    public static List<User> getUtilisateurs(){
-        List<User> list = null;
-        return list;
+    public static ArrayList<User> getUtilisateurs() {
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        // Colonnes à récupérer
+        String[] colonnes = {DB_COLUMN_ID, DB_COLUMN_NAME, DB_COLUMN_PASSWORD};
+
+        // Requête de selection (SELECT)
+        Cursor cursor = db.query(DB_TABLE, colonnes, null, null, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        // Initialisation la liste des utilisateurs.
+        ArrayList<User> users = new ArrayList<>();
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            int uId = cursor.getInt(0);
+            String uNom = cursor.getString(1);
+            String uPassword = cursor.getString(2);
+
+            // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
+            User user = User.userSparseArray.get(uId);
+            if (user == null) {
+                // Si pas encore d'instance, création d'une nouvelle instance.
+                user = new User(uId, uNom, uPassword);
+            }
+
+            // Ajout de l'utilisateur à la liste.
+            users.add(user);
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return users;
     }
 
     /* Nécessaire au bon fonctionnement de AssociationMCQ */

@@ -22,9 +22,14 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
 
     private Spinner userSpinner;
 
+    // MySQLiteHelper db; // Database communication.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // db = MySQLiteHelper.getInstance(this);
+
         setContentView(R.layout.activity_login);
 
         /*
@@ -43,14 +48,14 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         userSpinner = findViewById(R.id.login_username);
 
         // Obtention de la liste des utilisateurs.
-        List<User> tmp = User.getUtilisateurs();
-        ArrayList<User> users = new ArrayList<>(tmp.size());
-        users.addAll(tmp);
+        // List<User> tmp = db.getAllUsers();
+        // ArrayList<User> users = new ArrayList<>(tmp.size());
+        // users.addAll(tmp);
 
         // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
+        // ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
         // On lie l'adapter au spinner.
-        userSpinner.setAdapter(adapter);
+        // userSpinner.setAdapter(adapter);
 
 
         // On indique qu'il faut appeler onEditorAction de cette classe lorsqu'une action (valider ici)
@@ -58,9 +63,8 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         passwordEditText.setOnEditorActionListener(this);
     }
-
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
 
         // On efface le mot de passe qui était écrit quand on se déconnecte.
@@ -86,12 +90,18 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
+        /*
         if (user.checkLogin(password)) {
+
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
         } else {
             MiniPollApp.notifyShort(R.string.login_wrong_password_msg);
         }
+        */
+
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
     }
 
     /**

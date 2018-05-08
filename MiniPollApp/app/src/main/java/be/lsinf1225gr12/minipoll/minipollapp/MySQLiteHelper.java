@@ -142,6 +142,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
      */
     private MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        sInstance = this;
     }
 
     // Called when the database connection is being configured.
@@ -391,16 +392,30 @@ USER METHODS
         SQLiteDatabase db = getWritableDatabase();
         SQLiteStatement request = db.compileStatement("SELECT COUNT(*) FROM " +
                 TABLE_USER + ";");
-        long count = request.simpleQueryForLong();
 
-        return count;
+        return request.simpleQueryForLong();
     }
+
+    /**
+     * Fournit une instance de notre MySQLiteHelper.
+     *
+     * @return MySQLiteHelper
+     */
+    public static MySQLiteHelper get() {
+        if (sInstance == null) {
+            return new MySQLiteHelper(MiniPollApp.getContext());
+        }
+        return sInstance;
+    }
+
+    // TODO
 
     /*
     ajoute un utilisateur a la DB
     */
+    /*
     public boolean addOrUpdateUser(User user) {
-        // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
+        // The database connection is cached so it's not expensive to call getWritableDatabase() multiple times.
         SQLiteDatabase db = getWritableDatabase();
         boolean succeed = false;
 
@@ -420,7 +435,7 @@ USER METHODS
 
             // First try to update the user in case the user already exists in the database
             // This assumes user id's are unique
-            int rows = db.update(TABLE_USER, values, KEY_USER_ID + "= ?", new String[]{user.getId()});
+            int rows = db.update(TABLE_USER, values, KEY_USER_ID + "= ?", new int[]{user.getId()});
 
             // Check if update succeeded
             if (rows == 1) {
@@ -455,10 +470,11 @@ USER METHODS
         }
         return succeed;
     }
-
-    /*
-    donne tous les utilisateurs
     */
+
+    /**
+     * Retrieves all Users from the database.
+     */
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<User>();
         // Select All Query
@@ -471,7 +487,7 @@ USER METHODS
         if (cursor.moveToFirst()) {
             do {
                 User user = new User();
-                user.setId(cursor.getString(0));
+                user.setId(cursor.getInt(0));
                 user.setLogin(cursor.getString(1));
                 user.setFirstName(cursor.getString(2));
                 user.setName(cursor.getString(3));
@@ -483,6 +499,7 @@ USER METHODS
                 userList.add(user);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         // return contact list
         return userList;
     }
@@ -503,7 +520,7 @@ USER METHODS
         Cursor cursor = db.rawQuery(PREF_SELECT_QUERY, null);
         try {
             if (cursor.moveToFirst()) {
-                user.setId(cursor.getString(cursor.getColumnIndex(KEY_USER_ID)));
+                user.setId(cursor.getInt(cursor.getColumnIndex(KEY_USER_ID)));
                 user.setLogin(cursor.getString(cursor.getColumnIndex(KEY_USER_LOGIN)));
                 user.setName(cursor.getString(cursor.getColumnIndex(KEY_USER_SURNAME)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(KEY_USER_PASSWORD)));
@@ -523,9 +540,12 @@ USER METHODS
         return user;
     }
 
+
+    // TODO
     /**
      renvoie la liste d'amis d'un utilisateur
      */
+    /*
     public List<User> getFriends(User user){
         String selectQuery = "select * from " + TABLE_FRIENDRELATION +" R where R."+ KEY_FRIENDRELATION_SENDER +"=ID and R."+ KEY_FRIENDRELATION_STATUS +"=’Friend’ or R."+ KEY_FRIENDRELATION_RECEIVER +"=ID and R."+KEY_FRIENDRELATION_STATUS+"=’Friend’";
 
@@ -544,9 +564,11 @@ USER METHODS
                 userList.add(friend);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         // return contact list
         return userList;
     }
+    */
 
     /*
     * donne la liste d'utilisateurs ayant envoyé une demande d'ami à user
@@ -567,6 +589,7 @@ USER METHODS
                 userList.add(friend);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         // return contact list
         return userList;
     }
@@ -591,7 +614,7 @@ USER METHODS
                 result=false;
             }
         }
-        catch (Exception e) {;}
+        catch (Exception e) {}
         finally{
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
@@ -620,7 +643,7 @@ USER METHODS
                 result = false;
             }
         }
-        catch (Exception e) {;}
+        catch (Exception e) {}
         finally{
             if (cursor != null && !cursor.isClosed()) {
                 cursor.close();
@@ -632,6 +655,8 @@ USER METHODS
     /*
     accepte un ajout d'ami
     */
+    // TODO
+    /*
     public boolean acceptFriend(User sender, User receiver){
         //check si une invitation a déjà été envoyée (l'ordre de sender et receiver est dont inversé)
         String selectQuery = "select *  from "+ TABLE_FRIENDRELATION +" R  where R."+ KEY_FRIENDRELATION_SENDER +"="+ receiver.getId() +" and R."+ KEY_FRIENDRELATION_RECEIVER +"="+sender.getId() +
@@ -649,14 +674,14 @@ USER METHODS
             if (cursor.moveToFirst()) //une relation existe déjà
             {
                 try {
-                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new String[]{receiver.getId(), sender.getId()});
+                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new int[]{receiver.getId(), sender.getId()});
                     succeed = true;
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     Log.d("Friend update", "Error while trying to accept a friend");
                 }
                 finally {
-                    if (cursor != null && !cursor.isClosed()) {
+                    if (!cursor.isClosed()) {
                         cursor.close();
                     }
                     db.endTransaction();
@@ -669,10 +694,13 @@ USER METHODS
         }
         return succeed;
     }
+    */
 
+    // TODO
     /*
     envoie une invitation d'ami
     */
+    /*
     public boolean addFriend(User sender, User receiver)
     {
         //s'assure qu'une relation n'est pas déjà en cours (ils peuvent être déjà amis)
@@ -692,7 +720,7 @@ USER METHODS
             if (!(cursor.moveToFirst())) //si pas encore de relation
             {
                 try {
-                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new String[]{receiver.getId(), sender.getId()});
+                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new int[]{receiver.getId(), sender.getId()});
                     succeed = true;
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
@@ -714,6 +742,7 @@ USER METHODS
         }
         return succeed;
     }
+    */
 
 /*========================================================================================================================
 ASSOCIATIONEVAL METHODS

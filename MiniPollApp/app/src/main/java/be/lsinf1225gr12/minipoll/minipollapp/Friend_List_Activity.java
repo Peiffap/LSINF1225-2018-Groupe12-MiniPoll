@@ -12,7 +12,7 @@ public class Friend_List_Activity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend__list_);
-        VP = (ViewPager) findViewById(R.id.swipe_friend);
+        VP = findViewById(R.id.swipe_friend);
         SwiperAdapter SA = new SwiperAdapter(getSupportFragmentManager());
         VP.setAdapter(SA);
 
