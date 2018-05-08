@@ -634,22 +634,81 @@ USER METHODS
     */
     public boolean acceptFriend(User sender, User receiver){
         //check si une invitation a déjà été envoyée (l'ordre de sender et receiver est dont inversé)
-        String selectQuery = "select *  from "+ TABLE_FRIENDRELATION +" R  where R."+ KEY_FRIENDRELATION_SENDER +"="+ receiver.getId() +" and R."+ KEY_FRIENDRELATION_RECEIVER +"="+sender.getId();
-        List<User> userList = new ArrayList<User>();
+        String selectQuery = "select *  from "+ TABLE_FRIENDRELATION +" R  where R."+ KEY_FRIENDRELATION_SENDER +"="+ receiver.getId() +" and R."+ KEY_FRIENDRELATION_RECEIVER +"="+sender.getId() +
+                " and R."+ KEY_FRIENDRELATION_STATUS + "= 'Pending'";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            String statement = TABLE_FRIENDRELATION +" set "+KEY_FRIENDRELATION_STATUS+" = 'Friend' where " + KEY_FRIENDRELATION_RECEIVER +" = "+ sender.getId()+ " and " +
-                    KEY_FRIENDRELATION_SENDER + " = " + receiver.getId();
-            return true;
+        boolean succeed=false;
+        db.beginTransaction();
+        try
+        {
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            ContentValues values = new ContentValues();
+            values.put(KEY_FRIENDRELATION_RECEIVER, receiver.getId());
+            values.put(KEY_FRIENDRELATION_SENDER, sender.getId());
+            values.put(KEY_FRIENDRELATION_STATUS, "Friend");
+            if (cursor.moveToFirst()) //une relation existe déjà
+            {
+                try {
+                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new String[]{receiver.getId(), sender.getId()});
+                    succeed = true;
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    Log.d("Friend update", "Error while trying to accept a friend");
+                }
+                finally {
+                    if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                    }
+                    db.endTransaction();
+                }
+            }
         }
-        return false;
+        catch (Exception e)
+        {
+            Log.d("Friend update", "Error while trying to accept a friend");
+        }
+        return succeed;
     }
 
     /*
     envoie une invitation d'ami
     */
-    public boolean addFriend(User sender, User receiver) {
-    return false;}
+    public boolean addFriend(User sender, User receiver)
+    {
+        //s'assure qu'une relation n'est pas déjà en cours (ils peuvent être déjà amis)
+        String selectQuery = "select *  from "+ TABLE_FRIENDRELATION +" R  where R."+ KEY_FRIENDRELATION_SENDER +"="+ receiver.getId() +" and R."+ KEY_FRIENDRELATION_RECEIVER +"="+sender.getId() +
+                " or R." + KEY_FRIENDRELATION_SENDER +"="+ sender.getId() +" and R."+ KEY_FRIENDRELATION_RECEIVER +"="+receiver.getId();
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean succeed=false;
+        db.beginTransaction();
+        try
+        {
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            ContentValues values = new ContentValues();
+            values.put(KEY_FRIENDRELATION_RECEIVER, receiver.getId());
+            values.put(KEY_FRIENDRELATION_SENDER, sender.getId());
+            values.put(KEY_FRIENDRELATION_STATUS, "Pending");
+            if (!(cursor.moveToFirst())) //si pas encore de relation
+            {
+                try {
+                    db.update(TABLE_FRIENDRELATION, values, KEY_FRIENDRELATION_RECEIVER + " = ? AND " + KEY_FRIENDRELATION_SENDER + " = ?", new String[]{receiver.getId(), sender.getId()});
+                    succeed = true;
+                    db.setTransactionSuccessful();
+                } catch (Exception e) {
+                    Log.d("Friend update", "Error while trying to add a friend");
+                }
+                finally {
+                    if (cursor != null && !cursor.isClosed()) {
+                        cursor.close();
+                    }
+                    db.endTransaction();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Log.d("Friend update", "Error while trying to add a friend");
+        }
+        return succeed;
+    }
 }
