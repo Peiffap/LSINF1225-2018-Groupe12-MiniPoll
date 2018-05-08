@@ -613,7 +613,7 @@ USER METHODS
                         TABLE_USER,
                         KEY_USER_MAIL,
                         mail);
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(PREF_SELECT_QUERY, null);
         try {
             if (cursor.moveToFirst()) {
@@ -752,12 +752,35 @@ ASSOCIATIONEVAL METHODS
     /*
     enregistre une réponse à un sondage
      */
-    public void giveAnswer(User user, int position, Poll poll)
+    public void giveAnswer(User user, String description, int eval, Poll poll)
     {
         //check si l'utilisateur a déjà répondu au sondage
         if (!hasAnswered(user, poll))
         {
             //ajoute la réponse dans la DB
+            SQLiteDatabase db = getWritableDatabase();
+            db.beginTransaction();
+            try
+            {
+                ContentValues values = new ContentValues();
+                values.put(KEY_ANSWERPOLL_AUTHOR, poll.getAuthor().getId());
+                values.put(KEY_ANSWERPOLL_CHOICE, description);
+                values.put(KEY_ANSWERPOLL_DATE, "datetime('now')");
+                values.put(KEY_ANSWERPOLL_USER, user.getId());
+                values.put(KEY_ANSWERPOLL_SCORE, eval);
+                Log.d(TABLE_ANSWERPOLL, "Putting answer into DB");
+
+                db.insertOrThrow(TABLE_ANSWERPOLL,null,values);
+                db.setTransactionSuccessful();
+            }
+            catch (Exception e)
+            {
+                Log.d(TABLE_ANSWERPOLL, "Error while putting answer into DB");
+            }
+            finally
+            {
+                db.endTransaction();
+            }
 
         }
     }
