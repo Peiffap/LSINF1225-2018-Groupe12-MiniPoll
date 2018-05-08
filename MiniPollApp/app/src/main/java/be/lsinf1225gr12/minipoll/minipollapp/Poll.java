@@ -43,6 +43,9 @@ public class Poll extends PollAbstract {
         this.number_answer = number_answer;
     }
 
+    /* Savoir si c'est un sondage pour accord ou sondage pour choix
+    * true = sondage pour choix
+    * false = sondage pour accord*/
     public boolean isChoice() {
         return isChoice;
     }
