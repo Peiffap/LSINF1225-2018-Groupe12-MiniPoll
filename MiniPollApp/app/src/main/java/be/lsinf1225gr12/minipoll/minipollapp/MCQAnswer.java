@@ -6,6 +6,7 @@ import java.util.List;
 public class MCQAnswer {
     private String description;
     private List<AssociationMCQ> listAssociationMCQ;
+    private int inQuestionPosition;
 
     public MCQAnswer(String description) {
         this.description = description;
@@ -14,6 +15,14 @@ public class MCQAnswer {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getInQuestionPosition() {
+        return inQuestionPosition;
+    }
+
+    public void setInQuestionPosition(int inQuestionPosition) {
+        this.inQuestionPosition = inQuestionPosition;
     }
 
     public void setDescription(String description) {
