@@ -681,9 +681,10 @@ USER METHODS
         SQLiteDatabase db = this.getWritableDatabase();
         boolean succeed=false;
         db.beginTransaction();
+        Cursor cursor=null;
         try
         {
-            Cursor cursor = db.rawQuery(selectQuery, null);
+            cursor = db.rawQuery(selectQuery, null);
             ContentValues values = new ContentValues();
             values.put(KEY_FRIENDRELATION_RECEIVER, receiver.getId());
             values.put(KEY_FRIENDRELATION_SENDER, sender.getId());
@@ -698,9 +699,6 @@ USER METHODS
                     Log.d("Friend update", "Error while trying to add a friend");
                 }
                 finally {
-                    if (cursor != null && !cursor.isClosed()) {
-                        cursor.close();
-                    }
                     db.endTransaction();
                 }
             }
@@ -709,6 +707,63 @@ USER METHODS
         {
             Log.d("Friend update", "Error while trying to add a friend");
         }
+        finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
         return succeed;
     }
+
+/*========================================================================================================================
+ASSOCIATIONEVAL METHODS
+*/
+    /*
+    check si l'utilisateur a déjà répondu au sondage
+     */
+    public boolean hasAnswered(User user, Poll poll)
+    {
+        boolean hasAnswered = false;
+        String selectQuery = "select *  from "+ TABLE_ANSWERPOLL + " where " + KEY_ANSWERPOLL_USER + " = " + user.getId() + " and " +
+                KEY_ANSWERPOLL_AUTHOR + " = " + poll.getAuthor() + " and " + KEY_ANSWERPOLL_DATE + " = " + poll.getDate();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor=null;
+        try
+        {
+            cursor = db.rawQuery(selectQuery, null);
+            if (!(cursor.moveToFirst())) //si la table a une entrée de ce type
+            {
+                hasAnswered = true;
+            }
+        }
+        catch (Exception e)
+        {
+            Log.d(TABLE_ANSWERPOLL, "Error while checking if someone has answered to a poll");
+        }
+        finally
+        {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return hasAnswered;
+    }
+
+    /*
+    enregistre une réponse à un sondage
+     */
+    public void giveAnswer(User user, int position, Poll poll)
+    {
+        //check si l'utilisateur a déjà répondu au sondage
+        if (!hasAnswered(user, poll))
+        {
+            //ajoute la réponse dans la DB
+
+        }
+    }
+
 }
+
+
+
+
