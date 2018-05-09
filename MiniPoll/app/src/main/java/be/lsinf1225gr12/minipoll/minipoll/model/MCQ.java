@@ -9,9 +9,15 @@ import android.database.sqlite.SQLiteDatabase;
 public class MCQ extends PollAbstract {
 
     private int numberQuestion;
+    private List<Question> question;
+
     //private List<AssociationMCQ> listAssociationMCQ;
 
-    public MCQ(boolean closedStatus, String format, String name, User author, long date, int numberQuestion){
+    /**
+     * Construit un MCQ et l'enregistre dans la DB
+     * La liste de question est laissée vide
+     */
+    public MCQ(String format, String name, User author, long date, int numberQuestion){
         super(format,name,author,date);
         this.numberQuestion = numberQuestion;
         //écrit dans la BD
@@ -29,6 +35,36 @@ public class MCQ extends PollAbstract {
             //erreur dans l'ajout, suppression
         }
         db.close();
+    }
+
+    /**
+     * Ajoute une nouvelle question au MCQ et dans la DB
+     */
+    public void addQuestion(String title, int rightAnswerPosition)
+    {
+        Question question = new Question(title, rightAnswerPosition);
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyQuestionAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyQuestionDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyQuestionDescription(),title);
+        cv.put(MySQLiteHelper.getKeyQuestionPosition(),numberQuestion+1);
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),rightAnswerPosition);
+        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+        this.question.add(question);
+    }
+
+    /**
+     * Ajoute une réponse au MCQ et l'enregistre dans la DB
+     */
+    public void giveAnswer(Question question, MCQAnswer mcqAnswer)
+    {
+
     }
 
     /* Getters and setters */
