@@ -151,7 +151,7 @@ public class User {
             User user = User.userSparseArray.get(id);
             if (user == null) {
                 // Si pas encore d'instance, création d'une nouvelle instance.
-                user = new User(id,login,password,picture,mail,firstname,name,bestFriend);
+                user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
             }
 
             // Ajout de l'utilisateur à la liste.

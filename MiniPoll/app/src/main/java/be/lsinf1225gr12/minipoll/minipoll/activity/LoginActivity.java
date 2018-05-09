@@ -91,12 +91,16 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         String password = passwordEditText.getText().toString();
 
         // TODO Write login() in User.
+        /*
         if (user.login(password)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
             MiniPollApp.notifyShort(R.string.login_wrong_password_msg);
         }
+        */
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**
