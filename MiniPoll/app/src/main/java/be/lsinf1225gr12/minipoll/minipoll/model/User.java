@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class User {
 
+    private static int globalId = 0 ;
     private int id;
     private String login;
     private String password;
@@ -26,6 +27,14 @@ public class User {
      */
     private static User connectedUser = null;
 
+    /**
+     * Fonction qui retourne un id unique
+     * @return int unique
+     */
+    private int getGlobalId(){
+        globalId++;
+        return globalId;
+    }
 
     /* Constructeurs */
     public User(int id , String login, String password, String picture, String mail, String firstname, String name, int bestfriend){
@@ -465,6 +474,66 @@ public class User {
         db.close();
 
         return users;
+    }
+
+    public static User getUserWithLogin(String login){
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
+        String selection = MySQLiteHelper.getKeyUserLogin() + " = ?";
+        String[] selectionArgs = new String[]{login};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String firstname = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+        String password = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+        String mail = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
+        String picture = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+        int bestFriend = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+        User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+
+
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return user;
+    }
+
+    public static User getUserWithMail(String mail){
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
+        String selection = MySQLiteHelper.getKeyUserMail() + " = ?";
+        String[] selectionArgs = new String[]{mail};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String firstname = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+        String password = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+        String login = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
+        String picture = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+        int bestFriend = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+        User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return user;
     }
 }
 
