@@ -562,7 +562,7 @@ public class User {
      * Fonction qui permet de mettre un autre user comme bestFriend
      * @param bestFriendId id de l'user à ajouter en tant que bestFriend
      */
-    public void setBestFriend(int bestFriendId){
+    public void setBestfriend(int bestFriendId){
         this.bestfriend = bestFriendId;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
