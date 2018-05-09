@@ -17,4 +17,14 @@
     <string name="my_friends">Mes amis</string>
     <string name="poll">Sondage</string>
 
+    <!-- Friends List -->
+    <string name="email">Adresse mail</string>
+    <string name="name">Nom</string>
+    <string name="identifier">Identifiant</string>
+
+    <!-- Create -->
+    <string name="create_choice_poll">Sondage pour un choix</string>
+    <string name="create_poll">Créer un sondage</string>
+    <string name="create_decision_poll">Sondage pour un accord</string>
+
 </resources>
