@@ -17,7 +17,7 @@ public class User {
     private String mail;
     private String firstname;
     private String name;
-    private String bestfriend;
+    private int bestfriend;
     private static SparseArray<User> userSparseArray = new SparseArray<>();
 
     /**
@@ -28,7 +28,7 @@ public class User {
 
 
     /* Constructeurs */
-    public User(int id , String login, String password, String picture, String mail, String firstname, String name, String bestfriend){
+    public User(int id , String login, String password, String picture, String mail, String firstname, String name, int bestfriend){
         this.id = id;
         this.login = login;
         this.password = password;
@@ -98,11 +98,11 @@ public class User {
         this.name = name;
     }
 
-    public String getBestfriend() {
+    public int getBestfriend() {
         return bestfriend;
     }
 
-    public void setBestfriend(String bestfriend) {
+    public void setBestfriend(int bestfriend) {
         this.bestfriend = bestfriend;
     }
 
@@ -146,7 +146,7 @@ public class User {
             String password = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
             String mail = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
             String picture = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
-            String bestFriend = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+            int bestFriend = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
             // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
             User user = User.userSparseArray.get(id);
@@ -278,7 +278,7 @@ public class User {
             String password = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
             String mail = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
             String picture = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
-            String bestFriend = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+            int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
             User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
 
@@ -446,7 +446,7 @@ public class User {
             String password = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
             String mail = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
             String picture = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
-            String bestFriend = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+            int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
             User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
 
