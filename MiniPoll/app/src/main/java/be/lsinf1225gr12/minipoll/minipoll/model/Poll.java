@@ -49,13 +49,13 @@ public class Poll extends PollAbstract {
      * @note Ce constructeur est privé (donc utilisable uniquement depuis cette classe). Cela permet
      * d'éviter d'avoir deux instances différentes d'un même Poll.
      */
-    private Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format, PollAnswer[] pollAnswer,String question) {
+    private Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format,String question) {
         super(format, name, author, date);
         this.number_top = number_top;
         this.question=question;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
-        this.pollAnswer = pollAnswer;
+
 
     }
     /**
@@ -133,7 +133,8 @@ public class Poll extends PollAbstract {
     /**
      * Modifie le tableau avec les differentes Pollanswers
      */
-    public void setPollAnswer(PollAnswer[] pollAnswer) {
+    public void setPollAnswer(PollAnswer[] pollAnswer)
+    {
         this.pollAnswer = pollAnswer;
     }
     /**
@@ -156,15 +157,15 @@ public class Poll extends PollAbstract {
 
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(getKeyPollNumbertop(),number_top);
-        cv.put(getKeyPollNumberchoice(),number_answer);
-        cv.put(getKeyPollDate(),date);
-        cv.put(getKeyPollAuthor(),author.getId());
-        cv.put(getKeyPollTitle(),name);
-        cv.put(getKeyPollQuestion(),question);
-        cv.put(getKeyPollIspoll(),isChoice);
-        cv.put(getKeyPollFormat(),format);
-        cv.put(getKeyPollIsclosed(),false);
+        cv.put(MySQLiteHelper.getKeyPollNumbertop(),number_top);
+        cv.put(MySQLiteHelper.getKeyPollNumberchoice(),number_answer);
+        cv.put(MySQLiteHelper.getKeyPollDate(),date);
+        cv.put(MySQLiteHelper.getKeyPollAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyPollTitle(),name);
+        cv.put(MySQLiteHelper.getKeyPollQuestion(),question);
+        cv.put(MySQLiteHelper.getKeyPollIspoll(),isChoice);
+        cv.put(MySQLiteHelper.getKeyPollFormat(),format);
+        cv.put(MySQLiteHelper.getKeyPollIsclosed(),false);
 
         int result = (int)db.insert(getTablePoll(), null, cv);
         if (result==-1)
