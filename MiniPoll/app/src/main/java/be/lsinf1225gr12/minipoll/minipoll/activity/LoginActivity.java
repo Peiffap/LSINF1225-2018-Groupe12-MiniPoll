@@ -50,8 +50,14 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         // Obtention de la liste des utilisateurs.
         ArrayList<User> users = User.getUsers();
 
+        ArrayList<String> logins = new ArrayList<>();
+
+        for (User u : users) {
+            logins.add(u.getLogin());
+        }
+
         // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, logins);
         // On lie l'adapter au spinner.
         userSpinner.setAdapter(adapter);
 
@@ -85,7 +91,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
      */
     public void login(View v) {
         // Lorsqu'on clique sur le bouton "Se connecter" on qu'on valide depuis le clavier.
-        User user = (User) userSpinner.getSelectedItem();
+        User user = User.getUserWithLogin((String) userSpinner.getSelectedItem());
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
