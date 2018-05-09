@@ -673,6 +673,29 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_PARTICIPATIONQUESTION_TABLE);
         db.execSQL(CREATE_POLL_TABLE);
         db.execSQL(CREATE_QUESTION_TABLE);
+
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_USER_ID,1);
+        cv.put(KEY_USER_LOGIN,"Benoit");
+        cv.put(KEY_USER_FIRSTNAME,"Benoit");
+        cv.put(KEY_USER_PASSWORD,"Excellence");
+        cv.put(KEY_USER_MAIL,"benoit.duhoux@uclouvain.be");
+        cv.put(KEY_USER_PICTURE,"NULL");
+        cv.put(KEY_USER_SURNAME,"Duhoux");
+        cv.put(KEY_USER_BESTFRIEND,"NULL");
+        db.insert(TABLE_USER,null,cv);
+
+        cv = new ContentValues();
+        cv.put(KEY_USER_ID,2);
+        cv.put(KEY_USER_LOGIN,"Tanguy");
+        cv.put(KEY_USER_FIRSTNAME,"Tanguy");
+        cv.put(KEY_USER_PASSWORD,"AFK");
+        cv.put(KEY_USER_MAIL,"tanguy.verbeke@student.uclouvain.be");
+        cv.put(KEY_USER_PICTURE,"NULL");
+        cv.put(KEY_USER_SURNAME,"Verbeke");
+        cv.put(KEY_USER_BESTFRIEND,"NULL");
+        db.insert(TABLE_USER,null,cv);
+        
     }
 
     // Called when the database needs to be upgraded.
