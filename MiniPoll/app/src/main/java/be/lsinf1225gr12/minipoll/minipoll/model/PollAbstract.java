@@ -24,7 +24,7 @@ public abstract class PollAbstract {
     /**
      * Date du Poll courant
      */
-    protected String date;
+    protected long date;
 
     /**
      * Constructeur du PollAbstract. Initialise une instance de l'utilisateur présent dans la base
@@ -33,7 +33,7 @@ public abstract class PollAbstract {
      * @note Ce constructeur est privé (donc utilisable uniquement depuis cette classe). Cela permet
      * d'éviter d'avoir deux instances différentes d'un même utilisateur.
      */
-    protected PollAbstract(String format, String name, User author, String date) {
+    protected PollAbstract(String format, String name, User author, long date) {
         this.closedStatus =false;
         this.format = format;
         this.name = name;
@@ -102,14 +102,14 @@ public abstract class PollAbstract {
      * Fournit la date du Poll
      */
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
     /**
      * Modifie la date du Poll
      */
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 }

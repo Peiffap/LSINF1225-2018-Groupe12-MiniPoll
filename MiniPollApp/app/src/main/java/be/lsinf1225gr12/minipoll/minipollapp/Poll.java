@@ -3,7 +3,7 @@ package be.lsinf1225gr12.minipoll.minipollapp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 public class Poll extends PollAbstract {
     private int number_top;
@@ -16,7 +16,7 @@ public class Poll extends PollAbstract {
 
 
     public Poll(int number_top, int number_answer, String date, User author, String name, boolean isChoice, String question,String format,PollAnswer[] pollAnswers, boolean closedStatus ) {
-        super (closedStatus,format, name, author, date);
+        super (format, name, author, date);
         this.number_top = number_top;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
