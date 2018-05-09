@@ -17,6 +17,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.CreateActivity" />
+        <activity android:name=".activity.ChooseFriendActivity" />
+        <activity android:name=".activity.CreateQuestionnaireActivity" />
+        <activity android:name=".activity.CreateChoixActivity" />
+        <activity android:name=".activity.CreateSondageActivity" />
+        <activity android:name=".activity.Friend_List_Activity" />
+        <activity android:name=".activity.FriendMenuActivity" />
     </application>
 
 </manifest>
