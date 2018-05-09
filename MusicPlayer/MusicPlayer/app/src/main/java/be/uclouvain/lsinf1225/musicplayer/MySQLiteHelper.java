@@ -121,7 +121,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             // Ouverture du fichier sql.
             Scanner scan = new Scanner(MusicPlayerApp.getContext().getAssets().open(DATABASE_SQL_FILENAME));
             scan.useDelimiter(Pattern.compile(";"));
-            while (scan.hasNext()) {
+                while (scan.hasNext()) {
                 String sqlQuery = scan.next();
                 /*
                  * @note : Pour des raisons de facilité, on ne prend en charge ici que les fichiers
