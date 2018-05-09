@@ -61,10 +61,10 @@ db.close();
 
  * effacer des données de la DB :
 
-SQLiteDatabase db = MySQLiteHelper?get().getWritableDatabase();
+SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
 String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
 String[] selectionArgs = new String[]{String.valueOf(cv.valeur), String.valueOf(cv.VALEUR)};
-db.delete(TABLE_NAME, selection, selectionArgs)
+db.delete(TABLE_NAME, selection, selectionArgs);
 db.close();
 
  */
