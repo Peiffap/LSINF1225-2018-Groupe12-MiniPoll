@@ -74,7 +74,7 @@ public class MCQ extends PollAbstract {
         cv.put(MySQLiteHelper.getKeyChoicequestionText(),description);
 
 
-        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        int result = (int) db.insert(MySQLiteHelper.getTableChoicequestion(), null, cv);
         if (result==-1)
         {
             //erreur dans l'ajout, suppression
