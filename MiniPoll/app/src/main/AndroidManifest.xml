@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegistrationActivity" />
+        <activity android:name=".activity.ProfileCreationActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CreateActivity" />
         <activity android:name=".activity.ChooseFriendActivity" />

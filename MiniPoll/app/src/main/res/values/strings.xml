@@ -14,9 +14,19 @@
     <string name="registration_password_hint">Mot de passe</string>
     <string name="registration_password_confirmation_hint">Confirmation du mot de passe</string>
     <string name="registration_password_mismatch_msg">La confirmation est différente du mot de passe</string>
-    <string name="registration_password_too_short_msg">Le mot de passe est trop court</string>
+    <string name="registration_password_invalid_msg">Le mot de passe est trop court ou contient des blancs</string>
     <string name="registration_existing_login_msg">Le nom d\'utilisateur existe déjà</string>
+    <string name="registration_btn">Vers la création de profil</string>
 
+    <!-- Profile Creation -->
+    <string name="profile_creation_email_hint">Adresse mail</string>
+    <string name="profile_creation_first_name_hint">Prénom</string>
+    <string name="profile_creation_last_name_hint">Nom de famille</string>
+    <string name="profile_creation_pic_hint">Photo de profil</string>
+    <string name="profile_creation_btn">Créer mon profil</string>
+    <string name="profile_creation_invalid_email_msg">L\'adresse mail est incorrecte</string>
+    <string name="profile_creation_invalid_first_name_msg">Le prénom est incorrect</string>
+    <string name="profile_creation_invalid_last_name_msg">Le nom de famille est incorrect</string>
 
     <!-- Main / Main Menu -->
     <string name="menu">Menu</string>

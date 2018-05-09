@@ -15,6 +15,8 @@ import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
+import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isNullOrWhitespace;
+
 public class RegistrationActivity extends Activity implements TextView.OnEditorActionListener {
 
     @Override
@@ -27,7 +29,7 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
      * Vérifie les mots de passe et crée un nouveau compte.
      * <p>
      * Cette méthode vérifie les mots de passe saisis. Si ils correspondent, crée un nouveau compte et
-     * affiche le menu principal, sinon un message est affiché à l'utilisateur.
+     * affiche l'écran de création de profil, sinon un message est affiché à l'utilisateur.
      * <p>
      * Cette méthode est appelée grâce à l'attribut onClick indiqué dans le fichier xml de layout
      * sur le bouton de création de compte. Elle peut également être appelée depuis la méthode
@@ -42,14 +44,9 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
         String password = passwordEditText.getText().toString();
         EditText passwordConfirmationEditText = findViewById(R.id.registration_password_confirmation);
         String passwordConfirmation = passwordConfirmationEditText.getText().toString();
-
-        /*
-         Intent intent = new Intent(this, MainActivity.class);
-         startActivity(intent);
-         */
         
         if (password.equals(passwordConfirmation)) {
-            if (password.length() > 2) {
+            if (password.length() > 2 && !isNullOrWhitespace(password)) {
                 ArrayList<User> users = User.getUsers();
                 boolean existing = false;
                 for (User u : users) {
@@ -61,11 +58,11 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
                     }
                 }
                 if (!existing) {
-                    Intent intent = new Intent(this, MainActivity.class);
+                    Intent intent = new Intent(this, ProfileCreationActivity.class);
                     startActivity(intent);
                 }
             } else {
-                MiniPollApp.notifyShort(R.string.registration_password_too_short_msg);
+                MiniPollApp.notifyShort(R.string.registration_password_invalid_msg);
             }
         } else {
             MiniPollApp.notifyShort(R.string.registration_password_mismatch_msg);
