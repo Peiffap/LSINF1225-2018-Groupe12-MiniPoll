@@ -1,4 +1,4 @@
-package be.uclouvain.lsinf1225.musicplayer;
+ package be.uclouvain.lsinf1225.musicplayer;
 
 import android.content.Context;
 import android.database.Cursor;
