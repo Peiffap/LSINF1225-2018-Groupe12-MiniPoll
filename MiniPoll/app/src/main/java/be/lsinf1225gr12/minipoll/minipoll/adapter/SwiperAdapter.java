@@ -1,11 +1,13 @@
-package be.lsinf1225gr12.minipoll.minipollapp;
+package be.lsinf1225gr12.minipoll.minipoll.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class SwiperAdapter extends FragmentStatePagerAdapter{
+import be.lsinf1225gr12.minipoll.minipoll.model.User;
+
+public class SwiperAdapter extends FragmentStatePagerAdapter {
 
     public SwiperAdapter(FragmentManager fm) {
         super(fm);
@@ -22,7 +24,6 @@ public class SwiperAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 5;
-        //
+        return User.getFriends(User.getConnectedUser()).size();
     }
 }
