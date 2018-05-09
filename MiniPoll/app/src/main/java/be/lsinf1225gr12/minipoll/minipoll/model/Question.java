@@ -15,4 +15,12 @@ public class Question {
         this.rightAnswerPosition = rightAnswerPosition;
         this.qPos=qPos;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getqPos() {
+        return qPos;
+    }
 }

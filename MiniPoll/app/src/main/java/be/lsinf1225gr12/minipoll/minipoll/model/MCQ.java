@@ -62,16 +62,18 @@ public class MCQ extends PollAbstract {
     /**
      * Ajoute une réponse possible à une question
      */
-    public void addMCQAnswer(Question question, String description, User user)
+    public void addMCQAnswer(Question question, String description)
     {
         MCQAnswer mcqAnswer = new MCQAnswer(description);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyAnswerquestionAuthor(),author.getId());
-        cv.put(MySQLiteHelper.getKeyAnswerquestionDate(),this.getDate());
-        cv.put(MySQLiteHelper.getKeyAnswerquestionPosition(),numberQuestion+1);
-        cv.put(MySQLiteHelper.getKeyAnswerquestionQuestionposition(),0);
-        cv.put(MySQLiteHelper.getKeyAnswerquestionUser(),user.getId());
+        cv.put(MySQLiteHelper.getKeyChoicequestionAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyChoicequestionDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyChoicequestionPosition(),numberQuestion+1);
+        cv.put(MySQLiteHelper.getKeyChoicequestionQuestionposition(),question.getqPos());
+        cv.put(MySQLiteHelper.getKeyChoicequestionText(),description);
+
+
         int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
         if (result==-1)
         {
