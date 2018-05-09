@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 /**
 classe générale pour accès à la DB.
 
@@ -59,25 +58,6 @@ if (result==-1)
 db.close();
 
  */
-=======
-//nom des classes ressources
-/*
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationEval;
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationMCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Poll;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAbstract;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Question;
-import be.lsinf1225gr12.minipoll.minipollapp.User;
-*/
-
-/**
- * General database access class
- * For more details about the way it works, consult https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
-*/
->>>>>>> ccd6c11ef7682739a290c3f735f8d3b5a5c0bacd
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "Database";
