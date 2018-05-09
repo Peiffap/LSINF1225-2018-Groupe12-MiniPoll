@@ -55,16 +55,22 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
         this.login = login;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserLogin(),String.valueOf(login));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getPassword() {
@@ -73,6 +79,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserPassword(),String.valueOf(password));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getPicture() {
@@ -81,6 +97,16 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserPicture(),String.valueOf(picture));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getMail() {
@@ -89,6 +115,16 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserMail(),String.valueOf(mail));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getFirstname() {
@@ -97,6 +133,16 @@ public class User {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserFirstname(),String.valueOf(firstname));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getName() {
@@ -105,6 +151,16 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserSurname(),String.valueOf(name));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public int getBestFriend() {
