@@ -608,7 +608,7 @@ public class User {
      * @param name son nom
      * @param bestfriend son bestfriend -> tjr 0
      */
-    public static void createNewUser(String login, String password, String picture, String mail, String firstname, String name, int bestfriend){
+    public static void createNewUser(String login, String password, String picture, String mail, String firstname, String name, int bestfriend) {
         int id = getGlobalId();
         User user = new User(id,login,password,picture,mail,firstname,name,bestfriend);
         addUser(user);

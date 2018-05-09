@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -59,6 +60,18 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
                 }
                 if (!existing) {
                     Intent intent = new Intent(this, ProfileCreationActivity.class);
+
+                    //Create the bundle
+                    Bundle bundle = new Bundle();
+
+                    //Add your data to bundle
+                    ArrayList<String> credentials = new ArrayList<>();
+                    credentials.add(login);
+                    credentials.add(password);
+                    bundle.putStringArrayList("credentials", credentials);
+
+                    //Add the bundle to the intent
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 }
             } else {

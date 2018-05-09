@@ -49,9 +49,23 @@ public class ProfileCreationActivity extends Activity implements TextView.OnEdit
         EditText picEditText = findViewById(R.id.profile_creation_pic);
         String pic = picEditText.getText().toString();
 
+        if (!isValidField(pic)) {
+            pic = null;
+        }
         if (isValidEmail(email)) {
             if (isValidField(firstName)) {
                 if (isValidField(lastName)) {
+                    //Get the bundle
+                    Bundle bundle = getIntent().getExtras();
+
+                    //Extract the data…
+                    ArrayList<String> credentials = bundle.getStringArrayList("credentials");
+
+                    String login = credentials.get(0);
+                    String password = credentials.get(1);
+
+                    // User.createNewUser(login, password, pic, email, firstName, lastName, 0);
+
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
