@@ -1,6 +1,7 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.SparseArray;
@@ -296,6 +297,33 @@ public class User {
         db.close();
 
         return users;
+    }
+
+    /**
+     * Fonction qui permet d'ajouter un user dans la database
+     * @param user l'user à ajouter
+     */
+    public static void addUser(User user){
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserId(),user.getId());
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),user.getBestfriend());
+        cv.put(MySQLiteHelper.getKeyUserFirstname(),user.getFirstname());
+        cv.put(MySQLiteHelper.getKeyUserLogin(),user.getLogin());
+        cv.put(MySQLiteHelper.getKeyUserMail(),user.getMail());
+        cv.put(MySQLiteHelper.getKeyUserPassword(),user.getPassword());
+        cv.put(MySQLiteHelper.getKeyUserPicture(),user.getPicture());
+        cv.put(MySQLiteHelper.getKeyUserSurname(),user.getName());
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if(result==-1)
+        {
+            //erreur dans l'ajout, suppression
+            //QUE METTRE ICI ?????????
+        }
+
+        db.close();
     }
 
 }
