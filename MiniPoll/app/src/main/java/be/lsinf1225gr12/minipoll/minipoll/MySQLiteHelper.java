@@ -638,7 +638,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "primary key (" +
                 KEY_QUESTION_AUTHOR + ",\n" +
                 KEY_QUESTION_DATE + ",\n" +
-                KEY_QUESTION_POSITION + ",\n" +
+                KEY_QUESTION_POSITION + "\n" +
                 "),\n" +
                 "foreign key (" +
                 KEY_QUESTION_AUTHOR + ",\n" +
