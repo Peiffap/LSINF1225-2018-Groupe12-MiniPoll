@@ -48,7 +48,8 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         userSpinner = findViewById(R.id.login_username);
 
         // Obtention de la liste des utilisateurs.
-        ArrayList<User> users = User.getUtilisateurs();
+        // TODO
+        ArrayList<User> users = User.getUsers();
 
         // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
         ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -89,11 +90,12 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
+        // TODO
         if (user.login(password)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
-            MusicPlayerApp.notifyShort(R.string.login_wrong_password_msg);
+            MiniPollApp.notifyShort(R.string.login_wrong_password_msg);
         }
     }
 
