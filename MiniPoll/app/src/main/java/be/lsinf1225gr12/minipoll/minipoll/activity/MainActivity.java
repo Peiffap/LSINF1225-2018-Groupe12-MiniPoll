@@ -17,7 +17,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
  */
 
 public class MainActivity extends Activity {
-    //Tous les noms d'activites sont a changer
+    // Tous les noms d'activites sont a changer
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
