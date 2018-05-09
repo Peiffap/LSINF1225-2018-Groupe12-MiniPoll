@@ -15,22 +15,18 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainMenuActivity"/>
-        <activity
-            android:name=".CreateActivity"/>
-        <activity
-            android:name=".ChooseFriendActivity"/>
-        <activity
-            android:name=".CreateQuestionnaireActivity"/>
-        <activity
-            android:name=".CreateChoixActivity"/>
-        <activity
-            android:name=".CreateSondageActivity"/>
-        <activity
-            android:name=".Friend_List_Activity"/>
+        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".CreateActivity" />
+        <activity android:name=".ChooseFriendActivity" />
+        <activity android:name=".CreateQuestionnaireActivity" />
+        <activity android:name=".CreateChoixActivity" />
+        <activity android:name=".CreateSondageActivity" />
+        <activity android:name=".Friend_List_Activity" />
+        <activity android:name=".FriendMenuActivity"></activity>
     </application>
+
 </manifest>
