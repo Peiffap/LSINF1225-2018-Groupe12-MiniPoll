@@ -81,7 +81,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
      * Vérifie le mot de passe et connecte l'utilisateur.
      * <p>
      * Cette méthode vérifie le mot de passe saisi. Si celui-ci est bon, connecte l'utilisateur et
-     * affiche le menu principal, sinon un message est affiché à l'utilisateur.
+     * affiche l'écran de menu, sinon un message est affiché à l'utilisateur.
      * <p>
      * Cette méthode est appelée grâce à l'attribut onClick indiqué dans le fichier xml de layout
      * sur le bouton de connexion. Elle peut également être appelée depuis la méthode
