@@ -48,6 +48,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         userSpinner = findViewById(R.id.login_username);
 
         // Obtention de la liste des utilisateurs.
+        // TODO
         ArrayList<User> users = User.getUsers();
 
         // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
@@ -89,6 +90,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
+        // TODO
         if (user.login(password)) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
