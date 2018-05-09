@@ -31,7 +31,7 @@ public class User {
      * Fonction qui retourne un id unique
      * @return int unique
      */
-    private int getGlobalId(){
+    private static int getGlobalId(){
         globalId++;
         return globalId;
     }
@@ -312,7 +312,7 @@ public class User {
      * Fonction qui permet d'ajouter un user dans la database
      * @param user l'user à ajouter
      */
-    public static void addUser(User user){
+    private static void addUser(User user){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
@@ -476,6 +476,11 @@ public class User {
         return users;
     }
 
+    /**
+     * Fonction qui permet de retourner l'user qui est lié à ce login dans la DB
+     * @param login login en question
+     * @return User lié à ce login dans la DB
+     */
     public static User getUserWithLogin(String login){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -507,6 +512,11 @@ public class User {
         return user;
     }
 
+    /**
+     * Fonction qui permet d'avoir l'user associé à ce mail dans la DB
+     * @param mail mail en question
+     * @return user qui a ce mail
+     */
     public static User getUserWithMail(String mail){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -534,6 +544,22 @@ public class User {
         db.close();
 
         return user;
+    }
+
+    /**
+     * Fonction permettant de créer un nouvel user dans la DB
+     * @param login son login
+     * @param password son password
+     * @param picture sa picture, "null" si pas
+     * @param mail son mail
+     * @param firstname son prénom
+     * @param name son nom
+     * @param bestfriend son bestfriend -> tjr 0
+     */
+    public static void createNewUser(String login, String password, String picture, String mail, String firstname, String name, int bestfriend){
+        int id = getGlobalId();
+        User user = new User(id,login,password,picture,mail,firstname,name,bestfriend);
+        addUser(user);
     }
 }
 
