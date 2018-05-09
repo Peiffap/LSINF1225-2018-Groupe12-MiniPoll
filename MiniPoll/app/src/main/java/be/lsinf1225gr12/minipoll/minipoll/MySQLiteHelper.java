@@ -590,7 +590,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 KEY_PARTICIPATIONPOLL_AUTHOR + ",\n" +
                 KEY_PARTICIPATIONPOLL_DATE + "\n" +
                 ")" +
-                "references" + TABLE_POLL + " (" +
+                "references " + TABLE_POLL + " (" +
                 KEY_POLL_AUTHOR + ",\n" +
                 KEY_POLL_DATE +
                 ")\n" +
@@ -653,7 +653,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER +
                 "(\n" +
                 KEY_USER_ID + " int not null unique primary key,\n" +
-                KEY_USER_LOGIN + " text null,\n" +
+                KEY_USER_LOGIN + " text not null,\n" +
                 KEY_USER_FIRSTNAME + " text not null,\n" +
                 KEY_USER_SURNAME + " text not null,\n" +
                 KEY_USER_PASSWORD + " text not null,\n" +
