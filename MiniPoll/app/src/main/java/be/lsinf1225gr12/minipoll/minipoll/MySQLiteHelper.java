@@ -563,7 +563,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_FRIENDRELATION_TABLE = "CREATE TABLE " + TABLE_FRIENDRELATION +
                 "(\n" +
                 KEY_FRIENDRELATION_SENDER + " int references " + TABLE_USER + " (" + KEY_USER_ID + ") not null,\n" +
-                KEY_FRIENDRELATION_SENDER + " int references " + TABLE_USER + " (" + KEY_USER_ID + ") not null,\n" +
+                KEY_FRIENDRELATION_RECEIVER + " int references " + TABLE_USER + " (" + KEY_USER_ID + ") not null,\n" +
                 KEY_FRIENDRELATION_STATUS + " text not null\n" +
                 ")";
 
