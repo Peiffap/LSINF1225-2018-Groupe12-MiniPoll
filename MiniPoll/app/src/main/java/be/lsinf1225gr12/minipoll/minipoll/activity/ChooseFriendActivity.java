@@ -13,7 +13,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 public class ChooseFriendActivity extends AppCompatActivity
 {
 
-    public static final String TypeMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.TypeMemory";
+    public static final String FriendMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.TypeMemory";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,12 +33,11 @@ public class ChooseFriendActivity extends AppCompatActivity
         Intent pIntent = getIntent();
         int Type = pIntent.getIntExtra(CreateActivity.TypeMemory,0);
         Intent intent;
-        /*if(Integer.parseInt(TypeMemory)==0){
-            intent = new Intent(this,CreatePollActivity.class);
+        if(Type==0){
+            intent = new Intent(this,CreateChoixActivity.class);
         }
         else{
-            intent = new Intent(this,CreateMCQ.class);
+            intent = new Intent(this,CreateQuestionnaireActivity.class);
         }
-        */
     }
 }

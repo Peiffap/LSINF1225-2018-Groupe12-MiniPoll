@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import be.lsinf1225gr12.minipoll.minipoll.R;
@@ -19,7 +20,8 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
     TextView viewID;
     TextView viewName;
     TextView viewMail;
-
+    ImageButton IBFav;
+    ImageButton IBRem;
 
     public SwipeFragment() {
         // Required empty public constructor
@@ -34,6 +36,8 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
         viewID = (TextView) v.findViewById(R.id.textView2);
         viewName = (TextView) v.findViewById(R.id.textView3);
         viewMail = (TextView) v.findViewById(R.id.textView4);
+        IBFav = (ImageButton) v.findViewById(R.id.imageButton1);
+        IBRem = (ImageButton) v.findViewById(R.id.imageButton2);
         String m = "";
         for(int i=0; i< User.getFriends(User.getConnectedUser()).size();i++){
             m+=(User.getFriends(User.getConnectedUser()).get(i).getLogin()+"-");
@@ -49,11 +53,21 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
             m+=(User.getFriends(User.getConnectedUser()).get(i).getMail()+"-");
         }
         String[]Mail = m.split("-");
-        Bundle bdl=getArguments();
+        if(User.getFriends(User.getConnectedUser()).size()==0){
+            Login = new String[1];
+            Login[0]="Vous n'avez pas d'ami, il faudrait s'en inquiéter";
+            IBFav.setVisibility(View.GONE);
+            IBRem.setVisibility(View.GONE);
+        }
+        Bundle bdl = getArguments();
         viewID.setText(Login[bdl.getInt("count") - 1]);
         viewName.setText(Name[bdl.getInt("count") - 1]);
         viewMail.setText(Mail[bdl.getInt("count") - 1]);
         return v;
+    }
+
+    public void remove (View v){
+
     }
 
 }

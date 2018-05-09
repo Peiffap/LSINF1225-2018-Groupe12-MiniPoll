@@ -24,6 +24,6 @@ public class SwiperAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return User.getFriends(User.getConnectedUser()).size();
+        return Math.max(1,User.getFriends(User.getConnectedUser()).size());
     }
 }
