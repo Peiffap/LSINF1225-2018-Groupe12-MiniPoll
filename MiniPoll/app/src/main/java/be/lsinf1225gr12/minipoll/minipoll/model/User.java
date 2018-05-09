@@ -326,6 +326,45 @@ public class User {
         db.close();
     }
 
+    public static void addFriend(User sender, User receiver){
+        int idSender = sender.getId();
+        int idReceiver = receiver.getId();
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyFriendrelationSender(),idSender);
+        cv.put(MySQLiteHelper.getKeyFriendrelationReceiver(),idReceiver);
+        cv.put(MySQLiteHelper.getKeyFriendrelationStatus(),"Pending");
+        long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+            //QUE METTRE ICI ????
+        }
+        db.close();
+    }
+
+    public static void removeFriend(User user, User friendToRemove){
+        int idUser = user.getId();
+        int idRemove = friendToRemove.getId();
+
+    }
+
+    public static void acceptFriend(User user, User friendToAccept){
+        int idUser = user.getId();
+        int idAccept = friendToAccept.getId();
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        //cv.put(MySQLiteHelper.getKeyFriendrelationStatus(),"Friend");
+        String selection = MySQLiteHelper.getKeyFriendrelationSender() + " = ? AND " + MySQLiteHelper.getKeyFriendrelationReceiver() + " = ?";
+        String[] selectionArgs = new String[]{String.valueOf(idAccept), String.valueOf(idUser)};
+        //cv.update(MySQLiteHelper.getTableFriendrelation(), cv, selection, selectionArgs);
+        long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+    }
 }
 
 
