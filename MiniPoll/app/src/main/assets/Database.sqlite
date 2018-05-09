@@ -1,0 +1,48 @@
+--
+-- File generated with SQLiteStudio v3.1.1 on mar. mai 8 23:20:48 2018
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: AnswerPoll
+CREATE TABLE AnswerPoll (User INT NOT NULL REFERENCES User (ID), Author INT NOT NULL, Date DATETIME NOT NULL, Choice INT NOT NULL, Score INT NOT NULL, FOREIGN KEY (Author, Date, Choice) REFERENCES ChoicePoll (Author, Date, Position));
+
+-- Table: AnswerQuestion
+CREATE TABLE AnswerQuestion (User INT NOT NULL REFERENCES User (ID), Author INT NOT NULL, Date DATETIME NOT NULL, Position INT NOT NULL, QPos INT NOT NULL, FOREIGN KEY (Author, Date, Position, QPos) REFERENCES ChoiceQuestion (Author, Date, Position, QPos));
+
+-- Table: ChoicePoll
+CREATE TABLE ChoicePoll (Author INT NOT NULL, Date DATETIME NOT NULL, Position INT NOT NULL, Text TEXT NOT NULL, PRIMARY KEY (Author, Date, Position), FOREIGN KEY (Author, Date) REFERENCES Poll (Author, Date));
+
+-- Table: ChoiceQuestion
+CREATE TABLE ChoiceQuestion (Author INT NOT NULL, Date DATETIME NOT NULL, Position INT NOT NULL, Text TEXT NOT NULL, QPos INT NOT NULL, PRIMARY KEY (Author, Date, Position, QPos), FOREIGN KEY (Author, Date, Position) REFERENCES Question (Author, Date, Position));
+
+-- Table: FriendRelation
+CREATE TABLE FriendRelation (Sender INT REFERENCES User (ID) NOT NULL, Receiver INT REFERENCES User (ID) NOT NULL, Status TEXT NOT NULL);
+
+-- Table: MCQ
+CREATE TABLE MCQ (Author INT REFERENCES User (ID) NOT NULL, Date DATETIME NOT NULL, Title TEXT NOT NULL, Format TEXT NOT NULL, isClosed BOOLEAN NOT NULL, NbrQ INT NOT NULL, PRIMARY KEY (Author, Date));
+
+-- Table: ParticipationMCQ
+CREATE TABLE ParticipationMCQ (User INT NOT NULL REFERENCES User (ID), Author INT NOT NULL, Date DATETIME NOT NULL, FOREIGN KEY (Author, Date) REFERENCES MCQ (Author, Date));
+
+-- Table: ParticipationPoll
+CREATE TABLE ParticipationPoll (User INT NOT NULL REFERENCES User (ID), Author INT NOT NULL, Date DATETIME NOT NULL, FOREIGN KEY (Author, Date) REFERENCES Poll (Author, Date));
+
+-- Table: Poll
+CREATE TABLE Poll (Author INT REFERENCES User (ID) NOT NULL, Date DATETIME NOT NULL, Title TEXT NOT NULL, Question TEXT NOT NULL, Format TEXT NOT NULL, NbrTop INT NOT NULL, NbrChoice INT NOT NULL, isPoll BOOLEAN NOT NULL, isClosed BOOLEAN NOT NULL, PRIMARY KEY (Author, Date));
+
+-- Table: Question
+CREATE TABLE Question (Author INT NOT NULL, Date DATETIME NOT NULL, Position INT NOT NULL, Description TEXT NOT NULL, RightAnswer INT NOT NULL, PRIMARY KEY (Author, Date, Position), FOREIGN KEY (Author, Date) REFERENCES MCQ (Author, Date));
+
+-- Table: User
+CREATE TABLE User (ID INT NOT NULL UNIQUE PRIMARY KEY, Login TEXT NOT NULL, "First Name" TEXT NOT NULL, Surname TEXT NOT NULL, Mail TEXT NOT NULL, Password TEXT NOT NULL, "Profile Picture" TEXT, BF INT REFERENCES User (ID));
+INSERT INTO User (ID, Login, "First Name", Surname, Mail, Password, "Profile Picture", BF) VALUES (1, 'Radiant', 'Ike', 'Greil', 'IkeRagnell@FE.com', 'Aether', NULL, NULL);
+INSERT INTO User (ID, Login, "First Name", Surname, Mail, Password, "Profile Picture", BF) VALUES (2, 'I''mNotZelda', 'Link', 'Heyaaaah', 'LinkOcarina@TLOZ.com', 'Rupee', NULL, NULL);
+INSERT INTO User (ID, Login, "First Name", Surname, Mail, Password, "Profile Picture", BF) VALUES (3, 'Poltergeist', 'Luigi', 'Bros', 'LuigiMansion@MB.com', 'Daisy', NULL, NULL);
+INSERT INTO User (ID, Login, "First Name", Surname, Mail, Password, "Profile Picture", BF) VALUES (4, 'ItsMe', 'Mario', 'Bros', 'MarioKart8@MB.com', 'Peach', NULL, NULL);
+INSERT INTO User (ID, Login, "First Name", Surname, Mail, Password, "Profile Picture", BF) VALUES (5, 'ZeroSuitIsBetter', 'Samus', 'Aran', 'SamusPrime@Metroid.com', 'Ridley', NULL, NULL);
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
