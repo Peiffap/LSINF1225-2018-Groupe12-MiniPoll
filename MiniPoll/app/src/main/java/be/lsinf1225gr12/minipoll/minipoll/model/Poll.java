@@ -1,8 +1,21 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
+import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
+
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollAuthor;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollDate;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollFormat;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollIsclosed;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollIspoll;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollNumberchoice;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollNumbertop;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollQuestion;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollTitle;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getTablePoll;
 
 public class Poll extends PollAbstract {
     /**
@@ -23,6 +36,10 @@ public class Poll extends PollAbstract {
      */
 
     private PollAnswer[] pollAnswer;
+    /**
+     * question du poll
+     */
+    private String question;
 
 
     /**
@@ -32,13 +49,26 @@ public class Poll extends PollAbstract {
      * @note Ce constructeur est privé (donc utilisable uniquement depuis cette classe). Cela permet
      * d'éviter d'avoir deux instances différentes d'un même Poll.
      */
-    private Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String question, String format, PollAnswer[] pollAnswer) {
+    private Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format, PollAnswer[] pollAnswer,String question) {
         super(format, name, author, date);
         this.number_top = number_top;
+        this.question=question;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
         this.pollAnswer = pollAnswer;
 
+    }
+    /**
+     * Fournit la question
+     */
+    public String getQuestion() {
+        return question;
+    }
+    /**
+     * Modifie la question
+     */
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     /**
@@ -107,7 +137,45 @@ public class Poll extends PollAbstract {
         this.pollAnswer = pollAnswer;
     }
     /**
-     * TODO Créer la méthode qui écrit dans la base de donnée
+     * Crée un nouvel élément dans la base de données.
+     *
+     * @param number_top        nombre de top à faire
+     * @param number_answer     nombre d'answer rajouter
+     * @param date              date de création
+     * @param author            auteur  du poll
+     * @param name              nom du poll
+     * @param isChoice          Type du sondage
+     * @param format            Format des propositions
+     *
+     *
+     * @return Vrai (true) en cas de succès, faux (false) en cas d'échec.
+     *
+     * @post Enregistre le nouvel objet dans la base de données.
      */
+    public static boolean createPoll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format,String question) {
+
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(getKeyPollNumbertop(),number_top);
+        cv.put(getKeyPollNumberchoice(),number_answer);
+        cv.put(getKeyPollDate(),date);
+        cv.put(getKeyPollAuthor(),author.getId());
+        cv.put(getKeyPollTitle(),name);
+        cv.put(getKeyPollQuestion(),question);
+        cv.put(getKeyPollIspoll(),isChoice);
+        cv.put(getKeyPollFormat(),format);
+        cv.put(getKeyPollIsclosed(),false);
+
+        int result = (int)db.insert(getTablePoll(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+            return false;
+        }
+        db.close();
+
+        return true;
+    }
+
 }
 
