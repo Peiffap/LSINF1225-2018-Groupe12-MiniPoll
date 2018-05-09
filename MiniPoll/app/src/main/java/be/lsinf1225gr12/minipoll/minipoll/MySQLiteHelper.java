@@ -695,7 +695,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         cv.put(KEY_USER_SURNAME,"Verbeke");
         cv.put(KEY_USER_BESTFRIEND,"NULL");
         db.insert(TABLE_USER,null,cv);
-        
+
     }
 
     // Called when the database needs to be upgraded.
