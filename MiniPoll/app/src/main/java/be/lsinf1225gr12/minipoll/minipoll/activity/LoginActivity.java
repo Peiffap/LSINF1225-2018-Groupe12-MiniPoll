@@ -98,6 +98,20 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
     }
 
     /**
+     * Amène l'utilisateur sur l'écran de création de compte.
+     * <p>
+     * Cette méthode est appelée grâce à l'attribut onClick indiqué dans le fichier xml de layout
+     * sur le bouton de création de compte. Elle peut également être appelée depuis la méthode
+     * "onEditorAction" de cette classe.
+     *
+     * @param v Une vue quelconque (n'est pas utilisé ici, mais requis par le onClick)
+     */
+    public void register(View v) {
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Récupère les actions faites depuis le clavier.
      * <p>
      * Récupère les actions faites depuis le clavier lors de l'édition du champ du mot de passe afin
