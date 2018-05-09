@@ -4,6 +4,8 @@ package be.lsinf1225gr12.minipoll.minipoll.model;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.List;
+
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollAuthor;
@@ -35,7 +37,7 @@ public class Poll extends PollAbstract {
      * Liste des réponses possibles au poll
      */
 
-    private PollAnswer[] pollAnswer;
+    private List <PollAnswer> pollAnswer;
     /**
      * question du poll
      */
@@ -141,20 +143,29 @@ public class Poll extends PollAbstract {
         isChoice = choice;
     }
 
-    /**
-     * Fournit le tableau avec les differentes Pollanswers
-     */
-
-    public PollAnswer[] getPollAnswer() {
-        return pollAnswer;
-    }
 
     /**
      * Modifie le tableau avec les differentes Pollanswers
      */
-    public void setPollAnswer(PollAnswer[] pollAnswer)
+    public void addPollAnswer(String description, int inPollPosition)
     {
-        this.pollAnswer = pollAnswer;
+
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
+        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),inPollPosition);
+        cv.put(MySQLiteHelper.getKeyChoicepollDate(),date);
+        cv.put(MySQLiteHelper.getKeyChoicepollAuthor(),author.getId());
+
+
+        int result = (int)db.insert(getTablePoll(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+
+        }
+        db.close();
+
     }
 
 
