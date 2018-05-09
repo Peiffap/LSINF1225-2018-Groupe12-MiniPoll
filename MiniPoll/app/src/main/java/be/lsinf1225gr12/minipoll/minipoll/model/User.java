@@ -173,7 +173,7 @@ public class User {
      *
      * @param passwordToTry le mot de passe entré.
      *
-     * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
+     * @return Vrai (true) si l'utilisateur a l'autorisation de se connecter, false sinon.
      */
     public boolean login(String passwordToTry) {
         if (this.password.equals(passwordToTry)) {

@@ -8,5 +8,13 @@
     <string name="login_username">Nom d\'utilisateur</string>
     <string name="login_wrong_password_msg">Le mot de passe saisi est incorrect</string>
 
+    <!-- Main / Main Menu -->
+    <string name="menu">Menu</string>
+    <string name="help_friends">Aider vos amis dans leurs choix</string>
+    <string name="create">Créer</string>
+    <string name="my_profile">Mon Profil</string>
+    <string name="quiz">Questionnaire</string>
+    <string name="my_friends">Mes amis</string>
+    <string name="poll">Sondage</string>
 
 </resources>
