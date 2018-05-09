@@ -71,98 +71,98 @@ db.close();
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "Database";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     // Table Names
-    private static final String TABLE_ANSWERPOLL = "answerpoll";
-    private static final String TABLE_ANSWERQUESTION = "answerquestion";
-    private static final String TABLE_CHOICEPOLL = "pollchoice";
-    private static final String TABLE_CHOICEQUESTION = "possiblechoice";
-    private static final String TABLE_FRIENDRELATION = "friendrelation";
-    private static final String TABLE_MCQ = "mcq";
-    private static final String TABLE_PARTICIPATIONPOLL = "pollparticipation";
-    private static final String TABLE_PARTICIPATIONQUESTION = "questionparticipation";
-    private static final String TABLE_POLL = "poll";
-    private static final String TABLE_QUESTION = "question";
-    private static final String TABLE_USER = "user";
+    private static final String TABLE_ANSWERPOLL = "AnswerPoll";
+    private static final String TABLE_ANSWERQUESTION = "AnswerQuestion";
+    private static final String TABLE_CHOICEPOLL = "PollChoice";
+    private static final String TABLE_CHOICEQUESTION = "PossibleChoice";
+    private static final String TABLE_FRIENDRELATION = "FriendRelation";
+    private static final String TABLE_MCQ = "MCQ";
+    private static final String TABLE_PARTICIPATIONPOLL = "PollParticipation";
+    private static final String TABLE_PARTICIPATIONQUESTION = "QuestionParticipation";
+    private static final String TABLE_POLL = "Poll";
+    private static final String TABLE_QUESTION = "Question";
+    private static final String TABLE_USER = "User";
 
     //AnswerPoll Table Columns
-    private static final String KEY_ANSWERPOLL_USER = "USER";
-    private static final String KEY_ANSWERPOLL_AUTHOR = "AUTHOR";
-    private static final String KEY_ANSWERPOLL_DATE = "DATE";
-    private static final String KEY_ANSWERPOLL_CHOICE = "CHOICE";
-    private static final String KEY_ANSWERPOLL_SCORE = "SCORE";
+    private static final String KEY_ANSWERPOLL_USER = "User";
+    private static final String KEY_ANSWERPOLL_AUTHOR = "Author";
+    private static final String KEY_ANSWERPOLL_DATE = "Date";
+    private static final String KEY_ANSWERPOLL_CHOICE = "Choice";
+    private static final String KEY_ANSWERPOLL_SCORE = "Score";
 
     //AnswerQuestion Table Columns
-    private static final String KEY_ANSWERQUESTION_AUTHOR = "AUTHOR";
-    private static final String KEY_ANSWERQUESTION_DATE = "DATE";
-    private static final String KEY_ANSWERQUESTION_POSITION = "POSITION";
-    private static final String KEY_ANSWERQUESTION_QUESTIONPOSITION = "QPOS";
-    private static final String KEY_ANSWERQUESTION_USER = "USER";
+    private static final String KEY_ANSWERQUESTION_AUTHOR = "Author";
+    private static final String KEY_ANSWERQUESTION_DATE = "Date";
+    private static final String KEY_ANSWERQUESTION_POSITION = "Position";
+    private static final String KEY_ANSWERQUESTION_QUESTIONPOSITION = "QPos";
+    private static final String KEY_ANSWERQUESTION_USER = "User";
 
     //ChoicePoll Table Columns
-    private static final String KEY_CHOICEPOLL_AUTHOR = "AUTHOR";
-    private static final String KEY_CHOICEPOLL_DATE = "DATE";
-    private static final String KEY_CHOICEPOLL_TEXT = "CHOICE";
-    private static final String KEY_CHOICEPOLL_POSITION = "POSITION";
+    private static final String KEY_CHOICEPOLL_AUTHOR = "Author";
+    private static final String KEY_CHOICEPOLL_DATE = "Date";
+    private static final String KEY_CHOICEPOLL_TEXT = "Description";
+    private static final String KEY_CHOICEPOLL_POSITION = "Position";
 
     //ChoiceQuestion Table Columns
-    private static final String KEY_CHOICEQUESTION_POSITION = "POSITION";
-    private static final String KEY_CHOICEQUESTION_AUTHOR = "AUTHOR";
-    private static final String KEY_CHOICEQUESTION_DATE = "DATE";
-    private static final String KEY_CHOICEQUESTION_TEXT = "TEXT";
-    private static final String KEY_CHOICEQUESTION_QUESTIONPOSITION = "QPOS";
+    private static final String KEY_CHOICEQUESTION_POSITION = "Position";
+    private static final String KEY_CHOICEQUESTION_AUTHOR = "Author";
+    private static final String KEY_CHOICEQUESTION_DATE = "Date";
+    private static final String KEY_CHOICEQUESTION_TEXT = "Description";
+    private static final String KEY_CHOICEQUESTION_QUESTIONPOSITION = "QPos";
 
     //FriendRelation Table Columns
-    private static final String KEY_FRIENDRELATION_SENDER = "SENDER";
-    private static final String KEY_FRIENDRELATION_RECEIVER = "RECEIVER";
-    private static final String KEY_FRIENDRELATION_STATUS = "STATUS";
+    private static final String KEY_FRIENDRELATION_SENDER = "Sender";
+    private static final String KEY_FRIENDRELATION_RECEIVER = "Receiver";
+    private static final String KEY_FRIENDRELATION_STATUS = "Status";
 
     //MCQ Table Columns
-    private static final String KEY_MCQ_AUTHOR = "AUTHOR";
-    private static final String KEY_MCQ_DATE = "DATE";
-    private static final String KEY_MCQ_TITLE = "NAME";
-    private static final String KEY_MCQ_FORMAT = "FORMAT";
-    private static final String KEY_MCQ_ISCLOSED = "ISCLOSED";
-    private static final String KEY_MCQ_NUMBERQUESTION = "NUMBERQUESTION";
+    private static final String KEY_MCQ_AUTHOR = "Author";
+    private static final String KEY_MCQ_DATE = "Date";
+    private static final String KEY_MCQ_TITLE = "Name";
+    private static final String KEY_MCQ_FORMAT = "Format";
+    private static final String KEY_MCQ_ISCLOSED = "IsClosed";
+    private static final String KEY_MCQ_NUMBERQUESTION = "NbrQ";
 
     //ParticipationPoll Table Columns
-    private static final String KEY_PARTICIPATIONPOLL_USER = "USER";
-    private static final String KEY_PARTICIPATIONPOLL_AUTHOR = "AUTHOR";
-    private static final String KEY_PARTICIPATIONPOLL_DATE = "DATE";
+    private static final String KEY_PARTICIPATIONPOLL_USER = "User";
+    private static final String KEY_PARTICIPATIONPOLL_AUTHOR = "Author";
+    private static final String KEY_PARTICIPATIONPOLL_DATE = "Date";
 
     //ParticipationQuestion Table Columns
-    private static final String KEY_PARTICIPATIONQUESTION_USER = "USER";
-    private static final String KEY_PARTICIPATIONQUESTION_AUTHOR = "AUTHOR";
-    private static final String KEY_PARTICIPATIONQUESTION_DATE = "DATE";
+    private static final String KEY_PARTICIPATIONQUESTION_USER = "User";
+    private static final String KEY_PARTICIPATIONQUESTION_AUTHOR = "Author";
+    private static final String KEY_PARTICIPATIONQUESTION_DATE = "Date";
 
     //Poll Table Columns
-    private static final String KEY_POLL_AUTHOR = "AUTHOR";
-    private static final String KEY_POLL_DATE = "DATE";
-    private static final String KEY_POLL_TITLE = "TITLE";
-    private static final String KEY_POLL_QUESTION = "QUESTION";
-    private static final String KEY_POLL_FORMAT = "FORMAT";
-    private static final String KEY_POLL_NUMBERTOP = "NBRTOP";
-    private static final String KEY_POLL_NUMBERCHOICE = "NBRCHOICE";
-    private static final String KEY_POLL_ISPOLL = "ISPOLL";
-    private static final String KEY_POLL_ISCLOSED = "ISCLOSED";
+    private static final String KEY_POLL_AUTHOR = "Author";
+    private static final String KEY_POLL_DATE = "Date";
+    private static final String KEY_POLL_TITLE = "Title";
+    private static final String KEY_POLL_QUESTION = "Question";
+    private static final String KEY_POLL_FORMAT = "Format";
+    private static final String KEY_POLL_NUMBERTOP = "NbrTOP";
+    private static final String KEY_POLL_NUMBERCHOICE = "NbrChoice";
+    private static final String KEY_POLL_ISPOLL = "IsPoll";
+    private static final String KEY_POLL_ISCLOSED = "IsClosed";
 
     //Question Table Columns
-    private static final String KEY_QUESTION_AUTHOR = "AUTHOR";
-    private static final String KEY_QUESTION_DATE = "DATE";
-    private static final String KEY_QUESTION_DESCRIPTION = "DESCRIPTION";
-    private static final String KEY_QUESTION_POSITION = "POSITION";
-    private static final String KEY_QUESTION_RIGHTANSWER = "RIGHTANSWER";
+    private static final String KEY_QUESTION_AUTHOR = "Author";
+    private static final String KEY_QUESTION_DATE = "Date";
+    private static final String KEY_QUESTION_DESCRIPTION = "Description";
+    private static final String KEY_QUESTION_POSITION = "Position";
+    private static final String KEY_QUESTION_RIGHTANSWER = "RightAnswer";
 
     // User Table Columns
     private static final String KEY_USER_ID = "ID";
-    private static final String KEY_USER_SURNAME = "NAME";
-    private static final String KEY_USER_FIRSTNAME = "FIRSTNAME";
-    private static final String KEY_USER_LOGIN = "LOGIN";
-    private static final String KEY_USER_PASSWORD = "PASSWORD";
-    private static final String KEY_USER_MAIL = "MAIL";
-    private static final String KEY_USER_PICTURE = "PICTURE";
-    private static final String KEY_USER_BESTFRIEND = "BESTFRIEND";
+    private static final String KEY_USER_SURNAME = "Name";
+    private static final String KEY_USER_FIRSTNAME = "FirstName";
+    private static final String KEY_USER_LOGIN = "Login";
+    private static final String KEY_USER_PASSWORD = "Password";
+    private static final String KEY_USER_MAIL = "Mail";
+    private static final String KEY_USER_PICTURE = "ProfilePicture";
+    private static final String KEY_USER_BESTFRIEND = "BestFriend";
 
     private static MySQLiteHelper sInstance;
 

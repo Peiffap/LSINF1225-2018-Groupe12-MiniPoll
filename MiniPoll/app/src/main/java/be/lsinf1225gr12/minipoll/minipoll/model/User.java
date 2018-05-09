@@ -31,7 +31,7 @@ public class User {
      * Fonction qui retourne un id unique
      * @return int unique
      */
-    private int getGlobalId(){
+    private static int getGlobalId(){
         globalId++;
         return globalId;
     }
@@ -49,14 +49,10 @@ public class User {
         User.userSparseArray.put(id,this);
     }
 
-    /* Getters and setters */
+    /* Getters */
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLogin() {
@@ -65,6 +61,16 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserLogin(),String.valueOf(login));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getPassword() {
@@ -73,6 +79,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserPassword(),String.valueOf(password));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getPicture() {
@@ -81,6 +97,16 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserPicture(),String.valueOf(picture));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getMail() {
@@ -89,6 +115,16 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserMail(),String.valueOf(mail));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getFirstname() {
@@ -97,6 +133,16 @@ public class User {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserFirstname(),String.valueOf(firstname));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
     public String getName() {
@@ -105,14 +151,20 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserSurname(),String.valueOf(name));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 
-    public int getBestfriend() {
+    public int getBestFriend() {
         return bestfriend;
-    }
-
-    public void setBestfriend(int bestfriend) {
-        this.bestfriend = bestfriend;
     }
 
     /**
@@ -312,13 +364,13 @@ public class User {
      * Fonction qui permet d'ajouter un user dans la database
      * @param user l'user à ajouter
      */
-    public static void addUser(User user){
+    private static void addUser(User user){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyUserId(),user.getId());
-        cv.put(MySQLiteHelper.getKeyUserBestfriend(),user.getBestfriend());
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),user.getBestFriend());
         cv.put(MySQLiteHelper.getKeyUserFirstname(),user.getFirstname());
         cv.put(MySQLiteHelper.getKeyUserLogin(),user.getLogin());
         cv.put(MySQLiteHelper.getKeyUserMail(),user.getMail());
@@ -476,6 +528,11 @@ public class User {
         return users;
     }
 
+    /**
+     * Fonction qui permet de retourner l'user qui est lié à ce login dans la DB
+     * @param login login en question
+     * @return User lié à ce login dans la DB
+     */
     public static User getUserWithLogin(String login){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -507,6 +564,11 @@ public class User {
         return user;
     }
 
+    /**
+     * Fonction qui permet d'avoir l'user associé à ce mail dans la DB
+     * @param mail mail en question
+     * @return user qui a ce mail
+     */
     public static User getUserWithMail(String mail){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -534,6 +596,40 @@ public class User {
         db.close();
 
         return user;
+    }
+
+    /**
+     * Fonction permettant de créer un nouvel user dans la DB
+     * @param login son login
+     * @param password son password
+     * @param picture sa picture, "null" si pas
+     * @param mail son mail
+     * @param firstname son prénom
+     * @param name son nom
+     * @param bestfriend son bestfriend -> tjr 0
+     */
+    public static void createNewUser(String login, String password, String picture, String mail, String firstname, String name, int bestfriend){
+        int id = getGlobalId();
+        User user = new User(id,login,password,picture,mail,firstname,name,bestfriend);
+        addUser(user);
+    }
+
+    /**
+     * Fonction qui permet de mettre un autre user comme bestFriend
+     * @param bestFriendId id de l'user à ajouter en tant que bestFriend
+     */
+    public void setBestfriend(int bestFriendId){
+        this.bestfriend = bestFriendId;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),String.valueOf(bestFriendId));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 }
 
