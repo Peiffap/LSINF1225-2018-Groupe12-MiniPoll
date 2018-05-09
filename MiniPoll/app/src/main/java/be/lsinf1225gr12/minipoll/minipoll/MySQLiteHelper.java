@@ -51,7 +51,7 @@ ContentValues cv = new ContentValues();
 String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
 String[] selectionArgs = new String[]{String.valueOf(VALEUR), String.valueOf(VALEUR)};
 cv.update(NIM_TABLE, cv, selection, selectionArgs);
-int result = db.insert(NOM_TABLE, null, cv);
+int result = (int) db.insert(NOM_TABLE, null, cv);
 if (result==-1)
 {
 	//erreur dans l'ajout, suppression
