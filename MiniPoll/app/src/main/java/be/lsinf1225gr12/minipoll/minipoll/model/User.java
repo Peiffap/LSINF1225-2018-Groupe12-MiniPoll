@@ -3,12 +3,13 @@ import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseArray;
 
 import java.util.ArrayList;
 
 public class User {
 
-    private long id;
+    private int id;
     private String login;
     private String password;
     private String picture;
@@ -16,10 +17,11 @@ public class User {
     private String firstname;
     private String name;
     private String bestfriend;
+    private static SparseArray<User> userSparseArray = new SparseArray<>();
 
 
     /* Constructeurs */
-    public User(long id , String login, String password, String picture, String mail, String firstname, String name, String bestfriend){
+    public User(int id , String login, String password, String picture, String mail, String firstname, String name, String bestfriend){
         this.id = id;
         this.login = login;
         this.password = password;
@@ -36,7 +38,7 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -113,7 +115,57 @@ public class User {
         // Tant qu'il y a des lignes.
         while (!cursor.isAfterLast()) {
             // Récupération des informations de l'utilisateur pour chaque ligne.
-            long id = cursor.getLong(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+            int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+            String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+            String firstname = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+            String login = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
+            String password = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+            String mail = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
+            String picture = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+            String bestFriend = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+            // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
+            User user = User.userSparseArray.get(id);
+            if (user == null) {
+                // Si pas encore d'instance, création d'une nouvelle instance.
+                user = new User(id,login,password,picture,mail,firstname,name,bestFriend);
+            }
+
+
+            // Ajout de l'utilisateur à la liste.
+            users.add(user);
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return users;
+    }
+
+    /* Renvoie la liste de tous les utilisateurs */
+    public static ArrayList<User> getFriends(User temp){
+        long thisId = temp.getId();
+
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, null, null, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        // Initialisation la liste des utilisateurs.
+        ArrayList<User> users = new ArrayList<>();
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
             String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
             String firstname = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
             String login = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
@@ -145,17 +197,16 @@ public class User {
     }
 
     /* Renvoie la liste de tous les amis d'un utilisateur */
-    public static ArrayList<User> getFriends(User temp){
+    /*public static ArrayList<User> getFriends(User temp){
 
         long searchId = temp.getId();
-        String selection = MySQLiteHelper.getKeyUserId() + " = ?";
-        String[] selectionArgs = new String[]{String.valueOf(searchId)};
+        String selection = MySQLiteHelper.getKeyUserId() + " IN (select SENDER from FRL WHERE (status = friend AND receiver = searchID)) UNION (select receiver from FRL WHERE (status = friend AND sender = searchID))";
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
         String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
-        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, null, null, null, null);
 
         // Placement du curseur sur la première ligne.
         cursor.moveToFirst();
@@ -176,11 +227,7 @@ public class User {
             String bestFriend = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
             // Vérification pour savoir s'il y a déjà une instance de cet utilisateur.
-            /*User user = User.userSparseArray.get(uId);
-            if (user == null) {
-                // Si pas encore d'instance, création d'une nouvelle instance.
-                user = new User(uId, uNom, uPassword);
-            }*/
+
             User user = new User(id,login,password,picture,mail,firstname,name,bestFriend);
 
             // Ajout de l'utilisateur à la liste.
@@ -195,7 +242,7 @@ public class User {
         db.close();
 
         return users;
-    }
+    }*/
 
 
 }
