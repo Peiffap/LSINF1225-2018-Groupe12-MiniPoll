@@ -40,16 +40,38 @@ public class MCQ extends PollAbstract {
     /**
      * Ajoute une nouvelle question au MCQ et dans la DB
      */
-    public void addQuestion(String title, int rightAnswerPosition)
+    public void addQuestion(String title)
     {
-        Question question = new Question(title, rightAnswerPosition);
+        Question question = new Question(title,0);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyQuestionAuthor(),author.getId());
         cv.put(MySQLiteHelper.getKeyQuestionDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyQuestionDescription(),title);
-        cv.put(MySQLiteHelper.getKeyQuestionPosition(),numberQuestion+1);
-        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),rightAnswerPosition);
+        cv.put(MySQLiteHelper.getKeyQuestionPosition(),this.question.size()+1);
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),0);
+        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+        this.question.add(question);
+    }
+
+    /**
+     * Ajoute une réponse possible à une question
+     */
+    public void addMCQAnswer(Question question, String description, User user)
+    {
+        MCQAnswer mcqAnswer = new MCQAnswer(description);
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyAnswerquestionAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionPosition(),numberQuestion+1);
+        cv.put(MySQLiteHelper.getKeyAnswerquestionQuestionposition(),0);
+        cv.put(MySQLiteHelper.getKeyAnswerquestionUser(),user.getId());
         int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
         if (result==-1)
         {
