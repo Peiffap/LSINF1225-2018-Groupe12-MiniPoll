@@ -314,7 +314,7 @@ public class User {
 
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyUserId(),user.getId());
-        cv.put(MySQLiteHelper.getKeyUserBestfriend(),user.getBestfriend());
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),user.getBestFriend());
         cv.put(MySQLiteHelper.getKeyUserFirstname(),user.getFirstname());
         cv.put(MySQLiteHelper.getKeyUserLogin(),user.getLogin());
         cv.put(MySQLiteHelper.getKeyUserMail(),user.getMail());
