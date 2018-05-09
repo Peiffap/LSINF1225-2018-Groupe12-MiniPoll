@@ -28,6 +28,7 @@ Cursor c = db.query(NOM_TABLE, NOM_COLONNE, selection, selectionArgs, null, null
 c.moveToFirst(); //place au premier résultat
 //c.moveToNext(); //place au prochain résultat
 //c.isLast(); //true si on est au dernier élément
+c.getTYPE(...); //différents type de get, cf https://developer.android.com/reference/android/database/Cursor#getcolumnindex
 c.close();
 db.close();
 
