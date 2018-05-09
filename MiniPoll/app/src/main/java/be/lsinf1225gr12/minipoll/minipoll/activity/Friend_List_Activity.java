@@ -17,6 +17,5 @@ public class Friend_List_Activity extends FragmentActivity {
         VP = findViewById(R.id.swipe_friend);
         SwiperAdapter SA = new SwiperAdapter(getSupportFragmentManager());
         VP.setAdapter(SA);
-
     }
 }
