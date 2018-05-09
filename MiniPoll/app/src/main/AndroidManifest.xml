@@ -3,7 +3,7 @@
     package="be.lsinf1225gr12.minipoll.minipoll">
 
     <application
-        android:name="be.lsinf1225gr12.minipoll.minipoll.MiniPollApp"
+        android:name=".MiniPollApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -13,6 +13,7 @@
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,6 +26,7 @@
         <activity android:name=".activity.CreateSondageActivity" />
         <activity android:name=".activity.Friend_List_Activity" />
         <activity android:name=".activity.FriendMenuActivity" />
+        <activity android:name=".activity.AddFriendActivity"></activity>
     </application>
 
 </manifest>
