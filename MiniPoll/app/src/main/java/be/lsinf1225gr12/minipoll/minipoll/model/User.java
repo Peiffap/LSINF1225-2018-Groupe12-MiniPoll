@@ -49,7 +49,7 @@ public class User {
         User.userSparseArray.put(id,this);
     }
 
-    /* Getters and setters */
+    /* Getters */
 
     public int getId() {
         return id;
@@ -107,12 +107,8 @@ public class User {
         this.name = name;
     }
 
-    public int getBestfriend() {
+    public int getBestFriend() {
         return bestfriend;
-    }
-
-    public void setBestfriend(int bestfriend) {
-        this.bestfriend = bestfriend;
     }
 
     /**
@@ -560,6 +556,24 @@ public class User {
         int id = getGlobalId();
         User user = new User(id,login,password,picture,mail,firstname,name,bestfriend);
         addUser(user);
+    }
+
+    /**
+     * Fonction qui permet de mettre un autre user comme bestFriend
+     * @param bestFriendId id de l'user à ajouter en tant que bestFriend
+     */
+    public void setBestFriend(int bestFriendId){
+        this.bestfriend = bestFriendId;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),String.valueOf(bestFriendId));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
     }
 }
 
