@@ -19,6 +19,12 @@ public class User {
     private String bestfriend;
     private static SparseArray<User> userSparseArray = new SparseArray<>();
 
+    /**
+     * Utilisateur actuellement connecté à l'application. Correspond à null si aucun utilisateur
+     * n'est connecté.
+     */
+    private static User connectedUser = null;
+
 
     /* Constructeurs */
     public User(int id , String login, String password, String picture, String mail, String firstname, String name, String bestfriend){
@@ -30,6 +36,7 @@ public class User {
         this.firstname = firstname;
         this.name = name;
         this.bestfriend = bestfriend;
+        User.userSparseArray.put(id,this);
     }
 
     /* Getters and setters */
@@ -99,6 +106,20 @@ public class User {
     }
 
     /**
+     * Fournit l'utilisateur actuellement connecté.
+     */
+    public static User getConnectedUser() {
+        return User.connectedUser;
+    }
+
+    /**
+     * Déconnecte l'utilisateur actuellement connecté à l'application.
+     */
+    public static void logout() {
+        User.connectedUser = null;
+    }
+
+    /**
      *  Renvoie la liste de tous les utilisateurs
      */
     public static ArrayList<User> getUsers(){
@@ -146,6 +167,33 @@ public class User {
 
         return users;
     }
+
+    /**
+     * Connecte l'utilisateur courant.
+     *
+     * @param passwordToTry le mot de passe entré.
+     *
+     * @return Vrai (true) si l'utilisateur à l'autorisation de se connecter, false sinon.
+     */
+    public boolean login(String passwordToTry) {
+        if (this.password.equals(passwordToTry)) {
+            // Si le mot de passe est correct, modification de l'utilisateur connecté.
+            User.connectedUser = this;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Fournit une représentation textuelle de l'utilisateur courant. (Ici le nom)
+     *
+     * @note Cette méthode est utilisée par l'adaptateur ArrayAdapter afin d'afficher la liste des
+     * utilisateurs. (Voir LoginActivity).
+     */
+    public String toString() {
+        return getName();
+    }
+
 }
 
 
