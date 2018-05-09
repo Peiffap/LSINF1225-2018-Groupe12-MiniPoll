@@ -42,7 +42,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
 
 
         /*
-         * @note La liste des utilisateurs est affichées dans un Spinner, pour en savoir plus lisez
+         * @note La liste des utilisateurs est affichée dans un Spinner, pour en savoir plus lisez
          * http://d.android.com/guide/topics/ui/controls/spinner.html
          */
         userSpinner = findViewById(R.id.login_username);
