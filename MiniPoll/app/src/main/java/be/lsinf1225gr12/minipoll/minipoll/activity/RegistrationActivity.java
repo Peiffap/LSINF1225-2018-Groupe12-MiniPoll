@@ -9,6 +9,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
@@ -41,10 +43,27 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
         EditText passwordConfirmationEditText = findViewById(R.id.registration_password_confirmation);
         String passwordConfirmation = passwordConfirmationEditText.getText().toString();
 
+        /*
+         Intent intent = new Intent(this, MainActivity.class);
+         startActivity(intent);
+         */
+        
         if (password.equals(passwordConfirmation)) {
             if (password.length() > 2) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                ArrayList<User> users = User.getUsers();
+                boolean existing = false;
+                for (User u : users) {
+                    existing = u.getLogin().equals(login);
+                    if (existing)
+                    {
+                        MiniPollApp.notifyShort(R.string.registration_existing_login_msg);
+                        break;
+                    }
+                }
+                if (!existing) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                }
             } else {
                 MiniPollApp.notifyShort(R.string.registration_password_too_short_msg);
             }
