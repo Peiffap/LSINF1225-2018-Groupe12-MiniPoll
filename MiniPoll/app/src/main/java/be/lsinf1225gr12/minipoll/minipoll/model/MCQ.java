@@ -40,9 +40,9 @@ public class MCQ extends PollAbstract {
     /**
      * Ajoute une nouvelle question au MCQ et dans la DB
      */
-    public void addQuestion(String title)
+    public void addQuestion(String title,int qpos)
     {
-        Question question = new Question(title,0);
+        Question question = new Question(title,0,qpos);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyQuestionAuthor(),author.getId());

@@ -7,10 +7,12 @@ package be.lsinf1225gr12.minipoll.minipoll.model;
 public class Question {
     private String title;
     private int rightAnswerPosition;
+    private int qPos;
 
-    public Question(String title, int rightAnswerPosition)
+    public Question(String title, int rightAnswerPosition, int qPos)
     {
         this.title = title;
         this.rightAnswerPosition = rightAnswerPosition;
+        this.qPos=qPos;
     }
 }
