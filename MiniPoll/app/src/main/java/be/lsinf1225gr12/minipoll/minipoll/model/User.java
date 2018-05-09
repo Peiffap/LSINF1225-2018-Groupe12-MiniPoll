@@ -98,7 +98,9 @@ public class User {
         this.bestfriend = bestfriend;
     }
 
-    /* Renvoie la liste de tous les utilisateurs */
+    /**
+     *  Renvoie la liste de tous les utilisateurs
+     */
     public static ArrayList<User> getUsers(){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -145,7 +147,6 @@ public class User {
 
         return users;
     }
-
 
 }
 
