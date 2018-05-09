@@ -46,7 +46,7 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
         for(int i=0; i< User.getFriends(User.getConnectedUser()).size();i++){
             m+=(User.getFriends(User.getConnectedUser()).get(i).getLogin()+"-");
         }
-        String[] Login = m.split("-");
+        String[]Login = m.split("-");
         m = "";
         for(int i=0; i< User.getFriends(User.getConnectedUser()).size();i++){
             m+=(User.getFriends(User.getConnectedUser()).get(i).getFirstname()+" "+User.getFriends(User.getConnectedUser()).get(i).getName()+"-");
