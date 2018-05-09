@@ -197,7 +197,7 @@ public class User {
 
         return users;
     }
-    
+
     /**
      * Renvoie la liste de tous les amis d'un utilisateur
      */
@@ -246,7 +246,7 @@ public class User {
         db.close();
 
         return users;
-    }*/
+    }
 
 
 }
