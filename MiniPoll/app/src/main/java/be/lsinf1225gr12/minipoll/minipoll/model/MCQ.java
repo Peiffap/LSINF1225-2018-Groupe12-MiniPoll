@@ -62,7 +62,7 @@ public class MCQ extends PollAbstract {
     /**
      * Ajoute une réponse possible à une question
      */
-    public void addMCQAnswer(Question question, String description)
+    public void addQuestionChoise(Question question, String description)
     {
         MCQAnswer mcqAnswer = new MCQAnswer(description);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
@@ -88,6 +88,7 @@ public class MCQ extends PollAbstract {
      */
     public void giveAnswer(Question question, MCQAnswer mcqAnswer)
     {
+
 
     }
 
