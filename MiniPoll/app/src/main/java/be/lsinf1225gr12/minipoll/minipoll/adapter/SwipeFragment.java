@@ -20,8 +20,10 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
     TextView viewID;
     TextView viewName;
     TextView viewMail;
+    TextView Hidden;
     ImageButton IBFav;
     ImageButton IBRem;
+    ImageButton HiddenButton;
 
     public SwipeFragment() {
         // Required empty public constructor
@@ -36,8 +38,10 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
         viewID = (TextView) v.findViewById(R.id.textView2);
         viewName = (TextView) v.findViewById(R.id.textView3);
         viewMail = (TextView) v.findViewById(R.id.textView4);
+        Hidden = (TextView) v.findViewById(R.id.hidden);
         IBFav = (ImageButton) v.findViewById(R.id.imageButton1);
         IBRem = (ImageButton) v.findViewById(R.id.imageButton2);
+        HiddenButton= (ImageButton) v.findViewById(R.id.HB);
         String m = "";
         for(int i=0; i< User.getFriends(User.getConnectedUser()).size();i++){
             m+=(User.getFriends(User.getConnectedUser()).get(i).getLogin()+"-");
@@ -60,14 +64,25 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
             IBRem.setVisibility(View.GONE);
         }
         Bundle bdl = getArguments();
+
+        IBFav.setImageMatrix(HiddenButton.getImageMatrix());
+        Hidden.setText(String.valueOf(bdl.getInt("count")-1));
         viewID.setText(Login[bdl.getInt("count") - 1]);
         viewName.setText(Name[bdl.getInt("count") - 1]);
         viewMail.setText(Mail[bdl.getInt("count") - 1]);
+
         return v;
     }
-
     public void remove (View v){
-
+        Hidden = (TextView) v.findViewById(R.id.hidden);
+        Hidden.getText();
+        int i = Integer.parseInt(Hidden.toString());
+        User.removeFriend(User.getConnectedUser(),User.getFriends(User.getConnectedUser()).get(i));
     }
-
+    public void addFav(View v){
+        Hidden = (TextView) v.findViewById(R.id.hidden);
+        Hidden.getText();
+        int i = Integer.parseInt(Hidden.toString());
+        User.getConnectedUser().setBestfriend(User.getFriends(User.getConnectedUser()).get(i).getId());
+    }
 }
