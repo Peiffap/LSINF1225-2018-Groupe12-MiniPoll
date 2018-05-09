@@ -158,7 +158,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static MySQLiteHelper sInstance;
 
     /**
-     * Fournit une instance de notre MySQLiteHelper.
+     * Gets an instance of MySQLiteHelper.
      *
      * @return MySQLiteHelper
      */
