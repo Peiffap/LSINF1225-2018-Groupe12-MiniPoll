@@ -55,6 +55,25 @@ public class Poll extends PollAbstract {
         this.question=question;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyPollNumbertop(),number_top);
+        cv.put(MySQLiteHelper.getKeyPollNumberchoice(),number_answer);
+        cv.put(MySQLiteHelper.getKeyPollDate(),date);
+        cv.put(MySQLiteHelper.getKeyPollAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyPollTitle(),name);
+        cv.put(MySQLiteHelper.getKeyPollQuestion(),question);
+        cv.put(MySQLiteHelper.getKeyPollIspoll(),isChoice);
+        cv.put(MySQLiteHelper.getKeyPollFormat(),format);
+        cv.put(MySQLiteHelper.getKeyPollIsclosed(),false);
+
+        int result = (int)db.insert(getTablePoll(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+
+        }
+        db.close();
 
 
     }
@@ -137,46 +156,7 @@ public class Poll extends PollAbstract {
     {
         this.pollAnswer = pollAnswer;
     }
-    /**
-     * Crée un nouvel élément dans la base de données.
-     *
-     * @param number_top        nombre de top à faire
-     * @param number_answer     nombre d'answer rajouter
-     * @param date              date de création
-     * @param author            auteur  du poll
-     * @param name              nom du poll
-     * @param isChoice          Type du sondage
-     * @param format            Format des propositions
-     *
-     *
-     * @return Vrai (true) en cas de succès, faux (false) en cas d'échec.
-     *
-     * @post Enregistre le nouvel objet dans la base de données.
-     */
-    public static boolean createPoll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format,String question) {
 
-        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyPollNumbertop(),number_top);
-        cv.put(MySQLiteHelper.getKeyPollNumberchoice(),number_answer);
-        cv.put(MySQLiteHelper.getKeyPollDate(),date);
-        cv.put(MySQLiteHelper.getKeyPollAuthor(),author.getId());
-        cv.put(MySQLiteHelper.getKeyPollTitle(),name);
-        cv.put(MySQLiteHelper.getKeyPollQuestion(),question);
-        cv.put(MySQLiteHelper.getKeyPollIspoll(),isChoice);
-        cv.put(MySQLiteHelper.getKeyPollFormat(),format);
-        cv.put(MySQLiteHelper.getKeyPollIsclosed(),false);
-
-        int result = (int)db.insert(getTablePoll(), null, cv);
-        if (result==-1)
-        {
-            //erreur dans l'ajout, suppression
-            return false;
-        }
-        db.close();
-
-        return true;
-    }
 
 }
 
