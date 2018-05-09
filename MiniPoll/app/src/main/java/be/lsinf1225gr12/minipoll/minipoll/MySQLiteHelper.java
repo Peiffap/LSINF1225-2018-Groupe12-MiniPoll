@@ -14,23 +14,50 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-//nom des classes ressources
-/*
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationEval;
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationMCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Poll;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAbstract;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Question;
-import be.lsinf1225gr12.minipoll.minipollapp.User;
-*/
-
-/*
+/**
 classe générale pour accès à la DB.
-Pour plus de détails sur le fonctionnement, consulter https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
-*/
+
+ Emploi :
+
+ * lire la DB :
+
+SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
+String[] selectionArgs = new String[]{String.valueOf(VALEUR), String.valueOf(VALEUR)};
+Cursor c = db.query(NOM_TABLE, NOM_COLONNE, selection, selectionArgs, null, null, null);
+c.moveToFirst(); //place au premier résultat
+//c.moveToNext(); //place au prochain résultat
+//c.isLast(); //true si on est au dernier élément
+c.close();
+db.close();
+
+ * écrire dans la DB :
+
+SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+ContentValues cv = new ContentValues();
+cv.put(NOM_COLONNE,VALEUR);
+int result = db.insert(NOM_TABLE, null, cv);
+if (result==-1)
+{
+	//erreur dans l'ajout, suppression
+}
+db.close();
+
+ * modifier la DB :
+
+SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+ContentValues cv = new ContentValues();
+String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
+String[] selectionArgs = new String[]{String.valueOf(VALEUR), String.valueOf(VALEUR)};
+cv.update(NIM_TABLE, cv, selection, selectionArgs);
+int result = db.insert(NOM_TABLE, null, cv);
+if (result==-1)
+{
+	//erreur dans l'ajout, suppression
+}
+db.close();
+
+ */
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "Database";
@@ -129,6 +156,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static MySQLiteHelper sInstance;
 
+    /**
+     * Fournit une instance de notre MySQLiteHelper.
+     *
+     * @return MySQLiteHelper
+     */
+    public static MySQLiteHelper get() {
+        if (sInstance == null) {
+            return new MySQLiteHelper(MiniPollApp.getContext());
+        }
+        return sInstance;
+    }
+
     public static synchronized MySQLiteHelper getInstance(Context context) {
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
@@ -163,7 +202,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "(\n" +
                 KEY_ANSWERPOLL_USER + " int not null references " + TABLE_USER + " (" + KEY_USER_ID + "),\n" +
                 KEY_ANSWERPOLL_AUTHOR + " int not null,\n" +
-                KEY_ANSWERPOLL_DATE + " datetime not null,\n" +
+                KEY_ANSWERPOLL_DATE + " int not null,\n" +
                 KEY_ANSWERPOLL_CHOICE + " int not null,\n" +
                 KEY_ANSWERPOLL_SCORE + " int not null,\n" +
                 "foreign key (\n" +
@@ -181,7 +220,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_ANSWERQUESTION_TABLE = "CREATE TABLE " + TABLE_ANSWERQUESTION +
                 "(\n" +
                 KEY_ANSWERQUESTION_AUTHOR + " int not null,\n" +
-                KEY_ANSWERQUESTION_DATE + " datetime not null,\n" +
+                KEY_ANSWERQUESTION_DATE + " int not null,\n" +
                 KEY_ANSWERQUESTION_POSITION + " int not null,\n" +
                 KEY_ANSWERQUESTION_QUESTIONPOSITION + " int not null,\n" +
                 KEY_ANSWERQUESTION_USER + " int not null references " + TABLE_USER + " (" + KEY_USER_ID + "),\n" +
@@ -202,7 +241,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_CHOICEPOLL_TABLE = "CREATE TABLE " + TABLE_CHOICEPOLL +
                 "(\n" +
                 KEY_CHOICEPOLL_AUTHOR + " int not null,\n" +
-                KEY_CHOICEPOLL_DATE + " datetime not null,\n" +
+                KEY_CHOICEPOLL_DATE + " int not null,\n" +
                 KEY_CHOICEPOLL_TEXT + " text not null,\n" +
                 KEY_CHOICEPOLL_POSITION + " int not null,\n" +
                 "primary key (\n" +
@@ -224,7 +263,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "(\n" +
                 KEY_CHOICEQUESTION_POSITION + " int not null,\n" +
                 KEY_CHOICEQUESTION_AUTHOR + " int not null,\n" +
-                KEY_CHOICEQUESTION_DATE + " datetime not null,\n" +
+                KEY_CHOICEQUESTION_DATE + " int not null,\n" +
                 KEY_CHOICEQUESTION_TEXT + " text not null,\n" +
                 KEY_CHOICEQUESTION_QUESTIONPOSITION + " int not null,\n" +
                 "primary key (\n" +
@@ -255,7 +294,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_MCQ_TABLE = "CREATE TABLE " + TABLE_MCQ +
                 "(\n" +
                 KEY_MCQ_AUTHOR + " int references " + TABLE_USER + " (" + KEY_USER_ID + ") not null,\n" +
-                KEY_MCQ_DATE + " datetime not null,\n" +
+                KEY_MCQ_DATE + " int not null,\n" +
                 KEY_MCQ_TITLE + " text not null,\n" +
                 KEY_MCQ_FORMAT + " text not null,\n" +
                 KEY_MCQ_ISCLOSED + " boolean not null,\n" +
@@ -270,7 +309,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "(\n" +
                 KEY_PARTICIPATIONPOLL_USER + " int not null references " + TABLE_USER + " (" + KEY_USER_ID + "),\n" +
                 KEY_PARTICIPATIONPOLL_AUTHOR + " int not null,\n" +
-                KEY_PARTICIPATIONPOLL_DATE + " datetime not null,\n" +
+                KEY_PARTICIPATIONPOLL_DATE + " int not null,\n" +
                 "foreign key (" +
                 KEY_PARTICIPATIONPOLL_AUTHOR + ",\n" +
                 KEY_PARTICIPATIONPOLL_DATE + "\n" +
@@ -285,7 +324,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "(\n" +
                 KEY_PARTICIPATIONQUESTION_USER + " int not null references " + TABLE_USER + " (" + KEY_USER_ID + "),\n" +
                 KEY_PARTICIPATIONQUESTION_AUTHOR + " int not null,\n" +
-                KEY_PARTICIPATIONQUESTION_DATE + " datetime not null,\n" +
+                KEY_PARTICIPATIONQUESTION_DATE + " int not null,\n" +
                 "foreign key (" +
                 KEY_PARTICIPATIONQUESTION_AUTHOR + ",\n" +
                 KEY_PARTICIPATIONQUESTION_DATE + "\n" +
@@ -299,7 +338,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_POLL_TABLE = "CREATE TABLE " + TABLE_POLL +
                 "(\n" +
                 KEY_POLL_AUTHOR + " int references " + TABLE_USER + " (" + KEY_USER_ID + ") not null,\n" +
-                KEY_POLL_DATE + " datetime not null,\n" +
+                KEY_POLL_DATE + " int not null,\n" +
                 KEY_POLL_TITLE + " text not null,\n" +
                 KEY_POLL_QUESTION + " text not null,\n" +
                 KEY_POLL_FORMAT + " text not null,\n" +
@@ -316,7 +355,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_QUESTION +
                 "(\n" +
                 KEY_QUESTION_AUTHOR + " int not null,\n" +
-                KEY_QUESTION_DATE + " datetime not null,\n" +
+                KEY_QUESTION_DATE + " int not null,\n" +
                 KEY_QUESTION_DESCRIPTION + " text not null,\n" +
                 KEY_QUESTION_POSITION + " int not null,\n" +
                 KEY_QUESTION_RIGHTANSWER + " int not null,\n" +

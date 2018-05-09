@@ -14,20 +14,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-//nom des classes ressources
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationEval;
-import be.lsinf1225gr12.minipoll.minipollapp.AssociationMCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQ;
-import be.lsinf1225gr12.minipoll.minipollapp.MCQAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Poll;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAbstract;
-import be.lsinf1225gr12.minipoll.minipollapp.PollAnswer;
-import be.lsinf1225gr12.minipoll.minipollapp.Question;
-import be.lsinf1225gr12.minipoll.minipollapp.User;
 /*
 classe générale pour accès à la DB.
 Pour plus de détails sur le fonctionnement, consulter https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
 */
+
 public class MySQLiteHelper extends SQLiteOpenHelper{
     // Database Info
     private static final String DATABASE_NAME = "Database";
