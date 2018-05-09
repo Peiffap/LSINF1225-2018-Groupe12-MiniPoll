@@ -197,16 +197,11 @@ public class User {
 
         return users;
     }
-
-<<<<<<< HEAD
+    
     /**
      * Renvoie la liste de tous les amis d'un utilisateur
      */
-    public static ArrayList<User> getFriends(User temp){
-=======
-    /* Renvoie la liste de tous les amis d'un utilisateur */
-    /*public static ArrayList<User> getFriends(User temp){
->>>>>>> 36c0d207ada9a587111a9e18bf46f05bbd80884a
+    public static ArrayList<User> getFriends(User temp) {
 
         long searchId = temp.getId();
         String selection = MySQLiteHelper.getKeyUserId() + " IN (select SENDER from FRL WHERE (status = friend AND receiver = searchID)) UNION (select receiver from FRL WHERE (status = friend AND sender = searchID))";
