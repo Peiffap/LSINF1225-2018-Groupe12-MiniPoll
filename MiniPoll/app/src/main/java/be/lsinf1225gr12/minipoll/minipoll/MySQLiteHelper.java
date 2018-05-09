@@ -674,6 +674,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_POLL_TABLE);
         db.execSQL(CREATE_QUESTION_TABLE);
 
+        MiniPollApp.notifyShort(R.string.login_wrong_password_msg);
+
         ContentValues cv = new ContentValues();
         cv.put(KEY_USER_ID,1);
         cv.put(KEY_USER_LOGIN,"Benoit");
