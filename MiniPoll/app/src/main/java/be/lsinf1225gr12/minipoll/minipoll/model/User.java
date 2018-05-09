@@ -133,7 +133,6 @@ public class User {
                 user = new User(id,login,password,picture,mail,firstname,name,bestFriend);
             }
 
-
             // Ajout de l'utilisateur à la liste.
             users.add(user);
 
@@ -147,7 +146,6 @@ public class User {
 
         return users;
     }
-
 }
 
 
