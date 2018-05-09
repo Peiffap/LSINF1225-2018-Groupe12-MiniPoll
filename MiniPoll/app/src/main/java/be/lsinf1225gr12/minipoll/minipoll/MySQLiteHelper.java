@@ -48,14 +48,23 @@ db.close();
 
 SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
 ContentValues cv = new ContentValues();
+cv.put(NOM_COLONNE,VALEUR);
 String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
 String[] selectionArgs = new String[]{String.valueOf(VALEUR), String.valueOf(VALEUR)};
-cv.update(NIM_TABLE, cv, selection, selectionArgs);
+db.update(NOM_TABLE, cv, selection, selectionArgs);
 int result = (int) db.insert(NOM_TABLE, null, cv);
 if (result==-1)
 {
 	//erreur dans l'ajout, suppression
 }
+db.close();
+
+ * effacer des données de la DB :
+
+SQLiteDatabase db = MySQLiteHelper?get().getWritableDatabase();
+String selection = NOM_COLONNE + " = ? AND " + AUTRE_NOM_COLONNE + " = ?"; //rajouter autant qu'il faut
+String[] selectionArgs = new String[]{String.valueOf(cv.valeur), String.valueOf(cv.VALEUR)};
+db.delete(TABLE_NAME, selection, selectionArgs)
 db.close();
 
  */
