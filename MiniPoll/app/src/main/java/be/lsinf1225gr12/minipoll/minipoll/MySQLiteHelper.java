@@ -157,6 +157,281 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static MySQLiteHelper sInstance;
 
+    /* Tous les getters pour avoir le nom des tables */
+
+
+    public static int getDatabaseVersion() {
+        return DATABASE_VERSION;
+    }
+
+    public static String getTableAnswerpoll() {
+        return TABLE_ANSWERPOLL;
+    }
+
+    public static String getTableAnswerquestion() {
+        return TABLE_ANSWERQUESTION;
+    }
+
+    public static String getTableChoicepoll() {
+        return TABLE_CHOICEPOLL;
+    }
+
+    public static String getTableChoicequestion() {
+        return TABLE_CHOICEQUESTION;
+    }
+
+    public static String getTableFriendrelation() {
+        return TABLE_FRIENDRELATION;
+    }
+
+    public static String getTableMcq() {
+        return TABLE_MCQ;
+    }
+
+    public static String getTableParticipationpoll() {
+        return TABLE_PARTICIPATIONPOLL;
+    }
+
+    public static String getTableParticipationquestion() {
+        return TABLE_PARTICIPATIONQUESTION;
+    }
+
+    public static String getTablePoll() {
+        return TABLE_POLL;
+    }
+
+    public static String getTableQuestion() {
+        return TABLE_QUESTION;
+    }
+
+    public static String getTableUser() {
+        return TABLE_USER;
+    }
+
+    public static String getKeyAnswerpollUser() {
+        return KEY_ANSWERPOLL_USER;
+    }
+
+    public static String getKeyAnswerpollAuthor() {
+        return KEY_ANSWERPOLL_AUTHOR;
+    }
+
+    public static String getKeyAnswerpollDate() {
+        return KEY_ANSWERPOLL_DATE;
+    }
+
+    public static String getKeyAnswerpollChoice() {
+        return KEY_ANSWERPOLL_CHOICE;
+    }
+
+    public static String getKeyAnswerpollScore() {
+        return KEY_ANSWERPOLL_SCORE;
+    }
+
+    public static String getKeyAnswerquestionAuthor() {
+        return KEY_ANSWERQUESTION_AUTHOR;
+    }
+
+    public static String getKeyAnswerquestionDate() {
+        return KEY_ANSWERQUESTION_DATE;
+    }
+
+    public static String getKeyAnswerquestionPosition() {
+        return KEY_ANSWERQUESTION_POSITION;
+    }
+
+    public static String getKeyAnswerquestionQuestionposition() {
+        return KEY_ANSWERQUESTION_QUESTIONPOSITION;
+    }
+
+    public static String getKeyAnswerquestionUser() {
+        return KEY_ANSWERQUESTION_USER;
+    }
+
+    public static String getKeyChoicepollAuthor() {
+        return KEY_CHOICEPOLL_AUTHOR;
+    }
+
+    public static String getKeyChoicepollDate() {
+        return KEY_CHOICEPOLL_DATE;
+    }
+
+    public static String getKeyChoicepollText() {
+        return KEY_CHOICEPOLL_TEXT;
+    }
+
+    public static String getKeyChoicepollPosition() {
+        return KEY_CHOICEPOLL_POSITION;
+    }
+
+    public static String getKeyChoicequestionPosition() {
+        return KEY_CHOICEQUESTION_POSITION;
+    }
+
+    public static String getKeyChoicequestionAuthor() {
+        return KEY_CHOICEQUESTION_AUTHOR;
+    }
+
+    public static String getKeyChoicequestionDate() {
+        return KEY_CHOICEQUESTION_DATE;
+    }
+
+    public static String getKeyChoicequestionText() {
+        return KEY_CHOICEQUESTION_TEXT;
+    }
+
+    public static String getKeyChoicequestionQuestionposition() {
+        return KEY_CHOICEQUESTION_QUESTIONPOSITION;
+    }
+
+    public static String getKeyFriendrelationSender() {
+        return KEY_FRIENDRELATION_SENDER;
+    }
+
+    public static String getKeyFriendrelationReceiver() {
+        return KEY_FRIENDRELATION_RECEIVER;
+    }
+
+    public static String getKeyFriendrelationStatus() {
+        return KEY_FRIENDRELATION_STATUS;
+    }
+
+    public static String getKeyMcqAuthor() {
+        return KEY_MCQ_AUTHOR;
+    }
+
+    public static String getKeyMcqDate() {
+        return KEY_MCQ_DATE;
+    }
+
+    public static String getKeyMcqTitle() {
+        return KEY_MCQ_TITLE;
+    }
+
+    public static String getKeyMcqFormat() {
+        return KEY_MCQ_FORMAT;
+    }
+
+    public static String getKeyMcqIsclosed() {
+        return KEY_MCQ_ISCLOSED;
+    }
+
+    public static String getKeyMcqNumberquestion() {
+        return KEY_MCQ_NUMBERQUESTION;
+    }
+
+    public static String getKeyParticipationpollUser() {
+        return KEY_PARTICIPATIONPOLL_USER;
+    }
+
+    public static String getKeyParticipationpollAuthor() {
+        return KEY_PARTICIPATIONPOLL_AUTHOR;
+    }
+
+    public static String getKeyParticipationpollDate() {
+        return KEY_PARTICIPATIONPOLL_DATE;
+    }
+
+    public static String getKeyParticipationquestionUser() {
+        return KEY_PARTICIPATIONQUESTION_USER;
+    }
+
+    public static String getKeyParticipationquestionAuthor() {
+        return KEY_PARTICIPATIONQUESTION_AUTHOR;
+    }
+
+    public static String getKeyParticipationquestionDate() {
+        return KEY_PARTICIPATIONQUESTION_DATE;
+    }
+
+    public static String getKeyPollAuthor() {
+        return KEY_POLL_AUTHOR;
+    }
+
+    public static String getKeyPollDate() {
+        return KEY_POLL_DATE;
+    }
+
+    public static String getKeyPollTitle() {
+        return KEY_POLL_TITLE;
+    }
+
+    public static String getKeyPollQuestion() {
+        return KEY_POLL_QUESTION;
+    }
+
+    public static String getKeyPollFormat() {
+        return KEY_POLL_FORMAT;
+    }
+
+    public static String getKeyPollNumbertop() {
+        return KEY_POLL_NUMBERTOP;
+    }
+
+    public static String getKeyPollNumberchoice() {
+        return KEY_POLL_NUMBERCHOICE;
+    }
+
+    public static String getKeyPollIspoll() {
+        return KEY_POLL_ISPOLL;
+    }
+
+    public static String getKeyPollIsclosed() {
+        return KEY_POLL_ISCLOSED;
+    }
+
+    public static String getKeyQuestionAuthor() {
+        return KEY_QUESTION_AUTHOR;
+    }
+
+    public static String getKeyQuestionDate() {
+        return KEY_QUESTION_DATE;
+    }
+
+    public static String getKeyQuestionDescription() {
+        return KEY_QUESTION_DESCRIPTION;
+    }
+
+    public static String getKeyQuestionPosition() {
+        return KEY_QUESTION_POSITION;
+    }
+
+    public static String getKeyQuestionRightanswer() {
+        return KEY_QUESTION_RIGHTANSWER;
+    }
+
+    public static String getKeyUserId() {
+        return KEY_USER_ID;
+    }
+
+    public static String getKeyUserSurname() {
+        return KEY_USER_SURNAME;
+    }
+
+    public static String getKeyUserFirstname() {
+        return KEY_USER_FIRSTNAME;
+    }
+
+    public static String getKeyUserLogin() {
+        return KEY_USER_LOGIN;
+    }
+
+    public static String getKeyUserPassword() {
+        return KEY_USER_PASSWORD;
+    }
+
+    public static String getKeyUserMail() {
+        return KEY_USER_MAIL;
+    }
+
+    public static String getKeyUserPicture() {
+        return KEY_USER_PICTURE;
+    }
+
+    public static String getKeyUserBestfriend() {
+        return KEY_USER_BESTFRIEND;
+    }
+
     /**
      * Fournit une instance de notre MySQLiteHelper.
      *
