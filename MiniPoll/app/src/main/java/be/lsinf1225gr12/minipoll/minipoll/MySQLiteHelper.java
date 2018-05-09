@@ -589,7 +589,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 "foreign key (" +
                 KEY_PARTICIPATIONPOLL_AUTHOR + ",\n" +
                 KEY_PARTICIPATIONPOLL_DATE + "\n" +
-                ")" +
+                ")\n" +
                 "references " + TABLE_POLL + " (" +
                 KEY_POLL_AUTHOR + ",\n" +
                 KEY_POLL_DATE +
