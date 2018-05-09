@@ -27,9 +27,9 @@ import be.lsinf1225gr12.minipoll.minipollapp.Question;
 import be.lsinf1225gr12.minipoll.minipollapp.User;
 */
 
-/*
-classe générale pour accès à la DB.
-Pour plus de détails sur le fonctionnement, consulter https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
+/**
+ * General database access class
+ * For more details about the way it works, consult https://github.com/codepath/android_guides/wiki/Local-Databases-with-SQLiteOpenHelper
 */
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Info
