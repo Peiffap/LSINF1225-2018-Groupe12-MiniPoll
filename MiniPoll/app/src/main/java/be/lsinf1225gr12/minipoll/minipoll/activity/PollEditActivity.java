@@ -3,6 +3,8 @@ package be.lsinf1225gr12.minipoll.minipoll.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import be.lsinf1225gr12.minipoll.minipoll.R;
+
 public class PollEditActivity extends AppCompatActivity {
 
     @Override

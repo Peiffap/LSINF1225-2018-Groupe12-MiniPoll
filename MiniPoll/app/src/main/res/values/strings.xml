@@ -47,6 +47,12 @@
     <string name="create_choice_poll">Sondage pour un choix</string>
     <string name="create_poll">Créer un sondage</string>
     <string name="create_decision_poll">Sondage pour un accord</string>
+    
+    <!-- Array -->
+    <string-array name="format">
+        <item>Texte</item>
+        <item>Image</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
