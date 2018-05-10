@@ -102,6 +102,18 @@ public class Poll extends PollAbstract {
      */
     public void setPollAnswerPosition(PollAnswer pollanswer,int position)
     {
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),position);
+        String selection = MySQLiteHelper.getKeyChoicepollAuthor() + " = ? AND " + MySQLiteHelper.getKeyChoicepollDate() + " = ?"+MySQLiteHelper.getKeyChoicepollText(); //rajouter autant qu'il faut
+        String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(date),pollanswer.getDescription()};
+        db.update(MySQLiteHelper.getTableQuestion(), cv, selection, selectionArgs);
+        int result = (int) db.insert(MySQLiteHelper.getTableChoicepoll(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
 
 
     }
