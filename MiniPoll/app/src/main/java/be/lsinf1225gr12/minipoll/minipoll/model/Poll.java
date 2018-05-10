@@ -79,8 +79,13 @@ public class Poll extends PollAbstract {
 
 
     }
+    /**
+     * * Fonction qui ajoute une posibilité à la dbavec une description à la position ...
+     * @param description description de la proposition
+     * @param position position de la proposition dans le sondage
+     */
 
-    public void addChoicePoll(String description)
+    public void addChoicePoll(String description,int position)
     {
         PollAnswer pollanswer = new PollAnswer(description,0);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
@@ -88,7 +93,7 @@ public class Poll extends PollAbstract {
         cv.put(MySQLiteHelper.getKeyChoicepollAuthor(),author.getId());
         cv.put(MySQLiteHelper.getKeyChoicepollDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
-        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),0);
+        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),position);
         int result = (int) db.insert(MySQLiteHelper.getTableChoicepoll(), null, cv);
         if (result==-1)
         {
@@ -98,7 +103,9 @@ public class Poll extends PollAbstract {
         this.pollAnswer.add(pollanswer);
     }
     /**
-     * Set la position de la pollanswer
+     * Fonction qui modifie la position d'une pollchoice in db ...
+     * @param pollanswer description de la proposition
+     * @param position position de la proposition dans le sondage
      */
     public void setChoicePollPosition(PollAnswer pollanswer,int position)
     {
@@ -118,7 +125,10 @@ public class Poll extends PollAbstract {
 
     }
     /**
-     * Ecrit dans la db le vote d'un user
+     * Fonction qui ajoute une réponse d'un utilisateur dans la db ...
+     * @param pollanswer De quelle réponse on veux donné une valeur de score
+     * @param score Le score qu'on donne à cette answer
+     * @param user Quel user donne quel score a quel answer
      */
     public void addPollAnswer(User user,int score,PollAnswer pollanswer)
     {
@@ -130,7 +140,7 @@ public class Poll extends PollAbstract {
         cv.put(MySQLiteHelper.getKeyAnswerpollChoice() ,pollanswer.getInPollPosition());
         cv.put(MySQLiteHelper.getKeyAnswerpollScore(),score);
         cv.put(MySQLiteHelper.getKeyAnswerpollUser(),user.getId());
-        int result = (int) db.insert(MySQLiteHelper.getTableChoicepoll(), null, cv);
+        int result = (int) db.insert(MySQLiteHelper.getTableAnswerpoll(), null, cv);
         if (result==-1)
         {
             //erreur dans l'ajout, suppression
@@ -139,6 +149,26 @@ public class Poll extends PollAbstract {
 
     }
 
+
+   //public int getScoredPollChoice(PollAnswer pollAnswer )
+   // {
+       // int sumScore;
+        //selectionner tout les score  D'un pollanswer avec un author une date et une position
+        //Select score Where author and date and position
+
+       // SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+       // String selection = MySQLiteHelper.getKeyAnswerpollAuthor() + " = ? AND " + MySQLiteHelper.getKeyAnswerpollDate() + " = ?"+MySQLiteHelper.getKeyAnswerpollChoice()+"=?"; //rajouter autant qu'il faut
+       // String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(this.getDate()),String.valueOf(pollAnswer.getInPollPosition())};
+        //Cursor c = db.query(MySQLiteHelper.getTableAnswerpoll(), MySQLiteHelper.getKeyAnswerpollScore(), selection, selectionArgs, null, null, null);
+        //  c.moveToFirst(); //place au premier résultat
+//c.moveToNext(); //place au prochain résultat
+//c.isLast(); //true si on est au dernier élément
+        // c.getTYPE(...); //différents type de get, cf https://developer.android.com/reference/android/database/Cursor#getcolumnindex
+        // c.close();
+       //db.close();
+
+       // return 0;
+   // }
     /**
      * Fournit la question
      */
@@ -207,26 +237,7 @@ public class Poll extends PollAbstract {
     /**
      * Modifie le tableau avec les differentes Pollanswers
      */
-    public void addPollAnswer(String description, int inPollPosition)
-    {
 
-        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
-        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),inPollPosition);
-        cv.put(MySQLiteHelper.getKeyChoicepollDate(),date);
-        cv.put(MySQLiteHelper.getKeyChoicepollAuthor(),author.getId());
-
-
-        int result = (int)db.insert(getTablePoll(), null, cv);
-        if (result==-1)
-        {
-            //erreur dans l'ajout, suppression
-
-        }
-        db.close();
-
-    }
 
 
 }

@@ -5,6 +5,9 @@ package be.lsinf1225gr12.minipoll.minipoll.model;
  */
 
 public class MCQAnswer {
+    /**
+     * Description du MCQAnswer
+     */
     private String description;
 
     public MCQAnswer (String title)
