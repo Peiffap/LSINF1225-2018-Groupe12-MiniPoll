@@ -1,5 +1,7 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
+import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
+import be.lsinf1225gr12.minipoll.minipoll.R;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -63,7 +65,7 @@ public class User {
         this.login = login;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserLogin(),String.valueOf(login));
+        cv.put(MySQLiteHelper.getKeyUserLogin(),login);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -81,7 +83,7 @@ public class User {
         this.password = password;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserPassword(),String.valueOf(password));
+        cv.put(MySQLiteHelper.getKeyUserPassword(),password);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -99,7 +101,7 @@ public class User {
         this.picture = picture;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserPicture(),String.valueOf(picture));
+        cv.put(MySQLiteHelper.getKeyUserPicture(),picture);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -117,7 +119,7 @@ public class User {
         this.mail = mail;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserMail(),String.valueOf(mail));
+        cv.put(MySQLiteHelper.getKeyUserMail(),mail);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -135,7 +137,7 @@ public class User {
         this.firstname = firstname;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserFirstname(),String.valueOf(firstname));
+        cv.put(MySQLiteHelper.getKeyUserFirstname(),firstname);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -153,7 +155,7 @@ public class User {
         this.name = name;
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserSurname(),String.valueOf(name));
+        cv.put(MySQLiteHelper.getKeyUserSurname(),name);
         db.update(MySQLiteHelper.getTableUser(), cv, null, null);
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
@@ -366,7 +368,7 @@ public class User {
      */
     private static void addUser(User user){
         // Récupération du  SQLiteHelper et de la base de données.
-        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyUserId(),user.getId());
@@ -381,7 +383,7 @@ public class User {
         if(result==-1)
         {
             //erreur dans l'ajout, suppression
-            //QUE METTRE ICI ?????????
+            MiniPollApp.notifyLong(R.string.personalized);
         }
 
         db.close();
@@ -403,8 +405,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
-            //QUE METTRE ICI ????
+            MiniPollApp.notifyLong(R.string.no_copy_database);
         }
         db.close();
     }
@@ -609,6 +610,7 @@ public class User {
      * @param bestfriend son bestfriend -> tjr 0
      */
     public static void createNewUser(String login, String password, String picture, String mail, String firstname, String name, int bestfriend) {
+        User.globalId = getHighestId();
         int id = getGlobalId();
         User user = new User(id,login,password,picture,mail,firstname,name,bestfriend);
         addUser(user);
@@ -630,6 +632,28 @@ public class User {
             //erreur dans l'ajout, suppression
         }
         db.close();
+    }
+
+    /**
+     * Fonction qui renvoie le plus haut id présent dans la database pour permettre de créer un nouvel utilisateur
+     * @return plus haut id de la database
+     */
+    private static int getHighestId(){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT MAX("+MySQLiteHelper.getKeyUserId()+") FROM " + MySQLiteHelper.getTableUser(),null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+        int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return id;
     }
 }
 
