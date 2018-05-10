@@ -23,6 +23,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isNullOrWhitespace;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidEmail;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidField;
+import be.lsinf1225gr12.minipoll.minipoll.model.User.*;
 
 public class UpdateProfileActivity extends Activity implements TextView.OnEditorActionListener {
 
@@ -32,6 +33,12 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+        TextView fn = (TextView) this.findViewById(R.id.profile_update_first_name);
+        fn.setText(User.getConnectedUser().getFirstname());
+        TextView ln = (TextView) this.findViewById(R.id.profile_update_last_name);
+        ln.setText(User.getConnectedUser().getName());
+        TextView mail = (TextView) this.findViewById(R.id.profile_update_email);
+        mail.setText(User.getConnectedUser().getMail());
     }
 
     /**
@@ -47,40 +54,42 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
      * @param v Une vue quelconque (n'est pas utilisé ici, mais requis par le onClick)
      */
     public void updateProfile(View v) {
-        EditText emailEditText = findViewById(R.id.profile_creation_email);
-        String email = emailEditText.getText().toString();
-        EditText firstNameEditText = findViewById(R.id.profile_creation_first_name);
+        EditText firstNameEditText = findViewById(R.id.profile_update_first_name);
         String firstName = firstNameEditText.getText().toString();
-        EditText lastNameEditText = findViewById(R.id.profile_creation_last_name);
+        EditText lastNameEditText = findViewById(R.id.profile_update_last_name);
         String lastName = lastNameEditText.getText().toString();
+        EditText emailEditText = findViewById(R.id.profile_update_email);
+        String email = emailEditText.getText().toString();
 
-        if (isValidEmail(email)) {
-            if (isValidField(firstName)) {
-                if (isValidField(lastName)) {
-                    //Get the bundle
-                    Bundle bundle = getIntent().getExtras();
-
-                    //Extract the data…
-                    ArrayList<String> credentials = bundle.getStringArrayList("credentials");
-
-                    String login = credentials.get(0);
-                    String password = credentials.get(1);
-
-                    User.createNewUser(login, password, null, email, firstName, lastName, 0);
-
-                    // TODO Add image to user in db.
-
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
+        if (isValidField(firstName)) {
+            if (isValidField(lastName)) {
+                if (isValidEmail(email)) {
+                    User.getConnectedUser().setMail(email);
+                    User.getConnectedUser().setFirstname(firstName);
+                    User.getConnectedUser().setName(lastName);
                 } else {
-                    MiniPollApp.notifyShort(R.string.profile_creation_invalid_last_name_msg);
+                    MiniPollApp.notifyShort(R.string.profile_update_invalid_email_msg);
                 }
             } else {
-                MiniPollApp.notifyShort(R.string.profile_creation_invalid_first_name_msg);
+                MiniPollApp.notifyShort(R.string.profile_update_invalid_last_name_msg);
             }
         } else {
-            MiniPollApp.notifyShort(R.string.profile_creation_invalid_email_msg);
+            MiniPollApp.notifyShort(R.string.profile_update_invalid_first_name_msg);
         }
+    }
+
+    /**
+     * Amène l'utilisateur vers l'écran de changement de login.
+     * <p>
+     * Cette méthode est appelée grâce à l'attribut onClick indiqué dans le fichier xml de layout
+     * sur le bouton de modification de compte. Elle peut également être appelée depuis la méthode
+     * "onEditorAction" de cette classe.
+     *
+     * @param v Une vue quelconque (n'est pas utilisé ici, mais requis par le onClick)
+     */
+    public void updateCredentials(View v) { // TODO Change activity.class
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -113,7 +122,7 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
 
-                ImageView imageView = (ImageView) findViewById(R.id.picked_image);
+                ImageView imageView = (ImageView) findViewById(R.id.profile_pic);
                 imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
