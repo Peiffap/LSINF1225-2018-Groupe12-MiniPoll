@@ -20,9 +20,11 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
     public static final String NumberChoice = "be.lsinf1225gr12.minipoll.minipoll.activity.NumberChoice";
     public static final String FriendMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.FriendMemoryPoll";
     public static final String FormatMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.FormatMemoryPoll";
+    public static final String NameMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.NameMemoryPoll";
     String text="";
     EditText ET;
     Spinner S;
+    EditText Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +40,26 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
     public void next(View v){
 
         ET = (EditText) findViewById(R.id.giveNumber);
+        Name = (EditText) findViewById(R.id.PollName);
         String et = ET.getText().toString();
+        String name = Name.getText().toString();
         if (et.equals("")){
             Toast.makeText(getBaseContext(),"Veuillez entrer un nombre",Toast.LENGTH_SHORT);
         }
-        else{
+        else if(Integer.parseInt(et)<2||Integer.parseInt(et)>6){
+            Toast.makeText(getBaseContext(),"Veuillez entrer un nombre entre 2 et 6",Toast.LENGTH_SHORT);
+        }
+        else if (name.equals("")){
+            Toast.makeText(getBaseContext(),"Veuillez entrer un nom pour votre sondage",Toast.LENGTH_SHORT);
+        }
+        else {
             Intent pIntent = getIntent();
             int i = Integer.parseInt(et);
             Intent intent = new Intent(this, PollEditActivity.class);
             intent.putExtra(NumberChoice,i);
             intent.putExtra(FriendMemoryPoll,pIntent.getStringArrayExtra(ChooseFriendActivity.FriendMemory));
             intent.putExtra(FormatMemoryPoll,text);
+            intent.putExtra(NameMemoryPoll,name);
             startActivity(intent);
         }
     }
