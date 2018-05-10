@@ -18,9 +18,14 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 public class MainActivity extends Activity {
     // Tous les noms d'activites sont a changer
+
+    private static int countBackPressed=0; //nombre le nombre de fois qu'on a appuyé sur le bouton de retour
+    private static long timeBackPressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        timeBackPressed=System.currentTimeMillis()-2000; //eviter de quitter dès qu'on appuie sur retour
         setContentView(R.layout.activity_main);
     }
 
@@ -57,8 +62,20 @@ public class MainActivity extends Activity {
     /**
      * configure le bouton de retour pour qu'il fasse quitter l'application
      */
+
     @Override
     public void onBackPressed() {
-        finish();
+        if (timeBackPressed + 2000 > System.currentTimeMillis()) //déjà appuyé sur back il y a moins de 2 secondes
+        {
+            finish();
+            User.getConnectedUser().logout();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            MiniPollApp.notifyShort(R.string.menu_logout);
+        }
+        timeBackPressed= System.currentTimeMillis();
+
     }
+
 }

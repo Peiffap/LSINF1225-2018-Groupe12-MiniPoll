@@ -7,6 +7,9 @@ import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
+/**
+ * Activité de création de questionnaire
+ */
 public class CreateChoixActivity extends AppCompatActivity {
 
     @Override
