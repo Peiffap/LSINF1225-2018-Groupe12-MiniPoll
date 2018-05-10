@@ -87,8 +87,8 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
      *
      * @param v Une vue quelconque (n'est pas utilisé ici, mais requis par le onClick)
      */
-    public void updateCredentials(View v) { // TODO Change activity.class
-        Intent intent = new Intent(this, MainActivity.class);
+    public void updateCredentials(View v) {
+        Intent intent = new Intent(this, UpdateCredentialsActivity.class);
         startActivity(intent);
     }
 

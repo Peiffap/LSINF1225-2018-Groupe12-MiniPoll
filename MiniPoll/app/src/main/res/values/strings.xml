@@ -20,6 +20,7 @@
     <string name="registration_password_confirmation_hint">Confirmation du mot de passe</string>
     <string name="registration_password_mismatch_msg">La confirmation est différente du mot de passe</string>
     <string name="registration_password_invalid_msg">Le mot de passe est trop court ou contient des blancs</string>
+    <string name="registration_login_invalid_msg">Le nom d\'utilisateur est trop court ou contient des blancs à ses extrémités</string>
     <string name="registration_existing_login_msg">Le nom d\'utilisateur existe déjà</string>
     <string name="registration_btn">Vers la création de profil</string>
 
@@ -40,6 +41,17 @@
     <string name="profile_update_invalid_email_msg">L\'adresse mail est incorrecte</string>
     <string name="profile_update_invalid_first_name_msg">Le prénom est incorrect</string>
     <string name="profile_update_invalid_last_name_msg">Le nom de famille est incorrect</string>
+
+    <!-- Credentials Update -->
+    <string name="credentials_update_btn">Confirmer</string>
+    <string name="credentials_update_old_password_hint">Ancien mot de passe</string>
+    <string name="credentials_update_new_password_hint">Nouveau mot de passe</string>
+    <string name="credentials_update_new_password_confirmation_hint">Confirmation du nouveau mot de passe</string>
+    <string name="credentials_update_wrong_old_password_msg">L\'ancien mot de passe est incorrect</string>
+    <string name="credentials_update_password_mismatch_msg">La confirmation est différente du mot de passe</string>
+    <string name="credentials_update_invalid_login_msg">Le nom d\'utilisateur est trop court ou contient des blancs à ses extrémités</string>
+    <string name="credentials_update_existing_login_msg">Le nom d\'utilisateur existe déjà</string>
+    <string name="credentials_update_password_invalid_msg">Le mot de passe est trop court ou contient des blancs</string>
 
     <!-- Main / Main Menu -->
     <string name="menu">Menu</string>
