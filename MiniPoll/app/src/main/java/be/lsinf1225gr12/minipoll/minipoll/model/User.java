@@ -6,6 +6,7 @@ import be.lsinf1225gr12.minipoll.minipoll.R;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
@@ -266,6 +267,7 @@ public class User {
      */
     public static ArrayList<User> getFriends(User utilisateur){
         int thisId = utilisateur.getId();
+        Log.d(">>>>>> ID utilisateur",String.valueOf(thisId));
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -276,90 +278,112 @@ public class User {
         String[] colonnes = {MySQLiteHelper.getKeyFriendrelationSender()};
         Cursor cursor = db.query(MySQLiteHelper.getTableFriendrelation(), colonnes, selection, selectionArgs, null, null, null);
 
-        // Placement du curseur sur la première ligne.
-        cursor.moveToFirst();
-
         ArrayList<String> ids = new ArrayList<>();
 
-        // Tant qu'il y a des lignes.
-        while (!cursor.isAfterLast()) {
-            // Récupération des informations de l'utilisateur pour chaque ligne.
-            int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyFriendrelationReceiver()));
+        // Placement du curseur sur la première ligne.
+        boolean cond = !cursor.moveToFirst();
+        Log.d(">>>>>> Valeur du bool 1",String.valueOf(cond));
+        if(!cond){
+            // Tant qu'il y a des lignes.
+            while (!cursor.isAfterLast()) {
+                // Récupération des informations de l'utilisateur pour chaque ligne.
+                int id = cursor.getInt(0);//cursor.getColumnIndex(MySQLiteHelper.getKeyFriendrelationReceiver())
+                // Ajout de l'utilisateur à la liste.
+                ids.add(String.valueOf(id));
 
-            // Ajout de l'utilisateur à la liste.
-            ids.add(String.valueOf(id));
-
-            // Passe à la ligne suivante.
-            cursor.moveToNext();
+                // Passe à la ligne suivante.
+                cursor.moveToNext();
+            }
         }
         cursor.close();
+        db.close();
 
-
+        SQLiteDatabase db2 = MySQLiteHelper.get().getReadableDatabase();
         String selection2 = MySQLiteHelper.getKeyFriendrelationStatus() + " = ? AND " + MySQLiteHelper.getKeyFriendrelationSender() + " = ?";
         String[] selectionArgs2 = new String[]{"Friend", String.valueOf(thisId)};
 
         String[] colonnes2 = {MySQLiteHelper.getKeyFriendrelationReceiver()};
-        Cursor cursor2 = db.query(MySQLiteHelper.getTableFriendrelation(), colonnes2, selection2, selectionArgs2, null, null, null);
+        Cursor cursor2 = db2.query(MySQLiteHelper.getTableFriendrelation(), colonnes2, selection2, selectionArgs2, null, null, null);
 
-        // Placement du curseur sur la première ligne.
-        cursor2.moveToFirst();
+        // Placement du curseur sur la première ligne
+        //boolean cond2 = cursor2.isNull(0);//cursor2.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender())
+        boolean cond2 = !cursor2.moveToFirst();
+        Log.d(">>>>>> Valeur du bool 2",String.valueOf(cond2));
+        if(!cond2) {
 
-        // Tant qu'il y a des lignes.
-        while (!cursor2.isAfterLast()) {
-            // Récupération des informations de l'utilisateur pour chaque ligne.
-            int id = cursor2.getInt(cursor2.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender()));
+            // Tant qu'il y a des lignes.
+            while (!cursor2.isAfterLast()) {
+                // Récupération des informations de l'utilisateur pour chaque ligne.
+                int id = cursor2.getInt(0);//cursor2.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender())
+                // Ajout de l'utilisateur à la liste.
+                ids.add(String.valueOf(id));
 
-            // Ajout de l'utilisateur à la liste.
-            ids.add(String.valueOf(id));
-
-            // Passe à la ligne suivante.
-            cursor2.moveToNext();
+                // Passe à la ligne suivante.
+                cursor2.moveToNext();
+            }
         }
-
         cursor2.close();
+        db2.close();
 
-        String selection3 = MySQLiteHelper.getKeyUserId() + " = ?";
-        String[] selectionArgs3 = new String[ids.size()];
-        selectionArgs3 = ids.toArray(selectionArgs3);
-
-        String[] colonnes3 = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
-        Cursor cursor3 = db.query(MySQLiteHelper.getTableUser(), colonnes3, selection3, selectionArgs3, null, null, null);
-
-        // Placement du curseur sur la première ligne.
-        cursor3.moveToFirst();
+        SQLiteDatabase db3 = MySQLiteHelper.get().getReadableDatabase();
 
         // Initialisation la liste des utilisateurs.
         ArrayList<User> users = new ArrayList<>();
 
-        // Tant qu'il y a des lignes.
-        while (!cursor3.isAfterLast()) {
-            // Récupération des informations de l'utilisateur pour chaque ligne.
-            int id = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserId()));
-            String name = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
-            String firstname = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
-            String login = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
-            String password = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
-            String mail = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
-            String picture = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
-            int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
-            User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+        if(!(cond && cond2)) {
+            String selection3 = createCommand(ids.size());
+            String[] selectionArgs3 = new String[ids.size()];
+            selectionArgs3 = ids.toArray(selectionArgs3);
 
-            // Ajout de l'utilisateur à la liste.
-            users.add(user);
+            String[] colonnes3 = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(), MySQLiteHelper.getKeyUserLogin(), MySQLiteHelper.getKeyUserPassword(), MySQLiteHelper.getKeyUserMail(), MySQLiteHelper.getKeyUserPicture(), MySQLiteHelper.getKeyUserBestfriend()};
+            Cursor cursor3 = db3.query(MySQLiteHelper.getTableUser(), colonnes3, selection3, selectionArgs3, null, null, null);
 
-            // Passe à la ligne suivante.
-            cursor3.moveToNext();
+            // Placement du curseur sur la première ligne.
+            cursor3.moveToFirst();
+
+
+            // Tant qu'il y a des lignes.
+            while (!cursor3.isAfterLast()) {
+                // Récupération des informations de l'utilisateur pour chaque ligne.
+                int id = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+                Log.d("Le code est passé ici",String.valueOf(id));
+                String name = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+                String firstname = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+                String login = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
+                String password = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+                String mail = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
+                String picture = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+                int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+                User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+
+                // Ajout de l'utilisateur à la liste.
+                users.add(user);
+
+                // Passe à la ligne suivante.
+                cursor3.moveToNext();
+            }
+
+            // Fermeture du curseur et de la base de données.
+            cursor3.close();
         }
 
         // Fermeture du curseur et de la base de données.
-        cursor3.close();
 
-        // Fermeture du curseur et de la base de données.
-
-        db.close();
+        db3.close();
 
         return users;
+    }
+
+    private static String createCommand(int n){
+        String command = MySQLiteHelper.getKeyUserId() + " = ?";
+        if(n!=1){
+            for(int i=1; i<n; i++){
+                command = command + " OR " + MySQLiteHelper.getKeyUserId() + " = ?";
+            }
+        }
+        return command;
     }
 
     /**
