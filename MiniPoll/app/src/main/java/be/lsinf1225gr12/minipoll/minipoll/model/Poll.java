@@ -60,7 +60,7 @@ public class Poll extends PollAbstract {
      * @note Ce constructeur est privé (donc utilisable uniquement depuis cette classe). Cela permet
      * d'éviter d'avoir deux instances différentes d'un même Poll.
      */
-    private Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format,String question) {
+    public Poll(int number_top, int number_answer, long date, User author, String name, boolean isChoice, String format,String question) {
         super(format, name, author, date);
         this.number_top = number_top;
         this.question=question;
