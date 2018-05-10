@@ -64,7 +64,7 @@ public class ProfileCreationActivity extends Activity implements TextView.OnEdit
                     String login = credentials.get(0);
                     String password = credentials.get(1);
 
-                    // User.createNewUser(login, password, pic, email, firstName, lastName, 0);
+                    User.createNewUser(login, password, pic, email, firstName, lastName, 0);
 
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
