@@ -4,10 +4,14 @@ package be.lsinf1225gr12.minipoll.minipoll.model;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.SparseArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
+import be.lsinf1225gr12.minipoll.minipoll.R;
 
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollAuthor;
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollDate;
@@ -43,7 +47,11 @@ public class Poll extends PollAbstract {
      * question du poll
      */
     private String question;
-
+    /**
+     * Contient les instances déjà existantes des objets afin d'éviter de créer deux instances du
+     * même objet.
+     */
+    private static final ArrayList<Poll> pollArrayList = new ArrayList<>();
 
     /**
      * Constructeur du Poll. Initialise une instance du Poll présent dans la base
@@ -58,16 +66,26 @@ public class Poll extends PollAbstract {
         this.question=question;
         this.number_answer = number_answer;
         this.isChoice = isChoice;
+        pollArrayList.add(this);
+
+
+
+    }
+    /**
+     * Fonction qui permet d'ajouter un poll dans la database
+     * @param poll le poll à ajouter
+     */
+    private static void addPoll(Poll poll){
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyPollNumbertop(),number_top);
-        cv.put(MySQLiteHelper.getKeyPollNumberchoice(),number_answer);
-        cv.put(MySQLiteHelper.getKeyPollDate(),date);
-        cv.put(MySQLiteHelper.getKeyPollAuthor(),author.getId());
-        cv.put(MySQLiteHelper.getKeyPollTitle(),name);
-        cv.put(MySQLiteHelper.getKeyPollQuestion(),question);
-        cv.put(MySQLiteHelper.getKeyPollIspoll(),isChoice);
-        cv.put(MySQLiteHelper.getKeyPollFormat(),format);
+        cv.put(MySQLiteHelper.getKeyPollNumbertop(),poll.getNumber_top());
+        cv.put(MySQLiteHelper.getKeyPollNumberchoice(),poll.getNumber_answer());
+        cv.put(MySQLiteHelper.getKeyPollDate(),poll.getDate());
+        cv.put(MySQLiteHelper.getKeyPollAuthor(),poll.getAuthor().getId());
+        cv.put(MySQLiteHelper.getKeyPollTitle(),poll.getName());
+        cv.put(MySQLiteHelper.getKeyPollQuestion(),poll.getQuestion());
+        cv.put(MySQLiteHelper.getKeyPollIspoll(),poll.getisChoice());
+        cv.put(MySQLiteHelper.getKeyPollFormat(),poll.getFormat());
         cv.put(MySQLiteHelper.getKeyPollIsclosed(),false);
 
         int result = (int)db.insert(getTablePoll(), null, cv);
@@ -77,7 +95,6 @@ public class Poll extends PollAbstract {
 
         }
         db.close();
-
 
     }
     /**
@@ -236,7 +253,7 @@ public class Poll extends PollAbstract {
      */
 
 
-    public boolean isChoice() {
+    public boolean getisChoice() {
         return isChoice;
     }
 
@@ -250,9 +267,8 @@ public class Poll extends PollAbstract {
     }
 
 
-    /**
-     * Modifie le tableau avec les differentes Pollanswers
-     */
+
+
 
 
 
