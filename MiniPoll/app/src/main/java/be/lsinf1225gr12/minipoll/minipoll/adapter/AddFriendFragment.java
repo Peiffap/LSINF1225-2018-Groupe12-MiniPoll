@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
@@ -24,6 +25,10 @@ public class AddFriendFragment extends Fragment {
     TextView viewMail;
     TextView hiddenText;
     ImageButton viewAdd;
+    static List<User> friendlist=User.getFriends(User.getConnectedUser());
+    static List<User> Nfriend=getNonFriend();
+    static int f=friendlist.size();
+    static int n=Nfriend.size();
 
     public AddFriendFragment() {
         // Required empty public constructor
@@ -41,21 +46,21 @@ public class AddFriendFragment extends Fragment {
         viewAdd= (ImageButton) v.findViewById(R.id.addButton);
         hiddenText= (TextView) v.findViewById(R.id.hiddenAdd);
         String m = "";
-        for(int i=0; i< getNonFriend(User.getConnectedUser()).size();i++){
-            m+=(getNonFriend(User.getConnectedUser()).get(i).getLogin()+"-");
+        for(int i=0; i<n;i++){
+            m+=(Nfriend.get(i).getLogin()+"-");
         }
         String[]Login = m.split("-");
         m = "";
-        for(int i=0; i< getNonFriend(User.getConnectedUser()).size();i++){
-            m+=(getNonFriend(User.getConnectedUser()).get(i).getFirstname()+" "+getNonFriend(User.getConnectedUser()).get(i).getName()+"-");
+        for(int i=0; i<n;i++){
+            m+=(Nfriend.get(i).getFirstname()+" "+Nfriend.get(i).getName()+"-");
         }
         String[]Name = m.split("-");
         m = "";
-        for(int i=0; i<getNonFriend(User.getConnectedUser()).size();i++){
-            m+=(getNonFriend(User.getConnectedUser()).get(i).getMail()+"-");
+        for(int i=0; i<n;i++){
+            m+=(Nfriend.get(i).getMail()+"-");
         }
         String[]Mail = m.split("-");
-        if(getNonFriend(User.getConnectedUser()).size()==0){
+        if(n==0){
             Login = new String[1];
             Login[0]="Vous êtes amis avec tout le monde :D";
             viewAdd.setVisibility(View.GONE);
@@ -72,14 +77,14 @@ public class AddFriendFragment extends Fragment {
         hiddenText=(TextView) v.findViewById(R.id.hiddenAdd);
         hiddenText.getText();
         int i=Integer.parseInt(hiddenText.toString());
-        User.addFriend(User.getConnectedUser(),getNonFriend(User.getConnectedUser()).get(i));
+        User.addFriend(User.getConnectedUser(),Nfriend.get(i));
     }
 
-    public static ArrayList<User> getNonFriend(User U){
-        ArrayList<User> Appui = User.getUsers();
+    public static List<User> getNonFriend(){
+        List<User> Appui = User.getUsers();
         Appui.remove(User.getConnectedUser());
-        for(int i=0;i<User.getFriends(U).size();i++){
-            Appui.remove(User.getFriends(U).get(i));
+        for(int i=0;i<f;i++){
+            Appui.remove(friendlist.get(i));
         }
         return Appui;
     }
