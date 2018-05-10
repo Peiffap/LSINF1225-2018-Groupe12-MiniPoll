@@ -26,6 +26,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 public class LoginActivity extends Activity implements TextView.OnEditorActionListener {
 
     private Spinner userSpinner;
+    private ArrayList<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,27 +41,8 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
          */
         setTitle(R.string.login_activity_title);
 
-
-        /*
-         * @note La liste des utilisateurs est affichée dans un Spinner, pour en savoir plus lisez
-         * http://d.android.com/guide/topics/ui/controls/spinner.html
-         */
-        userSpinner = findViewById(R.id.login_username);
-
         // Obtention de la liste des utilisateurs.
-        ArrayList<User> users = User.getUsers();
-
-        ArrayList<String> logins = new ArrayList<>();
-
-        for (User u : users) {
-            logins.add(u.getLogin());
-        }
-
-        // Création d'un ArrayAdapter en utilisant la liste des utilisateurs et un layout pour le spinner existant dans Android.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, logins);
-        // On lie l'adapter au spinner.
-        userSpinner.setAdapter(adapter);
-
+        users = User.getUsers();
 
         // On indique qu'il faut appeler onEditorAction de cette classe lorsqu'une action (valider ici)
         // est faite depuis le clavier lorsqu'on est en train de remplir le mot de passe.
@@ -91,7 +73,9 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
      */
     public void login(View v) {
         // Lorsqu'on clique sur le bouton "Se connecter" on qu'on valide depuis le clavier.
-        User user = User.getUserWithLogin((String) userSpinner.getSelectedItem());
+        EditText loginEditText = findViewById(R.id.login_username);
+        User user  = User.getUserWithLogin(loginEditText.getText().toString());
+        //User user = User.getUserWithLogin((String) userSpinner.getSelectedItem());
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 
