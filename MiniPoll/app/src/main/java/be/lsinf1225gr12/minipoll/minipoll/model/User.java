@@ -567,7 +567,12 @@ public class User {
         Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
 
         // Placement du curseur sur la première ligne.
-        cursor.moveToFirst();
+        if(!cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return null;
+        }
+
 
         int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
         String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
@@ -603,7 +608,11 @@ public class User {
         Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
 
         // Placement du curseur sur la première ligne.
-        cursor.moveToFirst();
+        if(!cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return null;
+        }
 
         int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
         String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
