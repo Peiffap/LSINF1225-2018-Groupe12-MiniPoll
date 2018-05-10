@@ -17,6 +17,7 @@ import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isNullOrWhitespace;
+import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidField;
 
 public class RegistrationActivity extends Activity implements TextView.OnEditorActionListener {
 
@@ -48,31 +49,34 @@ public class RegistrationActivity extends Activity implements TextView.OnEditorA
         
         if (password.equals(passwordConfirmation)) {
             if (password.length() > 2 && !isNullOrWhitespace(password)) {
-                ArrayList<User> users = User.getUsers();
-                boolean existing = false;
-                for (User u : users) {
-                    existing = u.getLogin().equals(login);
-                    if (existing)
-                    {
-                        MiniPollApp.notifyShort(R.string.registration_existing_login_msg);
-                        break;
+                if (isValidField(login)) {
+                    ArrayList<User> users = User.getUsers();
+                    boolean existing = false;
+                    for (User u : users) {
+                        existing = u.getLogin().equals(login);
+                        if (existing) {
+                            MiniPollApp.notifyShort(R.string.registration_existing_login_msg);
+                            break;
+                        }
                     }
-                }
-                if (!existing) {
-                    Intent intent = new Intent(this, ProfileCreationActivity.class);
+                    if (!existing) {
+                        Intent intent = new Intent(this, ProfileCreationActivity.class);
 
-                    //Create the bundle
-                    Bundle bundle = new Bundle();
+                        //Create the bundle
+                        Bundle bundle = new Bundle();
 
-                    //Add your data to bundle
-                    ArrayList<String> credentials = new ArrayList<>();
-                    credentials.add(login);
-                    credentials.add(password);
-                    bundle.putStringArrayList("credentials", credentials);
+                        //Add your data to bundle
+                        ArrayList<String> credentials = new ArrayList<>();
+                        credentials.add(login);
+                        credentials.add(password);
+                        bundle.putStringArrayList("credentials", credentials);
 
-                    //Add the bundle to the intent
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                        //Add the bundle to the intent
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                } else {
+                    MiniPollApp.notifyShort(R.string.registration_login_invalid_msg);
                 }
             } else {
                 MiniPollApp.notifyShort(R.string.registration_password_invalid_msg);
