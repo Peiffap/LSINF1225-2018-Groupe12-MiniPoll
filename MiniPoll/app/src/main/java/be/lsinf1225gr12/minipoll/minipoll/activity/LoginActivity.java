@@ -75,7 +75,7 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         // Lorsqu'on clique sur le bouton "Se connecter" on qu'on valide depuis le clavier.
         EditText loginEditText = findViewById(R.id.login_username);
         User user  = User.getUserWithLogin(loginEditText.getText().toString());
-        //User user = User.getUserWithLogin((String) userSpinner.getSelectedItem());
+        // User user = User.getUserWithLogin((String) userSpinner.getSelectedItem());
         EditText passwordEditText = findViewById(R.id.login_password);
         String password = passwordEditText.getText().toString();
 

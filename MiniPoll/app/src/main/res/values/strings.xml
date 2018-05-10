@@ -29,6 +29,14 @@
     <string name="profile_creation_invalid_last_name_msg">Le nom de famille est incorrect</string>
     <string name="profile_creation_pic_btn">Photo de profil</string>
 
+    <!-- Profile Update -->
+    <string name="profile_update_pic_btn">Changer la photo de profil</string>
+    <string name="profile_update_confirm_btn">Confirmer</string>
+    <string name="profile_update_credentials_btn">Changer les infos de login</string>
+    <string name="profile_update_invalid_email_msg">L\'adresse mail est incorrecte</string>
+    <string name="profile_update_invalid_first_name_msg">Le prénom est incorrect</string>
+    <string name="profile_update_invalid_last_name_msg">Le nom de famille est incorrect</string>
+
     <!-- Main / Main Menu -->
     <string name="menu">Menu</string>
     <string name="help_friends">Aider vos amis dans leurs choix</string>

@@ -9,88 +9,87 @@
     tools:context="be.lsinf1225gr12.minipoll.minipoll.activity.UpdateProfileActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/ic_logo"
-        android:contentDescription="@string/app_name"
+        android:id="@+id/profile_pic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/profile_update_first_name"
+        app:layout_constraintEnd_toStartOf="@+id/profile_update_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/profile_update_pic"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:drawableEnd="@drawable/ic_pick"
+        android:drawablePadding="6dp"
+        android:drawableRight="@drawable/ic_pick"
+        android:onClick="pickPic"
+        android:text="@string/profile_update_pic_btn"
+        app:layout_constraintBottom_toTopOf="@+id/profile_update_first_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/profile_update_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:imeActionLabel="@string/profile_update_confirm_btn"
+        android:imeOptions="actionDone"
+        android:inputType="textVisiblePassword|textNoSuggestions"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/profile_creation_email"
+        android:id="@+id/profile_update_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:ems="10"
-        android:hint="@string/profile_creation_email_hint"
-        android:imeActionLabel="@string/profile_creation_btn"
+        android:imeActionLabel="@string/profile_update_confirm_btn"
+        android:imeOptions="actionDone"
+        android:inputType="textVisiblePassword|textNoSuggestions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_update_first_name" />
+
+    <EditText
+        android:id="@+id/profile_update_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:imeActionLabel="@string/profile_update_confirm_btn"
         android:imeOptions="actionDone"
         android:inputType="textEmailAddress"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <EditText
-        android:id="@+id/profile_creation_first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/profile_creation_first_name_hint"
-        android:imeActionLabel="@string/profile_creation_btn"
-        android:imeOptions="actionDone"
-        android:inputType="textVisiblePassword|textNoSuggestions"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_creation_email" />
-
-    <EditText
-        android:id="@+id/profile_creation_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/profile_creation_last_name_hint"
-        android:imeActionLabel="@string/profile_creation_btn"
-        android:imeOptions="actionDone"
-        android:inputType="textVisiblePassword|textNoSuggestions"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_creation_first_name" />
-
-    <ImageView
-        android:id="@+id/picked_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/profile_creation_btn"
-        app:layout_constraintEnd_toStartOf="@+id/profile_creation_pic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_creation_last_name" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_update_last_name" />
 
     <Button
-        android:id="@+id/profile_creation_pic"
+        android:id="@+id/profile_update_confirm_btn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:drawableEnd="@drawable/ic_pick"
-        android:drawablePadding="6dp"
-        android:drawableRight="@drawable/ic_pick"
-        android:onClick="pickPic"
-        android:text="@string/profile_creation_pic_btn"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableEnd="@drawable/ic_go"
+        android:drawableRight="@drawable/ic_go"
+        android:onClick="updateProfile"
+        android:text="@string/profile_update_confirm_btn"
         app:layout_constraintBottom_toTopOf="@+id/profile_creation_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_creation_last_name" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_update_email" />
 
     <Button
         android:id="@+id/profile_creation_btn"
@@ -98,10 +97,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
         android:drawableEnd="@drawable/ic_go"
         android:drawableRight="@drawable/ic_go"
-        android:onClick="updateProfile"
-        android:text="@string/profile_creation_btn"
+        android:onClick="updateCredentials"
+        android:text="@string/profile_update_credentials_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
