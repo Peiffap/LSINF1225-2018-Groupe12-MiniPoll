@@ -120,22 +120,23 @@ public class Poll extends PollAbstract {
     /**
      * Ecrit dans la db le vote d'un user
      */
-    public void addPollAnswer(String description)
+    public void addPollAnswer(User user,int score,PollAnswer pollanswer)
     {
-        PollAnswer pollanswer = new PollAnswer(description,0);
+
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyChoicepollAuthor(),author.getId());
-        cv.put(MySQLiteHelper.getKeyChoicepollDate(),this.getDate());
-        cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
-        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),0);
+        cv.put(MySQLiteHelper.getKeyAnswerpollAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyAnswerpollDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyAnswerpollChoice() ,pollanswer.getInPollPosition());
+        cv.put(MySQLiteHelper.getKeyAnswerpollScore(),score);
+        cv.put(MySQLiteHelper.getKeyAnswerpollUser(),user.getId());
         int result = (int) db.insert(MySQLiteHelper.getTableChoicepoll(), null, cv);
         if (result==-1)
         {
             //erreur dans l'ajout, suppression
         }
         db.close();
-        this.pollAnswer.add(pollanswer);
+
     }
 
     /**
