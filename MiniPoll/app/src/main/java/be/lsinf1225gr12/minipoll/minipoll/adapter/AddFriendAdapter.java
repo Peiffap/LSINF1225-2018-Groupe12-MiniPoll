@@ -24,6 +24,6 @@ public class AddFriendAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return Math.max(1,AddFriendFragment.getNonFriend(User.getConnectedUser()).size());
+        return Math.max(1,AddFriendFragment.getNonFriend().size());
     }
 }
