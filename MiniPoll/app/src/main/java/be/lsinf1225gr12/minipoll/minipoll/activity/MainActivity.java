@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
     }
 
     public void profile(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, UpdateProfileActivity.class);
         startActivity(intent);
     }
 
