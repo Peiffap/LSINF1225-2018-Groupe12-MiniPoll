@@ -171,6 +171,25 @@ public class User {
     }
 
     /**
+     * Fonction qui permet de mettre un autre user comme bestFriend
+     * @param bestFriendId id de l'user à ajouter en tant que bestFriend
+     */
+    public void setBestfriend(int bestFriendId){
+        this.bestfriend = bestFriendId;
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyUserBestfriend(),String.valueOf(bestFriendId));
+        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
+        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result==-1)
+        {
+            MiniPollApp.notifyShort(R.string.my_error);
+        }
+        db.close();
+    }
+
+
+    /**
      * Fournit l'utilisateur actuellement connecté.
      */
     public static User getConnectedUser() {
@@ -645,24 +664,6 @@ public class User {
     }
 
     /**
-     * Fonction qui permet de mettre un autre user comme bestFriend
-     * @param bestFriendId id de l'user à ajouter en tant que bestFriend
-     */
-    public void setBestfriend(int bestFriendId){
-        this.bestfriend = bestFriendId;
-        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyUserBestfriend(),String.valueOf(bestFriendId));
-        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
-        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
-        if (result==-1)
-        {
-            MiniPollApp.notifyShort(R.string.my_error);
-        }
-        db.close();
-    }
-
-    /**
      * Fonction qui renvoie le plus haut id présent dans la database pour permettre de créer un nouvel utilisateur
      * @return plus haut id de la database
      */
@@ -720,6 +721,42 @@ public class User {
         }
 
         return highest;
+    }
+
+    public static User getUserWithId(int id){
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
+        String selection = MySQLiteHelper.getKeyUserLogin() + " = ?";
+        String[] selectionArgs = new String[]{String.valueOf(id)};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        if(!cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return null;
+        }
+
+
+        String login = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String firstname = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+        String password = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+        String mail = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
+        String picture = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+        int bestFriend = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+        User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+
+
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return user;
     }
 }
 
