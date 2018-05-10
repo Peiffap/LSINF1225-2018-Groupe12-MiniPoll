@@ -383,7 +383,6 @@ public class User {
         if(result==-1)
         {
             //erreur dans l'ajout, suppression
-            MiniPollApp.notifyLong(R.string.personalized);
         }
 
         db.close();
@@ -405,7 +404,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
         if (result==-1)
         {
-            MiniPollApp.notifyLong(R.string.no_copy_database);
+
         }
         db.close();
     }
