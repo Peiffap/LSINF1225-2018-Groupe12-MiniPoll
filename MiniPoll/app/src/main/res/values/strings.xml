@@ -41,6 +41,7 @@
     <string name="profile_update_invalid_email_msg">L\'adresse mail est incorrecte</string>
     <string name="profile_update_invalid_first_name_msg">Le prénom est incorrect</string>
     <string name="profile_update_invalid_last_name_msg">Le nom de famille est incorrect</string>
+    <string name="profile_update_updated_msg">Les valeurs ont été changées</string>
 
     <!-- Credentials Update -->
     <string name="credentials_update_btn">Confirmer</string>
@@ -52,6 +53,7 @@
     <string name="credentials_update_invalid_login_msg">Le nom d\'utilisateur est trop court ou contient des blancs à ses extrémités</string>
     <string name="credentials_update_existing_login_msg">Le nom d\'utilisateur existe déjà</string>
     <string name="credentials_update_password_invalid_msg">Le mot de passe est trop court ou contient des blancs</string>
+    <string name="credentials_update_updated_msg">Les valeurs ont été changées</string>
 
     <!-- Main / Main Menu -->
     <string name="menu">Menu</string>
