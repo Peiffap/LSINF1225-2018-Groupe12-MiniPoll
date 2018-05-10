@@ -64,7 +64,7 @@ public class MCQ extends PollAbstract {
      */
     public void addQuestionChoise(Question question, String description)
     {
-        MCQAnswer mcqAnswer = new MCQAnswer(description);
+        Questionchoice questionchoice = new Questionchoice(question.getqPos(),description);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyChoicequestionAuthor(),author.getId());
@@ -81,13 +81,33 @@ public class MCQ extends PollAbstract {
         }
         db.close();
         this.question.add(question);
+
     }
 
+
+
     /**
-     * Ajoute une réponse au MCQ et l'enregistre dans la DB
+     * Un User répond au sondage
      */
-    public void giveAnswer(Question question, MCQAnswer mcqAnswer)
+    public void addMCQAnswer(Questionchoice questionchoice, User user, int position)
     {
+
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyAnswerquestionAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionPosition(),position);
+        cv.put(MySQLiteHelper.getKeyAnswerquestionQuestionposition(),questionchoice.getqPos());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionUser(),user.getId());
+
+
+        int result = (int) db.insert(MySQLiteHelper.getTableAnswerquestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+
 
 
     }
