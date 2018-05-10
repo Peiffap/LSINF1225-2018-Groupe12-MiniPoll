@@ -652,7 +652,7 @@ public class User {
         cursor.close();
         db.close();
 
-        return id;
+        return 10;
     }
 }
 
