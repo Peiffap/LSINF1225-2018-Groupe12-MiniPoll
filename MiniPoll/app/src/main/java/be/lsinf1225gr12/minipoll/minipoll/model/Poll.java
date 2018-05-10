@@ -79,6 +79,31 @@ public class Poll extends PollAbstract {
 
 
     }
+
+    public void addPollAnswer(String description)
+    {
+        PollAnswer pollanswer = new PollAnswer(description,0);
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyChoicepollAuthor(),author.getId());
+        cv.put(MySQLiteHelper.getKeyChoicepollDate(),this.getDate());
+        cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
+        cv.put(MySQLiteHelper.getKeyChoicepollPosition(),0);
+        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+        this.pollAnswer.add(pollanswer);
+    }
+    /**
+     * Set la position de la pollanswer
+     */
+    public void setPollAnswerPosition(PollAnswer pollanswer,int position)
+    {
+
+    }
     /**
      * Fournit la question
      */
