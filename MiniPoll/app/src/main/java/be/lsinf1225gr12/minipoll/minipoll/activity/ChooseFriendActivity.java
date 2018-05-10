@@ -15,7 +15,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 public class ChooseFriendActivity extends AppCompatActivity
 {
 
-    public static final String FriendMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.TypeMemory";
+    public static final String FriendMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.FriendMemory";
 
     TextView noF;
     ListView LVC;
@@ -45,12 +45,15 @@ public class ChooseFriendActivity extends AppCompatActivity
     public void next (View v){
         Intent pIntent = getIntent();
         int Type = pIntent.getIntExtra(CreateActivity.TypeMemory,0);
+        String[] Chosen = {"PlaceHolder1","PlaceHolder2"}; //put chosen friends
         Intent intent;
         if(Type==0){
-            intent = new Intent(this,CreateChoixActivity.class);
+            intent = new Intent(this,CreateSondageActivity.class);
         }
         else{
             intent = new Intent(this,CreateQuestionnaireActivity.class);
         }
+        intent.putExtra(FriendMemory,Chosen);
+        startActivity(intent);
     }
 }

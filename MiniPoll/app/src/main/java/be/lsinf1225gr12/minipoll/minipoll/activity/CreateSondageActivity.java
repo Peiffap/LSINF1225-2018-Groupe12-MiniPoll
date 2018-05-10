@@ -14,7 +14,7 @@ public class CreateSondageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_sondage);
-        Intent intent = new Intent(this, ChooseFriendActivity.class);
-        startActivity(intent);
+        Intent pIntent = getIntent();
+
     }
 }

@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".activity.RegistrationActivity" />
         <activity android:name=".activity.ProfileCreationActivity" />
+        <activity android:name=".activity.UpdateProfileActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.CreateActivity" />
         <activity android:name=".activity.ChooseFriendActivity" />
@@ -28,7 +29,7 @@
         <activity android:name=".activity.Friend_List_Activity" />
         <activity android:name=".activity.FriendMenuActivity" />
         <activity android:name=".activity.AddFriendActivity" />
-        <activity android:name=".activity.NotificationActivity"></activity>
+        <activity android:name=".activity.NotificationActivity" />
     </application>
 
 </manifest>
