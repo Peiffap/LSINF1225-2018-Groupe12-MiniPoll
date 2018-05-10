@@ -58,19 +58,37 @@ public class MCQ extends PollAbstract {
         db.close();
         this.question.add(question);
     }
+    /**
+     * Set de la rightanswer
+     */
+    public void setRightanswer(int position,Question question){
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),position);
+        String selection = MySQLiteHelper.getKeyQuestionAuthor() + " = ? AND " + MySQLiteHelper.getKeyQuestionDate() + " = ?"+MySQLiteHelper.getKeyQuestionPosition(); //rajouter autant qu'il faut
+        String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(date),String.valueOf(question.getPosition())};
+        db.update(MySQLiteHelper.getTableQuestion(), cv, selection, selectionArgs);
+        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+
+    }
 
     /**
      * Ajoute une réponse possible à une question
      */
     public void addQuestionChoise(Question question, String description)
     {
-        Questionchoice questionchoice = new Questionchoice(question.getqPos(),description);
+        Questionchoice questionchoice = new Questionchoice(question.getPosition(),description);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyChoicequestionAuthor(),author.getId());
         cv.put(MySQLiteHelper.getKeyChoicequestionDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyChoicequestionPosition(),numberQuestion+1);
-        cv.put(MySQLiteHelper.getKeyChoicequestionQuestionposition(),question.getqPos());
+        cv.put(MySQLiteHelper.getKeyChoicequestionQuestionposition(),question.getPosition());
         cv.put(MySQLiteHelper.getKeyChoicequestionText(),description);
 
 
@@ -97,7 +115,7 @@ public class MCQ extends PollAbstract {
         cv.put(MySQLiteHelper.getKeyAnswerquestionAuthor(),author.getId());
         cv.put(MySQLiteHelper.getKeyAnswerquestionDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyAnswerquestionPosition(),position);
-        cv.put(MySQLiteHelper.getKeyAnswerquestionQuestionposition(),questionchoice.getqPos());
+        cv.put(MySQLiteHelper.getKeyAnswerquestionQuestionposition(),questionchoice.getPosition());
         cv.put(MySQLiteHelper.getKeyAnswerquestionUser(),user.getId());
 
 

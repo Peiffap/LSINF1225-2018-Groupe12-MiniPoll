@@ -9,21 +9,21 @@ import java.util.List;
 public class Question {
     private String title;
     private int rightAnswerPosition;
-    private int qPos;
+    private int position;
     private List<Questionchoice> questionChoice;
 
-    public Question(String title, int rightAnswerPosition, int qPos)
+    public Question(String title, int rightAnswerPosition, int position)
     {
         this.title = title;
         this.rightAnswerPosition = rightAnswerPosition;
-        this.qPos=qPos;
+        this.position=position;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getqPos() {
-        return qPos;
+    public int getPosition() {
+        return position;
     }
 }

@@ -1,16 +1,16 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
 
 public class Questionchoice {
-    private int qPos;
+    private int position;
     private String text;
 
-    public Questionchoice(int qPos, String text) {
-        this.qPos = qPos;
+    public Questionchoice(int position, String text) {
+        this.position= position;
         this.text = text;
     }
 
-    public int getqPos() {
-        return qPos;
+    public int getPosition() {
+        return position;
     }
 
     public String getText() {
