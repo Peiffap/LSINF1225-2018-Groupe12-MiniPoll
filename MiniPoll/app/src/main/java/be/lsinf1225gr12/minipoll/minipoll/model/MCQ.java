@@ -61,12 +61,30 @@ public class MCQ extends PollAbstract {
     /**
      * Set de la rightanswer
      */
-    public void setRightanswer(int position,Question question){
+    public void setRightanswer(int positionRight,Question question){
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),position);
-        String selection = MySQLiteHelper.getKeyQuestionAuthor() + " = ? AND " + MySQLiteHelper.getKeyQuestionDate() + " = ?"+MySQLiteHelper.getKeyQuestionPosition(); //rajouter autant qu'il faut
-        String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(date),String.valueOf(question.getPosition())};
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),positionRight);
+        String selection = MySQLiteHelper.getKeyQuestionAuthor() + " = ? AND " + MySQLiteHelper.getKeyQuestionDate() + " = ?"+MySQLiteHelper.getKeyQuestionDescription(); //rajouter autant qu'il faut
+        String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(date),question.getTitle()};
+        db.update(MySQLiteHelper.getTableQuestion(), cv, selection, selectionArgs);
+        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        if (result==-1)
+        {
+            //erreur dans l'ajout, suppression
+        }
+        db.close();
+
+    }
+    /**
+     * Set de la position d'une question
+     */
+    public void setPosition(int position,Question question){
+        SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.getKeyQuestionPosition(),position);
+        String selection = MySQLiteHelper.getKeyQuestionAuthor() + " = ? AND " + MySQLiteHelper.getKeyQuestionDate() + " = ?"+MySQLiteHelper.getKeyQuestionDescription(); //rajouter autant qu'il faut
+        String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(date),question.getTitle()};
         db.update(MySQLiteHelper.getTableQuestion(), cv, selection, selectionArgs);
         int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
         if (result==-1)
