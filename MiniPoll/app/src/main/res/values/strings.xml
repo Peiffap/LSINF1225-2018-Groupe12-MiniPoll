@@ -22,11 +22,11 @@
     <string name="profile_creation_email_hint">Adresse mail</string>
     <string name="profile_creation_first_name_hint">Prénom</string>
     <string name="profile_creation_last_name_hint">Nom de famille</string>
-    <string name="profile_creation_pic_hint">Photo de profil</string>
     <string name="profile_creation_btn">Créer mon profil</string>
     <string name="profile_creation_invalid_email_msg">L\'adresse mail est incorrecte</string>
     <string name="profile_creation_invalid_first_name_msg">Le prénom est incorrect</string>
     <string name="profile_creation_invalid_last_name_msg">Le nom de famille est incorrect</string>
+    <string name="profile_creation_pic_btn">Photo de profil</string>
 
     <!-- Main / Main Menu -->
     <string name="menu">Menu</string>

@@ -71,7 +71,7 @@ db.close();
 public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database Info
     private static final String DATABASE_NAME = "Database";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 35;
 
     // Table Names
     private static final String TABLE_ANSWERPOLL = "answerpoll";
