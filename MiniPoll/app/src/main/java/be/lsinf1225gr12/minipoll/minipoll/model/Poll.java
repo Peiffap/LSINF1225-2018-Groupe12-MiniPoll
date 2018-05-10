@@ -89,7 +89,7 @@ public class Poll extends PollAbstract {
         cv.put(MySQLiteHelper.getKeyChoicepollDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyChoicepollText(),description);
         cv.put(MySQLiteHelper.getKeyChoicepollPosition(),0);
-        int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
+        int result = (int) db.insert(MySQLiteHelper.getTableChoicepoll(), null, cv);
         if (result==-1)
         {
             //erreur dans l'ajout, suppression
@@ -102,6 +102,7 @@ public class Poll extends PollAbstract {
      */
     public void setPollAnswerPosition(PollAnswer pollanswer,int position)
     {
+
 
     }
     /**
