@@ -70,7 +70,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -88,7 +88,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -106,7 +106,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -124,7 +124,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -142,7 +142,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -160,7 +160,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -382,7 +382,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if(result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
 
         db.close();
@@ -404,7 +404,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
         if (result==-1)
         {
-
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -443,7 +443,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
@@ -628,7 +628,7 @@ public class User {
         long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
         if (result==-1)
         {
-            //erreur dans l'ajout, suppression
+            MiniPollApp.notifyShort(R.string.my_error);
         }
         db.close();
     }
