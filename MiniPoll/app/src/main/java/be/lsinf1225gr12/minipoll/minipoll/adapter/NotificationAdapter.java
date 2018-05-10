@@ -23,13 +23,13 @@ public class NotificationAdapter extends ArrayAdapter<String> {
     public NotificationAdapter(Context context, String[] f){
         super(context,-1,f);
         this.context=context;
+        this.friends=f;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_notifications, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.nameN);
-        friends=LoginToTab(User.getDemands(User.getConnectedUser()));
         textView.setText(friends[position]);
         TextView hiddenN=(TextView) rowView.findViewById((R.id.hiddenN));
         hiddenN.setText(String.valueOf(position));
@@ -44,18 +44,9 @@ public class NotificationAdapter extends ArrayAdapter<String> {
     }
 
     public void decline (View v){
-       /* TextView hiddenN = (TextView) v.findViewById(R.id.hiddenN);
+        TextView hiddenN = (TextView) v.findViewById(R.id.hiddenN);
         hiddenN.getText();
         int i = Integer.parseInt(hiddenN.toString());
-        User.declineFriend(User.getConnectedUser(),User.getDemands(User.getConnectedUser()).get(i));
-        */
-    }
-
-    public static String[] LoginToTab(ArrayList<User> U){
-        String[] Appui = new String[U.size()];
-        for(int i =0; i< Appui.length;i++){
-            Appui[i]=U.get(i).getLogin();
-        }
-        return Appui;
+        User.removeFriend(User.getConnectedUser(),User.getDemands(User.getConnectedUser()).get(i));
     }
 }

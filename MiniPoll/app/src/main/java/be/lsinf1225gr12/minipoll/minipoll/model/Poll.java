@@ -2,6 +2,7 @@ package be.lsinf1225gr12.minipoll.minipoll.model;
 
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
@@ -149,26 +150,41 @@ public class Poll extends PollAbstract {
 
     }
 
+    /**
+     * Fonction qui return la somme des score pour un pollAnswer
+     * @param pollAnswer On veut les scores de quelle réponses
+     */
+   public int getScoredPollChoice(PollAnswer pollAnswer )
+    {
+        int sumScore=0;
+   // Récupération du  SQLiteHelper et de la base de données.
+   SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
-   //public int getScoredPollChoice(PollAnswer pollAnswer )
-   // {
-       // int sumScore;
-        //selectionner tout les score  D'un pollanswer avec un author une date et une position
-        //Select score Where author and date and position
+    String[] colonnes = {MySQLiteHelper.getKeyAnswerpollScore()};
+    String selection = MySQLiteHelper.getKeyAnswerpollChoice() + " = ?"+MySQLiteHelper.getKeyAnswerpollDate() + " = ?"+MySQLiteHelper.getKeyAnswerpollAuthor() + " = ?";
+    String[] selectionArgs = new String[]{String.valueOf(pollAnswer.getInPollPosition()),String.valueOf(this.getDate()),String.valueOf(author.getId())};
+    Cursor cursor = db.query(MySQLiteHelper.getTableAnswerpoll(), colonnes, selection, selectionArgs, null, null, null);
 
-       // SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
-       // String selection = MySQLiteHelper.getKeyAnswerpollAuthor() + " = ? AND " + MySQLiteHelper.getKeyAnswerpollDate() + " = ?"+MySQLiteHelper.getKeyAnswerpollChoice()+"=?"; //rajouter autant qu'il faut
-       // String[] selectionArgs = new String[]{String.valueOf(author.getId()), String.valueOf(this.getDate()),String.valueOf(pollAnswer.getInPollPosition())};
-        //Cursor c = db.query(MySQLiteHelper.getTableAnswerpoll(), MySQLiteHelper.getKeyAnswerpollScore(), selection, selectionArgs, null, null, null);
-        //  c.moveToFirst(); //place au premier résultat
-//c.moveToNext(); //place au prochain résultat
-//c.isLast(); //true si on est au dernier élément
-        // c.getTYPE(...); //différents type de get, cf https://developer.android.com/reference/android/database/Cursor#getcolumnindex
-        // c.close();
-       //db.close();
+    // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de Score pour chaque ligne.
+            int score= cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
 
-       // return 0;
-   // }
+            // du score à la somme.
+            sumScore+=score;
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+
+    // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return 0;
+   }
     /**
      * Fournit la question
      */

@@ -19,13 +19,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
+    <EditText
         android:id="@+id/login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:prompt="@string/login_username"
-        android:spinnerMode="dropdown"
+        android:ems="10"
+        android:hint="@string/login_username"
+        android:imeActionId="7"
+        android:imeActionLabel="@id/login_password"
+        android:imeOptions="actionDone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
