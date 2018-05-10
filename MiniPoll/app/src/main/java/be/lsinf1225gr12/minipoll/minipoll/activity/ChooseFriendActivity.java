@@ -35,7 +35,7 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
         // Chargement des éléments à afficher dans la variable de classe songs
         loadUser();
 
-        ListView myListView = findViewById(R.id.show_listView);
+        ListView myListView = findViewById(R.id.show_listView2);
 
         // Création de l'adapter pour faire la liaison entre les données (songs) et
         // l'affichage de chaque ligne de la liste.
@@ -50,26 +50,16 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
 
     private void loadUser() {
 
-        // Récupération de la requête de recherche.
-        // Si aucune requête n'a été passée lors de la création de l'activité, searchQuery sera null.
-        String searchQuery = getIntent().getStringExtra("searchQuery");
+            user = User.getFriends(User.getConnectedUser());;
 
-        if (searchQuery == null) {
-            //user = User.getConnectedUser().getFriends();
-        } else {
-            //user = User.getConnectedUser().getFriends();
-        }
 
         // S'il n'y a aucun éléments dans la liste, il faut afficher un message. Ce message est différent
         // s'il y avait une requête de recherche (message du type "Aucun résultat trouvé") ou si
         // l'utilisateur vient directement du menu principal et veut tout afficher (message du type
         // "Aucun élément n'est présent dans votre collection).
         if (user.isEmpty()) {
-            if (searchQuery == null) {
                 MiniPollApp.notifyShort(R.string.list_error);
-            } else {
-                MiniPollApp.notifyShort(R.string.list_error);
-            }
+
             // Cloture de l'activité d'affichage de la liste (car liste vide). Retour à l'écran
             // précédent.
             finish();
