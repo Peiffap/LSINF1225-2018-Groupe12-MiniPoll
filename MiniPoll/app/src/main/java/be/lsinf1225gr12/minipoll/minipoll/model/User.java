@@ -638,7 +638,7 @@ public class User {
      * @return plus haut id de la database
      */
     private static int getHighestId(){
-        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        /*SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT MAX("+MySQLiteHelper.getKeyUserId()+") FROM " + MySQLiteHelper.getTableUser(),null);
 
@@ -650,7 +650,7 @@ public class User {
 
         // Fermeture du curseur et de la base de données.
         cursor.close();
-        db.close();
+        db.close();*/
 
         return 10;
     }
