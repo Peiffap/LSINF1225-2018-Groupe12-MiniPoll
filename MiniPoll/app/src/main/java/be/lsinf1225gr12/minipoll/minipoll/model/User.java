@@ -723,6 +723,11 @@ public class User {
         return highest;
     }
 
+    /**
+     * Fonction qui renvoie l'User dans la db ayant l'id passé en argument
+     * @param id son id
+     * @return null si il n'existe pas, User sinon
+     */
     public static User getUserWithId(int id){
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
