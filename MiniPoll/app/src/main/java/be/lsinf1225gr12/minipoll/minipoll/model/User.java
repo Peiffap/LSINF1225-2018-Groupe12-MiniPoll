@@ -267,7 +267,6 @@ public class User {
      */
     public static ArrayList<User> getFriends(User utilisateur){
         int thisId = utilisateur.getId();
-        Log.d(">>>>>> ID utilisateur",String.valueOf(thisId));
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -282,7 +281,6 @@ public class User {
 
         // Placement du curseur sur la première ligne.
         boolean cond = !cursor.moveToFirst();
-        Log.d(">>>>>> Valeur du bool 1",String.valueOf(cond));
         if(!cond){
             // Tant qu'il y a des lignes.
             while (!cursor.isAfterLast()) {
@@ -307,8 +305,7 @@ public class User {
 
         // Placement du curseur sur la première ligne
         //boolean cond2 = cursor2.isNull(0);//cursor2.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender())
-        boolean cond2 = !cursor2.moveToFirst();
-        Log.d(">>>>>> Valeur du bool 2",String.valueOf(cond2));
+        boolean cond2 = !cursor2.moveToFirst();;
         if(!cond2) {
 
             // Tant qu'il y a des lignes.
@@ -347,7 +344,6 @@ public class User {
             while (!cursor3.isAfterLast()) {
                 // Récupération des informations de l'utilisateur pour chaque ligne.
                 int id = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserId()));
-                Log.d("Le code est passé ici",String.valueOf(id));
                 String name = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
                 String firstname = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
                 String login = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
