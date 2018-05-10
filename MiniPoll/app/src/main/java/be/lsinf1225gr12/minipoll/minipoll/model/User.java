@@ -67,9 +67,10 @@ public class User {
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyUserLogin(),login);
-        db.update(MySQLiteHelper.getTableUser(), cv, null, null);
-        long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
-        if (result==-1)
+        String[] whereArgs = new String[]{String.valueOf(this.id)};
+        int result = db.update(MySQLiteHelper.getTableUser(), cv, MySQLiteHelper.getKeyUserId() + " = ?", whereArgs);
+        //long result = db.insert(MySQLiteHelper.getTableUser(), null, cv);
+        if (result<=0)
         {
             MiniPollApp.notifyShort(R.string.my_error);
         }
