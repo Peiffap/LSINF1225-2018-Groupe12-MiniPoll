@@ -77,6 +77,7 @@ public class AddFriendFragment extends Fragment {
 
     public static ArrayList<User> getNonFriend(User U){
         ArrayList<User> Appui = User.getUsers();
+        Appui.remove(User.getConnectedUser());
         for(int i=0;i<User.getFriends(U).size();i++){
             Appui.remove(User.getFriends(U).get(i));
         }

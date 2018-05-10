@@ -15,10 +15,16 @@ public class FriendMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friend_menu);
     }
     public void addFriend(View v){
-
+        Intent intent = new Intent( this, AddFriendActivity.class);
+        startActivity(intent);
     }
     public void friendList(View v){
         Intent intent = new Intent( this, Friend_List_Activity.class);
+        startActivity(intent);
+    }
+
+    public void Notifications(View v){
+        Intent intent = new Intent( this, NotificationActivity.class);
         startActivity(intent);
     }
 }
