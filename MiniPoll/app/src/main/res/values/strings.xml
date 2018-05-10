@@ -45,6 +45,8 @@
     <string name="quiz">Questionnaire</string>
     <string name="my_friends">Mes amis</string>
     <string name="poll">Sondage</string>
+    <string name="menu_logout">Pour quitter l\'application, appuyez deux fois sur retour</string>
+
 
     <!-- Friends List -->
     <string name="email">Adresse mail</string>

@@ -53,8 +53,9 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
     @Override
     protected void onResume() {
         super.onResume();
-
-        // On efface le mot de passe qui était écrit quand on se déconnecte.
+        // On efface le mot de passe et le login qui était écrit quand on se déconnecte.
+        EditText loginEditText = findViewById(R.id.login_username);
+        loginEditText.setText("");
         EditText passwordEditText = findViewById(R.id.login_password);
         passwordEditText.setText("");
     }
@@ -118,4 +119,12 @@ public class LoginActivity extends Activity implements TextView.OnEditorActionLi
         }
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
+
 }
