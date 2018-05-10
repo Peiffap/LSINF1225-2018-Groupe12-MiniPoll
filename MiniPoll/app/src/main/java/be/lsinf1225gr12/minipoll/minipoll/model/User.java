@@ -652,7 +652,45 @@ public class User {
         cursor.close();
         db.close();*/
 
-        return 10;
+
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyUserId()};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, null, null, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        cursor.moveToFirst();
+
+        // Initialisation la liste des utilisateurs.
+        ArrayList<Integer> ids = new ArrayList<>();
+
+        // Tant qu'il y a des lignes.
+        while (!cursor.isAfterLast()) {
+            // Récupération des informations de l'utilisateur pour chaque ligne.
+            int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+
+            // Ajout de l'utilisateur à la liste.
+            ids.add(id);
+
+            // Passe à la ligne suivante.
+            cursor.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        Integer[] tab = new Integer[ids.size()];
+        tab = ids.toArray(tab);
+
+        int highest = 0;
+
+        for(int i = 0; i<ids.size(); i++){
+            if(tab[i].intValue()>highest)
+                highest = tab[i].intValue();
+        }
+
+        return highest;
     }
 }
 
