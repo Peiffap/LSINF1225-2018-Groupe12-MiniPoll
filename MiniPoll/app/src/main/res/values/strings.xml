@@ -4,6 +4,9 @@
 
     <!-- ChooseFriend -->
     <string name="list_error">Pas d\'item sélectionné</string>
+    <!-- Sondage -->
+    <string name="my_nopollerror">Pas d\'item sélectionné</string>
+    <string name="show_list_name_title">Nom de l\'élément de collection</string>
 
     <!-- Login -->
     <string name="login_activity_title">Connexion</string>

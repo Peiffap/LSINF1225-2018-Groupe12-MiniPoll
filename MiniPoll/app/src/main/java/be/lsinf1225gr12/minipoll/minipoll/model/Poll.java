@@ -70,12 +70,13 @@ public class Poll extends PollAbstract {
 
 
 
+
     }
     /**
      * Fonction qui permet d'ajouter un poll dans la database
      * @param poll le poll à ajouter
      */
-    private static void addPoll(Poll poll){
+    public static void addPoll(Poll poll){
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyPollNumbertop(),poll.getNumber_top());
@@ -202,6 +203,104 @@ public class Poll extends PollAbstract {
 
         return 0;
    }
+
+    /**
+     * Fournit la liste de tous les éléments de la collection de l'utilisateur courant.
+     *
+     * @return Liste d'éléments.
+     */
+    public static ArrayList<Poll> getPolls() {
+        // Récupération de l'ID de l'utilisateur courant.
+        int u_id = User.getConnectedUser().getId();
+
+        // Critère de sélection : appartient à l'utilisateur courant.
+        String selection = MySQLiteHelper.getKeyParticipationpollUser() + " = ?";
+        String[] selectionArgs = new String[]{String.valueOf(u_id)};
+
+        // Le critère de sélection est passé à la sous-méthode de récupération des éléments.
+        return getPolls(selection, selectionArgs);
+    }
+    /**
+     * Fournit la liste de tous les objets correspondant aux critères de sélection demandés.
+     * <p>
+     * Cette méthode est une sous-méthode de getSongs et de searchSongs.
+     *
+     * @param selection     Un filtre déclarant quels éléments retourner, formaté comme la clause
+     *                      SQL WHERE (excluant le WHERE lui-même). Donner null retournera tous les
+     *                      éléments.
+     * @param selectionArgs Vous pouvez inclure des ? dans selection, qui seront remplacés par les
+     *                      valeurs de selectionArgs, dans leur ordre d'apparition dans selection.
+     *                      Les valeurs seront liées en tant que chaînes.
+     *
+     * @return Liste d'objets. La liste peut être vide si aucun objet ne correspond.
+     */
+    private static ArrayList<Poll> getPolls(String selection, String[] selectionArgs) {
+        // Initialisation de la liste des songs.
+        ArrayList<Poll> polls = new ArrayList<>();
+
+        // Récupération du SQLiteHelper pour récupérer la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        // Colonnes à récupérer. Ici uniquement l'id de l'élément, le reste sera récupéré par
+        // loadData() à la création de l'instance de l'élément. (choix de développement).
+        String[] colonnes = new String[]{MySQLiteHelper.getKeyParticipationpollAuthor(),MySQLiteHelper.getKeyParticipationpollDate()};
+
+        // Requête SELECT à la base de données.
+        Cursor c = db.query(MySQLiteHelper.getTableParticipationpoll(), colonnes, selection, selectionArgs, null, null, null );
+
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            // Id de l'élément.
+            int idauthor = c.getInt(0);
+            int date = c.getInt(0);
+            // L'instance de l'élément de collection est récupéré avec la méthode get(ciId)
+            // (Si l'instance n'existe pas encore, elle est créée par la méthode get)
+            Poll poll = Poll.getPollWithidAuthorDate(User.getUserWithId(idauthor),date);
+
+            // Ajout de l'élément de collection à la liste.
+            polls.add(poll);
+
+            c.moveToNext();
+        }
+
+        // Fermeture du curseur et de la base de données.
+        c.close();
+        db.close();
+
+        return polls;
+    }
+    public static Poll getPollWithidAuthorDate(User author, long date) {
+        // Récupération du  SQLiteHelper et de la base de données.
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+
+        String[] colonnes = {MySQLiteHelper.getKeyPollNumbertop(), MySQLiteHelper.getKeyPollNumberchoice(), MySQLiteHelper.getKeyPollTitle(),MySQLiteHelper.getKeyPollIspoll(),MySQLiteHelper.getKeyPollFormat(),MySQLiteHelper.getKeyPollQuestion()};
+        String selection = MySQLiteHelper.getKeyUserMail() + " = ?";
+        String[] selectionArgs = new String[]{String.valueOf(author.getId()),String.valueOf(date)};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        if(!cursor.moveToFirst()){
+            cursor.close();
+            db.close();
+            return null;
+        }
+
+        int number_top = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyPollNumbertop()));
+        int number_answer = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyPollNumberchoice()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyPollTitle()));
+        boolean isChoice = Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyPollIspoll())));
+        String format= cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyPollFormat()));
+        String question = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyPollQuestion()));
+
+
+       Poll poll = new Poll(number_top,number_answer,date,author,name,isChoice, format,question);
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return poll;
+    }
     /**
      * Fournit la question
      */
