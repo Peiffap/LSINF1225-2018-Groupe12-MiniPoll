@@ -4,42 +4,14 @@
     android:id="@+id/relativeLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="be.uclouvain.lsinf1225.musicplayer.activity.ShowListActivity">
+    tools:context="be.lsinf1225gr12.minipoll.minipoll.activity.ShowSondageListActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/show_list_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/show_list_name_title"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="start"
-            android:onClick="change_order"
-            android:padding="5dip"
-            android:text="@string/show_list_name_title"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/show_list_rating_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/show_list_rating_title" />
 
-        <Button
-            android:id="@+id/show_list_rating_title"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:onClick="change_order"
-            android:padding="5dip"
-            android:text="auteur"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/show_list_name_title"
-            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <ListView
