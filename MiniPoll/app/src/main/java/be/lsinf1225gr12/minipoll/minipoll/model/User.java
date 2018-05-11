@@ -400,6 +400,14 @@ public class User {
         return users;
     }
 
+    public static ArrayList<User> getNonFriend(User user){
+        ArrayList<User> all = getUsers();
+        ArrayList<User> friends = getFriends(user);
+        all.remove(user);
+        all.removeAll(friends);
+        return all;
+    }
+
     private static String createCommand(int n){
         String command = MySQLiteHelper.getKeyUserId() + " = ?";
         if(n!=1){
