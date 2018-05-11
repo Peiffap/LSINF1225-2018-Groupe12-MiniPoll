@@ -28,13 +28,8 @@ public class CreateQuestionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //actualNumber = getIntent().getIntExtra("InfosQuestion",1);
-        //setContentView(R.layout.activity_create_question);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        actualNumber = getIntent().getIntExtra("InfosQuestion",1);
+        setContentView(R.layout.activity_create_question);
     }
 
     private void resetQuestion()
