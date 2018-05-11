@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class MCQ extends PollAbstract {
@@ -18,7 +19,15 @@ public class MCQ extends PollAbstract {
      */
     public MCQ(String format, String name, User author, long date, int numberQuestion){
         super(format,name,author,date);
+
         this.numberQuestion = numberQuestion;
+
+    }
+
+    public static MCQ createNewMCQ(String format, String name, User author, long date, int numberQuestion){
+
+        MCQ mcq = new MCQ(format,name,author,date,numberQuestion);
+
         //écrit dans la BD
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -34,6 +43,8 @@ public class MCQ extends PollAbstract {
             //erreur dans l'ajout, suppression
         }
         db.close();
+
+        return mcq;
     }
 
     /**
@@ -77,6 +88,32 @@ public class MCQ extends PollAbstract {
             //erreur dans l'ajout, suppression
         }
         db.close();
+
+    }
+
+    public static MCQ get(int author, long date){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String selection = MySQLiteHelper.getKeyMcqAuthor() + " = ? AND " + MySQLiteHelper.getKeyMcqDate() + " = ?";
+        String[] colonnes = {MySQLiteHelper.getKeyMcqFormat(), MySQLiteHelper.getKeyMcqIsclosed(), MySQLiteHelper.getKeyMcqNumberquestion(),MySQLiteHelper.getKeyMcqTitle()};
+        String[] selectionArgs = {String.valueOf(author),String.valueOf(date)};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        if(!cursor.moveToFirst())
+            return null;
+
+        int numberQuestion = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqNumberquestion()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String format = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqFormat()));
+
+        MCQ mcq = new MCQ(format,name,User.getUserWithId(author),date,numberQuestion);
+
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return mcq;
 
     }
 
