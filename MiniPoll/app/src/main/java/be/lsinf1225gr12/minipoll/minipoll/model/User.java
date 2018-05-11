@@ -404,7 +404,9 @@ public class User {
         ArrayList<User> all = getUsers();
         ArrayList<User> friends = getFriends(user);
         all.remove(user);
-        all.removeAll(friends);
+        for(int i=0; i<friends.size();i++){
+            all.remove(friends.get(i));
+        }
         return all;
     }
 
