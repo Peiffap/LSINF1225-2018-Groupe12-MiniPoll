@@ -58,6 +58,7 @@ public class MCQ extends PollAbstract implements Serializable {
      */
     public Question addQuestion(String title,int position)
     {
+
         Question question = new Question(title,1,position);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();

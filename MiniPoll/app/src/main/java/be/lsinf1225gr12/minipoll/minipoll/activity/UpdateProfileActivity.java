@@ -44,12 +44,6 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
         ln.setText(User.getConnectedUser().getName());
         TextView mail = (TextView) this.findViewById(R.id.profile_update_email);
         mail.setText(User.getConnectedUser().getMail());
-        ImageView pic = (ImageView) this.findViewById(R.id.profile_pic);
-        try {
-            pic.setImageBitmap(getBitmap(getContentResolver(), Uri.parse(User.getConnectedUser().getPicture())));
-        } catch (Exception e) {
-            System.out.println(Uri.parse(User.getConnectedUser().getPicture()));
-        }
     }
 
 

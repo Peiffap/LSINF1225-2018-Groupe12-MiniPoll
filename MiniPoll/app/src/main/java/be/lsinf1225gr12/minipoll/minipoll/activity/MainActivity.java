@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     }
 
     public void choice(View v){
-        Intent intent = new Intent(this, ShowListActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
