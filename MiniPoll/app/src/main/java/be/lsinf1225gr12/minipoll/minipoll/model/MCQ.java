@@ -1,5 +1,6 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
@@ -7,7 +8,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class MCQ extends PollAbstract {
+public class MCQ extends PollAbstract implements Serializable {
 
     private int numberQuestion;
     private List<Question> question;
@@ -52,9 +53,9 @@ public class MCQ extends PollAbstract {
      * @param title titre de la question
      * @param position donne la position de la question
      */
-    public void addQuestion(String title,int position)
+    public Question addQuestion(String title,int position)
     {
-        Question question = new Question(title,0,position);
+        Question question = new Question(title,1,position);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyQuestionAuthor(),author.getId());
@@ -69,6 +70,7 @@ public class MCQ extends PollAbstract {
         }
         db.close();
         this.question.add(question);
+        return question;
     }
     /**
      * Fonction qui modifie la RightAnswer in db
@@ -124,7 +126,7 @@ public class MCQ extends PollAbstract {
      * @param description description du choix
      * @param positionchoice position du choix
      */
-    public void addQuestionChoise(Question question, String description,int positionchoice)
+    public void addQuestionChoice(Question question, String description,int positionchoice)
     {
         Questionchoice questionchoice = new Questionchoice(question.getPosition(),description,question.getPosition());
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
