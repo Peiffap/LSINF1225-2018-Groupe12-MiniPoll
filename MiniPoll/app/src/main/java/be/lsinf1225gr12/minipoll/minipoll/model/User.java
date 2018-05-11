@@ -270,7 +270,6 @@ public class User {
         if (this.password.equals(passwordToTry)) {
             // Si le mot de passe est correct, modification de l'utilisateur connecté.
             User.connectedUser = this;
-            Log.w(">>>>> Le connecter user",String.valueOf(User.connectedUser.toString()));
             return true;
         }
         return false;
@@ -406,12 +405,23 @@ public class User {
 
     public static ArrayList<User> getNonFriend(User user){
         ArrayList<User> all = getUsers();
+        Log.w("Nom de l'user",user.getName());
         ArrayList<User> friends = getFriends(user);
         all.remove(user);
         for(int i=0; i<friends.size();i++){
-            all.remove(friends.get(i));
+            int index = User.getIndexOfId(all,friends.get(i).getId());
+            all.remove(index);
         }
         return all;
+    }
+
+    public static int getIndexOfId(ArrayList<User> users, int id){
+        for(int i =0; i<users.size(); i++){
+            if(users.get(i).getId()==id){
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static String createCommand(int n){
@@ -516,7 +526,6 @@ public class User {
      */
     public static ArrayList<User> getDemands(User utilisateur){
         int thisId = utilisateur.getId();
-        Log.w("Le code est passé ici",String.valueOf(thisId));
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -533,7 +542,6 @@ public class User {
         ArrayList<String> ids = new ArrayList<>();
 
         boolean cond = !cursor.moveToFirst();
-        Log.w("Le code est passé ici",String.valueOf(cond));
         if(!cond){
 
             // Tant qu'il y a des lignes.
@@ -546,7 +554,6 @@ public class User {
 
                 // Passe à la ligne suivante.
                 cursor.moveToNext();
-                Log.w("Le code est passé ici","boucle");
             }
         }
         cursor.close();
@@ -583,7 +590,6 @@ public class User {
                 int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
                 User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
-                Log.w("Le code est passé ici","boucle2");
                 // Ajout de l'utilisateur à la liste.
                 users.add(user);
 

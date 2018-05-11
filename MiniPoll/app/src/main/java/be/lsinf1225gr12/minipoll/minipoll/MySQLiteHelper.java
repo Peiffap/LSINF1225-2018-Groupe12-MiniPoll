@@ -1,15 +1,21 @@
 package be.lsinf1225gr12.minipoll.minipoll;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 /**
  classe générale pour accès à la DB.

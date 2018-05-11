@@ -27,7 +27,9 @@ import java.util.NoSuchElementException;
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
+import be.lsinf1225gr12.minipoll.minipoll.ImageHandling;
 
+import static android.provider.MediaStore.Images.Media.insertImage;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isNullOrWhitespace;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidField;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidEmail;
@@ -76,8 +78,6 @@ public class ProfileCreationActivity extends Activity implements TextView.OnEdit
 
                     User.createNewUser(login, password, null, email, firstName, lastName, 0);
 
-                    // TODO Add image to user in db.
-
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -121,8 +121,12 @@ public class ProfileCreationActivity extends Activity implements TextView.OnEdit
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
 
+                User.getConnectedUser().setPicture(uri.toString());
+
                 ImageView imageView = (ImageView) findViewById(R.id.picked_image);
                 imageView.setImageBitmap(bitmap);
+
+                MiniPollApp.notifyShort(R.string.profile_creation_picture_updated_msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }

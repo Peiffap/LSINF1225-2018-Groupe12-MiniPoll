@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,10 +18,13 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import be.lsinf1225gr12.minipoll.minipoll.ImageHandling;
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
+import static android.content.ContentValues.TAG;
+import static android.provider.MediaStore.Images.Media.getBitmap;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isNullOrWhitespace;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidEmail;
 import static be.lsinf1225gr12.minipoll.minipoll.InputValidation.isValidField;
@@ -30,7 +35,7 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
     final int REQ_CODE_PICK_IMAGE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
         TextView fn = (TextView) this.findViewById(R.id.profile_update_first_name);
@@ -39,7 +44,14 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
         ln.setText(User.getConnectedUser().getName());
         TextView mail = (TextView) this.findViewById(R.id.profile_update_email);
         mail.setText(User.getConnectedUser().getMail());
+        ImageView pic = (ImageView) this.findViewById(R.id.profile_pic);
+        try {
+            pic.setImageBitmap(getBitmap(getContentResolver(), Uri.parse(User.getConnectedUser().getPicture())));
+        } catch (Exception e) {
+            System.out.println(Uri.parse(User.getConnectedUser().getPicture()));
+        }
     }
+
 
     /**
      * Vérifie que les champs sont cohérents et modifie le profil.
@@ -119,11 +131,15 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
             Uri uri = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                // Log.d(TAG, String.valueOf(bitmap));
+                Bitmap bitmap = getBitmap(getContentResolver(), uri);
+
+                User usr = User.getConnectedUser();
+                usr.setPicture(uri.toString());
 
                 ImageView imageView = (ImageView) findViewById(R.id.profile_pic);
                 imageView.setImageBitmap(bitmap);
+
+                MiniPollApp.notifyShort(R.string.profile_update_updated_picture_msg);
             } catch (IOException e) {
                 e.printStackTrace();
             }

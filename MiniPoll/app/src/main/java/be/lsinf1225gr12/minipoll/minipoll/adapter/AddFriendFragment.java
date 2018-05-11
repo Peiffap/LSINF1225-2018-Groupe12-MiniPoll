@@ -1,6 +1,7 @@
 package be.lsinf1225gr12.minipoll.minipoll.adapter;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.lsinf1225gr12.minipoll.minipoll.R;
+import be.lsinf1225gr12.minipoll.minipoll.activity.FriendMenuActivity;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 /**
@@ -70,14 +72,16 @@ public class AddFriendFragment extends Fragment {
         viewLogin.setText(Login[bdl.getInt("count") - 1]);
         viewName.setText(Name[bdl.getInt("count") - 1]);
         viewMail.setText(Mail[bdl.getInt("count") - 1]);
+        viewAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(getContext(), FriendMenuActivity.class);
+                startActivity(back);
+                User.addFriend(User.getConnectedUser(),User.getUserWithLogin(viewLogin.getText().toString()));
+            }
+        });
         return v;
     }
 
-    public void add(View v){
-        /*hiddenText=(TextView) v.findViewById(R.id.hiddenAdd);
-        hiddenText.getText();
-        int i=Integer.parseInt(hiddenText.toString());
-        User.addFriend(User.getConnectedUser(),Nfriend.get(i));*/
-    }
 
 }
