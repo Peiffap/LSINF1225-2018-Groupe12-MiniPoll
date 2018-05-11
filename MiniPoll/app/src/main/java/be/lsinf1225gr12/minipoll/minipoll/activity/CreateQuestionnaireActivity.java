@@ -13,8 +13,7 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        id i = 
         setContentView(R.layout.activity_create_questionnaire);
-        Intent intent = new Intent(this, ChooseFriendActivity.class);
-        startActivity(intent);
     }
 }

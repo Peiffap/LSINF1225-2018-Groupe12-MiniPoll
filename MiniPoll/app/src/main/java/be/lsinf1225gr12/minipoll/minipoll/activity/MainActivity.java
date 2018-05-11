@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
     }
 
     public void MCQ(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ChooseFriendActivity.class);
         startActivity(intent);
     }
 

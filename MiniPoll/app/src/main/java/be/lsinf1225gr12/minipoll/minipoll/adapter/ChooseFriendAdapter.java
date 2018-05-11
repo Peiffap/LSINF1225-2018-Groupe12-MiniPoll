@@ -5,12 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.CheckBox;
 
 import java.util.ArrayList;
 
+import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
@@ -24,10 +27,23 @@ public class ChooseFriendAdapter extends BaseAdapter {
      * Liste des éléments de collection à mettre dans la liste.
      */
     private ArrayList<User> user;
+    protected ArrayList<User> selectedUser=new ArrayList<>();
+    int position;
 
     public ChooseFriendAdapter(Context context, ArrayList<User> user) {
         mInflater = LayoutInflater.from(context);
         this.user = user;
+    }
+
+    public ArrayList<User> getSelectedUser()
+    {
+        return selectedUser;
+    }
+
+    public void update()
+    {
+        User test = user.get(position);
+        selectedUser.add(test);
     }
 
     @Override
@@ -47,6 +63,9 @@ public class ChooseFriendAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // TODO Auto-generated method stub
+
+        this.position=position;
         // Si la vue n'a pas encore été créé (typiquement lors du première affichage de la liste).
         // Android recycle en effet les layout déjà chargés des éléments de la liste (par exemple
         // lors du changement de l'ordre dans la liste.)
@@ -60,8 +79,25 @@ public class ChooseFriendAdapter extends BaseAdapter {
         TextView nameTextView = convertView.findViewById(R.id.show_row_name);
 
         // Récupération et placement des données.
-        User myUser = user.get(position);
+        final User myUser = user.get(position);
         nameTextView.setText(myUser.getLogin());
+
+        final CheckBox checkBox = convertView.findViewById(R.id.checkBox3);
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                //MiniPollApp.notifyShort(R.string.list_error);
+
+                final boolean isChecked = checkBox.isChecked();
+                final User myUser1 = myUser;
+                if (isChecked)
+                {
+                    MiniPollApp.notifyShort(R.string.list_error);
+                    update();
+                }
+            }
+        });
 
         return convertView;
     }

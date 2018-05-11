@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
+import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.adapter.ChooseFriendAdapter;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
@@ -22,8 +23,14 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
     public static final String FriendMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.FriendMemory";
 
     private ArrayList<User> user;
+    private ArrayList<User> selectedUser;
     private ChooseFriendAdapter chooseFriendAdapter;
 
+
+    public ArrayList<User> getUser()
+    {
+        return selectedUser;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +57,7 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
 
     private void loadUser() {
 
-            user = User.getFriends(User.getConnectedUser());;
+        user = User.getFriends(User.getConnectedUser());;
 
 
         // S'il n'y a aucun éléments dans la liste, il faut afficher un message. Ce message est différent
@@ -79,10 +86,17 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, MainActivity.class);
-        // L'id de l'élément de collection est passé en argument afin que la vue de détails puisse
-        // récupérer celui-ci.
-        intent.putExtra("s_id", user.get(position).getId());
+
+        selectedUser.add(user.get(position));
+        MiniPollApp.notifyShort(R.string.list_error);
+    }
+
+    public void validate(View view)
+    {
+        ArrayList<User> user = chooseFriendAdapter.getSelectedUser();
+        Intent intent = new Intent(this, CreateQuestionnaireActivity.class);
+        for (int i=0;i<user.size();++i)
+            intent.putExtra(MySQLiteHelper.getKeyUserId(), user.get(i).getId());
         startActivity(intent);
     }
 }
