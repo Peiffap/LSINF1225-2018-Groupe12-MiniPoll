@@ -1,6 +1,7 @@
 package be.lsinf1225gr12.minipoll.minipoll.adapter;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import be.lsinf1225gr12.minipoll.minipoll.R;
+import be.lsinf1225gr12.minipoll.minipoll.activity.FriendMenuActivity;
+import be.lsinf1225gr12.minipoll.minipoll.activity.Friend_List_Activity;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 
@@ -24,12 +27,12 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
     TextView viewID;
     TextView viewName;
     TextView viewMail;
-    TextView Hidden;
     ImageButton IBFav;
     ImageButton IBRem;
     ImageButton HiddenButton;
     List<User> friendlist=User.getFriends(User.getConnectedUser());
     int f=friendlist.size();
+    public static final String RemoveMemory = "be.lsinf1225gr12.minipoll.minipoll.activity.RemoveMemory";
 
     public SwipeFragment() {
         // Required empty public constructor
@@ -37,14 +40,13 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_swipe, container, false);
         viewID = (TextView) v.findViewById(R.id.textView2);
         viewName = (TextView) v.findViewById(R.id.textView3);
         viewMail = (TextView) v.findViewById(R.id.textView4);
-        Hidden = (TextView) v.findViewById(R.id.hidden);
         IBFav = (ImageButton) v.findViewById(R.id.imageButton1);
         IBRem = (ImageButton) v.findViewById(R.id.imageButton2);
         HiddenButton= (ImageButton) v.findViewById(R.id.HB);
@@ -64,25 +66,30 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
             IBRem.setVisibility(View.GONE);
         }
         Bundle bdl = getArguments();
-
-        //IBFav.setImageMatrix(HiddenButton.getImageMatrix());
-        Hidden.setText(String.valueOf(bdl.getInt("count")-1));
+        if(User.getConnectedUser().getBestFriend()==friendlist.get(bdl.getInt("count")-1).getId()){
+            IBFav.setVisibility(View.GONE);
+            HiddenButton.setVisibility(View.VISIBLE);
+        }
         viewID.setText(Login[bdl.getInt("count") - 1]);
         viewName.setText(Name[bdl.getInt("count") - 1]);
         viewMail.setText(Mail[bdl.getInt("count") - 1]);
+        IBRem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(getContext(), FriendMenuActivity.class);
+                startActivity(back);
+                User.removeFriend(User.getConnectedUser(),User.getUserWithLogin(viewID.getText().toString()));
+            }
+        });
+        IBFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User.getConnectedUser().setBestfriend(User.getUserWithLogin(viewID.getText().toString()).getId());
+                Intent back = new Intent(getContext(), FriendMenuActivity.class);
+                startActivity(back);
+            }
+        });
 
         return v;
-    }
-    public void remove (View v){
-        Hidden = (TextView) v.findViewById(R.id.hidden);
-        Hidden.getText();
-        int i = Integer.parseInt(Hidden.toString());
-        User.removeFriend(User.getConnectedUser(),friendlist.get(i));
-    }
-    public void addFav(View v){
-        Hidden = (TextView) v.findViewById(R.id.hidden);
-        Hidden.getText();
-        int i = Integer.parseInt(Hidden.toString());
-        User.getConnectedUser().setBestfriend(friendlist.get(i).getId());
     }
 }
