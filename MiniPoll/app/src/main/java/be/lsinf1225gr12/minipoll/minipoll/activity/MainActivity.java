@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
         if (timeBackPressed + 2000 > System.currentTimeMillis()) //déjà appuyé sur back il y a moins de 2 secondes
         {
             finish();
-            User.getConnectedUser().logout();
+            User.logout();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
