@@ -38,10 +38,10 @@ public class CreateQuestionActivity extends AppCompatActivity {
         //Extract the data…
         ArrayList<String> credentials = bundle.getStringArrayList("credentials");
 
-        int author = Integer.parseInt(credentials.get(0));
-        long date = Long.parseLong(credentials.get(1));
+        int author = Integer.parseInt(credentials.get(1));
+        long date = Long.parseLong(credentials.get(0));
         actualNumber = Integer.parseInt(credentials.get(2));
-       // mcq = getMCQ(author,date);
+        mcq = MCQ.get(author,date);
     }
 
     private void resetQuestion()
@@ -97,13 +97,9 @@ public class CreateQuestionActivity extends AppCompatActivity {
             registerQuestion();
             if (actualNumber==1)
             {
-                registerQuestion();
                 Intent intent = new Intent(this, MainActivity.class);
                 //intent.putExtra("ArrayList<Question>", questions); //passe le tableau de Questions en arguments
                 startActivity(intent);
-            }
-            for (int i=0;i<5;++i) {
-                loginEditText[i].setText("");
             }
             resetQuestion();
             actualNumber--;
