@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageHandling {
 
-    public Bitmap StringToBitmap(String encodedString) {
+    public static Bitmap StringToBitmap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(encodeByte, 0,
@@ -19,7 +19,7 @@ public class ImageHandling {
         }
     }
 
-    public String BitmapToString(Bitmap bitmap) {
+    public static String BitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();

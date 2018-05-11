@@ -36,6 +36,7 @@
     <string name="profile_creation_invalid_first_name_msg">Le prénom est incorrect</string>
     <string name="profile_creation_invalid_last_name_msg">Le nom de famille est incorrect</string>
     <string name="profile_creation_pic_btn">Photo de profil</string>
+    <string name="profile_creation_picture_updated_msg">Image changée</string>
 
     <!-- Profile Update -->
     <string name="profile_update_pic_btn">Changer la photo de profil</string>
@@ -44,6 +45,7 @@
     <string name="profile_update_invalid_email_msg">L\'adresse mail est incorrecte</string>
     <string name="profile_update_invalid_first_name_msg">Le prénom est incorrect</string>
     <string name="profile_update_invalid_last_name_msg">Le nom de famille est incorrect</string>
+    <string name="profile_update_updated_picture_msg">Image changée</string>
 
     <!-- Credentials Update -->
     <string name="credentials_update_btn">Confirmer</string>
