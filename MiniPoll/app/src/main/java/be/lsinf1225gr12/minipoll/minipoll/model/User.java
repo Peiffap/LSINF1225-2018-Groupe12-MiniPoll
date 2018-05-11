@@ -485,9 +485,8 @@ public class User {
         cv.put(MySQLiteHelper.getKeyFriendrelationStatus(),"Friend");
         String selection = MySQLiteHelper.getKeyFriendrelationSender() + " = ? AND " + MySQLiteHelper.getKeyFriendrelationReceiver() + " = ?";
         String[] selectionArgs = new String[]{String.valueOf(idAccept), String.valueOf(idUser)};
-        db.update(MySQLiteHelper.getTableFriendrelation(), cv, selection, selectionArgs);
-        long result = db.insert(MySQLiteHelper.getTableFriendrelation(), null, cv);
-        if (result==-1)
+        int result = db.update(MySQLiteHelper.getTableFriendrelation(), cv, selection, selectionArgs);
+        if (result<=0)
         {
             MiniPollApp.notifyShort(R.string.my_error);
         }
@@ -516,21 +515,74 @@ public class User {
 
         ArrayList<String> ids = new ArrayList<>();
 
-        // Tant qu'il y a des lignes.
-        while (!cursor.isAfterLast()) {
-            // Récupération des informations de l'utilisateur pour chaque ligne.
-            int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyFriendrelationReceiver()));
+        boolean cond = !cursor.moveToFirst();
+        if(!cond){
 
-            // Ajout de l'utilisateur à la liste.
-            ids.add(String.valueOf(id));
+            // Tant qu'il y a des lignes.
+            while (!cursor.isAfterLast()) {
+                // Récupération des informations de l'utilisateur pour chaque ligne.
+                int id = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender()));
 
-            // Passe à la ligne suivante.
-            cursor.moveToNext();
+                // Ajout de l'utilisateur à la liste.
+                ids.add(String.valueOf(id));
+
+                // Passe à la ligne suivante.
+                cursor.moveToNext();
+            }
         }
         cursor.close();
+        db.close();
 
 
-        String selection3 = MySQLiteHelper.getKeyUserId() + " = ?";
+        ArrayList<User> users = new ArrayList<>();
+
+        SQLiteDatabase db3 = MySQLiteHelper.get().getReadableDatabase();
+
+
+        if(cond) {
+            String selection3 = createCommand(ids.size());
+            String[] selectionArgs3 = new String[ids.size()];
+            selectionArgs3 = ids.toArray(selectionArgs3);
+
+            String[] colonnes3 = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(), MySQLiteHelper.getKeyUserLogin(), MySQLiteHelper.getKeyUserPassword(), MySQLiteHelper.getKeyUserMail(), MySQLiteHelper.getKeyUserPicture(), MySQLiteHelper.getKeyUserBestfriend()};
+            Cursor cursor3 = db3.query(MySQLiteHelper.getTableUser(), colonnes3, selection3, selectionArgs3, null, null, null);
+
+            // Placement du curseur sur la première ligne.
+            cursor3.moveToFirst();
+
+
+            // Tant qu'il y a des lignes.
+            while (!cursor3.isAfterLast()) {
+                // Récupération des informations de l'utilisateur pour chaque ligne.
+                int id = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserId()));
+                String name = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+                String firstname = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserFirstname()));
+                String login = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserLogin()));
+                String password = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPassword()));
+                String mail = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserMail()));
+                String picture = cursor3.getString(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserPicture()));
+                int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
+
+                User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
+
+                // Ajout de l'utilisateur à la liste.
+                users.add(user);
+
+                // Passe à la ligne suivante.
+                cursor3.moveToNext();
+            }
+
+            // Fermeture du curseur et de la base de données.
+            cursor3.close();
+        }
+
+        // Fermeture du curseur et de la base de données.
+
+        db3.close();
+
+        return users;
+
+        /*String selection3 = MySQLiteHelper.getKeyUserId() + " = ?";
         String[] selectionArgs3 = new String[ids.size()];
         selectionArgs3 = ids.toArray(selectionArgs3);
 
@@ -541,7 +593,7 @@ public class User {
         cursor3.moveToFirst();
 
         // Initialisation la liste des utilisateurs.
-        ArrayList<User> users = new ArrayList<>();
+
 
         // Tant qu'il y a des lignes.
         while (!cursor3.isAfterLast()) {
@@ -569,9 +621,7 @@ public class User {
 
         // Fermeture du curseur et de la base de données.
 
-        db.close();
-
-        return users;
+        db.close();*/
     }
 
     /**
