@@ -67,7 +67,6 @@ public class UpdateProfileActivity extends Activity implements TextView.OnEditor
                     User.getConnectedUser().setMail(email);
                     User.getConnectedUser().setFirstname(firstName);
                     User.getConnectedUser().setName(lastName);
-                    MiniPollApp.notifyShort(R.string.profile_update_updated_msg);
                 } else {
                     MiniPollApp.notifyShort(R.string.profile_update_invalid_email_msg);
                 }
