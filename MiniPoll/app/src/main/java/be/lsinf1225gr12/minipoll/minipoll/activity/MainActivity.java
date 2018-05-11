@@ -8,6 +8,7 @@ import android.view.View;
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
+import be.lsinf1225gr12.minipoll.minipoll.R;
 
 /**
  * Gere la navigation a travers les fonctionnalites de l'application
