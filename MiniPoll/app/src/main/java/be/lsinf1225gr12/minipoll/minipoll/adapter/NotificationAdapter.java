@@ -44,7 +44,7 @@ public class NotificationAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Intent back = new Intent(getContext(), FriendMenuActivity.class);
-                //startActivity(back);
+                context.startActivity(back);
                 User.acceptFriend(User.getConnectedUser(),User.getUserWithLogin(textView.getText().toString()));
             }
         });
@@ -52,7 +52,7 @@ public class NotificationAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Intent back = new Intent(getContext(), FriendMenuActivity.class);
-                //startActivity(back);
+                context.startActivity(back);
                 User.removeFriend(User.getConnectedUser(),User.getUserWithLogin(textView.getText().toString()));
             }
         }));

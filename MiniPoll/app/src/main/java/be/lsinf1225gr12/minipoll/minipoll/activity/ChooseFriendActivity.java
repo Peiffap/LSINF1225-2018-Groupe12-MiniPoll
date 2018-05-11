@@ -100,12 +100,24 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
         }
         else
         {
+            Intent pIntent = getIntent();
+            int t = pIntent.getIntExtra(CreateActivity.TypeMemory,0);
             int id[] = new int[user.size()];
             for (int i=0;i<user.size();++i)
                 id[i]=user.get(i).getId();
-            Intent intent = new Intent(this, CreateQuestionnaireActivity.class);
-            for (int i=0;i<user.size();++i)
+            Intent intent;
+            if(t==0){
+                intent= new Intent(this, CreateSondageActivity.class);
+                String[] r = new String[id.length];
+                for(int a=0; a<r.length;a++){
+                    r[a]=User.getUserWithId(id[a]).getLogin();
+                }
+                intent.putExtra(FriendMemory,r);
+            }
+            else {
+                intent = new Intent(this, CreateQuestionnaireActivity.class);
                 intent.putExtra(MySQLiteHelper.getKeyUserId(), id);
+            }
             startActivity(intent);
         }
     }

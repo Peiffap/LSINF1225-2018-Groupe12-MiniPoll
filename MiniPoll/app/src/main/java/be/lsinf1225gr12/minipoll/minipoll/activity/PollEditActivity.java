@@ -3,6 +3,7 @@ package be.lsinf1225gr12.minipoll.minipoll.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.Poll;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
@@ -67,30 +69,35 @@ public class PollEditActivity extends AppCompatActivity {
         int c = pintent.getIntExtra(CreateSondageActivity.NumberChoice,2);
         boolean found = false;
         ChoiceToErase = (EditText) findViewById(R.id.hideET4);
-        found=(ChoiceToErase.getText().toString().equals("")&&c>5)? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 6")&&c>5)? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.hideET3);
-        found=(ChoiceToErase.getText().toString().equals("")&&c>4)? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 5")&&c>4)? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.hideET2);
-        found=(ChoiceToErase.getText().toString().equals("")&&c>3)? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 4")&&c>3)? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.hideET1);
-        found=(ChoiceToErase.getText().toString().equals("")&&c>2)? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 3")&&c>2)? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.editText3);
-        found=(ChoiceToErase.getText().toString().equals(""))? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 2"))? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.editText5);
-        found=(ChoiceToErase.getText().toString().equals(""))? true:found;
+        found=(ChoiceToErase.getText().toString().equals("Choix 1"))? true:found;
         ChoiceToErase = (EditText) findViewById(R.id.ETQuestion);
         found=(ChoiceToErase.getText().toString().equals(""))? true:found;
         if(found){
-            Toast.makeText(this,"Un champ n'est pas rempli",Toast.LENGTH_SHORT);
+            MiniPollApp.notifyShort(R.string.invalidfield);
         }
         else{
             Title = (EditText) findViewById(R.id.ETQuestion);
+            Log.d("crashtest","merde1");
             Poll P = new Poll(pintent.getIntExtra(CreateSondageActivity.TopMemoryPoll,1),c,System.currentTimeMillis(), User.getConnectedUser(),pintent.getStringExtra(NameMemoryPoll),false,"Text",Title.getText().toString());
+            Log.d("crashtest","merde2");
             Poll.addPoll(P);
+            Log.d("crashtest","merde3");
             Choice=(EditText) findViewById(R.id.editText3);
+            Log.d("crashtest","merde4");
             P.addChoicePoll(Choice.getText().toString(),1);
             Choice=(EditText) findViewById(R.id.editText5);
             P.addChoicePoll(Choice.getText().toString(),2);
+            Log.d("crashtest","merde5");
             if(c>2){
                 Choice=(EditText) findViewById(R.id.hideET1);
                 P.addChoicePoll(Choice.getText().toString(),3);
@@ -107,6 +114,7 @@ public class PollEditActivity extends AppCompatActivity {
                 Choice=(EditText) findViewById(R.id.hideET4);
                 P.addChoicePoll(Choice.getText().toString(),6);
             }
+            Log.d("crashtest","merde6");
 
 
         }
