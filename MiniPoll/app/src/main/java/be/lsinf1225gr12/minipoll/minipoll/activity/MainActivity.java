@@ -36,8 +36,7 @@ public class MainActivity extends Activity {
     }
 
     public void choice(View v){
-        Intent intent = new Intent(this, ShowListActivity.class);
-        startActivity(intent);
+
     }
 
     public void profile(View v){
@@ -46,8 +45,6 @@ public class MainActivity extends Activity {
     }
 
     public void MCQ(View v){
-        Intent intent = new Intent(this, ChooseFriendActivity.class);
-        startActivity(intent);
     }
 
     public void friends(View v){
@@ -56,8 +53,7 @@ public class MainActivity extends Activity {
     }
 
     public void poll(View v){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
     }
 
     /**
