@@ -1,12 +1,14 @@
 package be.lsinf1225gr12.minipoll.minipoll.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-public class MCQ extends PollAbstract {
+public class MCQ extends PollAbstract implements Serializable {
 
     private int numberQuestion;
     private List<Question> question;
@@ -18,7 +20,15 @@ public class MCQ extends PollAbstract {
      */
     public MCQ(String format, String name, User author, long date, int numberQuestion){
         super(format,name,author,date);
+
         this.numberQuestion = numberQuestion;
+
+    }
+
+    public static MCQ createNewMCQ(String format, String name, User author, long date, int numberQuestion){
+
+        MCQ mcq = new MCQ(format,name,author,date,numberQuestion);
+
         //écrit dans la BD
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -34,6 +44,8 @@ public class MCQ extends PollAbstract {
             //erreur dans l'ajout, suppression
         }
         db.close();
+
+        return mcq;
     }
 
     /**
@@ -41,9 +53,9 @@ public class MCQ extends PollAbstract {
      * @param title titre de la question
      * @param position donne la position de la question
      */
-    public void addQuestion(String title,int position)
+    public Question addQuestion(String title,int position)
     {
-        Question question = new Question(title,0,position);
+        Question question = new Question(title,1,position);
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(MySQLiteHelper.getKeyQuestionAuthor(),author.getId());
@@ -58,6 +70,7 @@ public class MCQ extends PollAbstract {
         }
         db.close();
         this.question.add(question);
+        return question;
     }
     /**
      * Fonction qui modifie la RightAnswer in db
@@ -80,6 +93,32 @@ public class MCQ extends PollAbstract {
 
     }
 
+    public static MCQ get(int author, long date){
+        SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
+        String selection = MySQLiteHelper.getKeyMcqAuthor() + " = ? AND " + MySQLiteHelper.getKeyMcqDate() + " = ?";
+        String[] colonnes = {MySQLiteHelper.getKeyMcqFormat(), MySQLiteHelper.getKeyMcqIsclosed(), MySQLiteHelper.getKeyMcqNumberquestion(),MySQLiteHelper.getKeyMcqTitle()};
+        String[] selectionArgs = {String.valueOf(author),String.valueOf(date)};
+        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+
+        // Placement du curseur sur la première ligne.
+        if(!cursor.moveToFirst())
+            return null;
+
+        int numberQuestion = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqNumberquestion()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String format = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqFormat()));
+
+        MCQ mcq = new MCQ(format,name,User.getUserWithId(author),date,numberQuestion);
+
+
+        // Fermeture du curseur et de la base de données.
+        cursor.close();
+        db.close();
+
+        return mcq;
+
+    }
+
 
     /**
      * Fonction qui ajoute un choix de question possible
@@ -87,7 +126,7 @@ public class MCQ extends PollAbstract {
      * @param description description du choix
      * @param positionchoice position du choix
      */
-    public void addQuestionChoise(Question question, String description,int positionchoice)
+    public void addQuestionChoice(Question question, String description,int positionchoice)
     {
         Questionchoice questionchoice = new Questionchoice(question.getPosition(),description,question.getPosition());
         SQLiteDatabase db = MySQLiteHelper.get().getWritableDatabase();

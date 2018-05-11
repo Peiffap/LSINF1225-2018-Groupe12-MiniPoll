@@ -18,8 +18,8 @@ public class CreateActivity extends AppCompatActivity
     }
 public void createChoix(View v)
 {
-    //Intent intent = new Intent( this, CreateChoixActivity.class);
-    //startActivity(intent);
+    Intent intent = new Intent( this, ChooseFriendChoice.class);
+    startActivity(intent);
 }
 public void createSondage(View v)
 {

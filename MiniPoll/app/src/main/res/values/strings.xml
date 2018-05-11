@@ -11,6 +11,8 @@
     <string name="valide">Valider</string>
     <string name="select_right_answer">Sélectionnez la réponse correcte</string>
     <string name="manque_champs">Veuillez renseigner tous les champs</string>
+    <string name="mcq_titre">Choisissez un titre</string>
+    <string name="mcq_alert">Donnez un titre et un nombre de questions</string>
 
     <!-- ChooseFriend -->
     <string name="list_error">Veuillez sélectionner au moins un ami</string>
@@ -109,5 +111,6 @@
     <string name="title_activity_add_friend">AddFriendActivity</string>
     <string name="title_activity_validate_friend">ValidateFriend</string>
     <string name="title_activity_create_question">CreateQuestion</string>
+    <string name="title_activity_previsualisation_mcq">PrevisualisationMCQ</string>
 
 </resources>

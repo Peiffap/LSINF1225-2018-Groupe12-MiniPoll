@@ -29,8 +29,6 @@ public class ChooseFriendChoiceAdapter extends BaseAdapter {
      * Liste des éléments de collection à mettre dans la liste.
      */
     private List<User> user;
-    protected ArrayList<User> selectedUser=new ArrayList<>();
-    int position;
 
     public ChooseFriendChoiceAdapter(Context context, List<User> user) {
         mInflater = LayoutInflater.from(context);
@@ -57,7 +55,7 @@ public class ChooseFriendChoiceAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_choose_friend_choice, parent, false);
         btn=(Button) rowView.findViewById(R.id.chooseButton);
-        btn.setText(friendlist.get(position).getLogin());
+        btn.setText(user.get(position).getLogin());
         return rowView;
     }
 
