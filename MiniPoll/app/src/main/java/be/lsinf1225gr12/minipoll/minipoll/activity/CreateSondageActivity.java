@@ -49,7 +49,7 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
         String et2 = ET2.getText().toString();
         String name = Name.getText().toString();
         Log.d("Crash?",name);
-        if (et.equals("")||(et2.equals(""))){
+        if (et.length()==0||(et2.length()==0)){
             Toast.makeText(this,"Veuillez entrer un nombre",Toast.LENGTH_SHORT);
         }
         else if(Integer.parseInt(et)<2||Integer.parseInt(et)>6){
@@ -57,6 +57,9 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
         }
         else if(Integer.parseInt(et2)<1||Integer.parseInt(et2)>6){
             Toast.makeText(this,"Veuillez entrer un nombre entre 1 et 6 pour le nombre de top",Toast.LENGTH_SHORT);
+        }
+        else if (Integer.parseInt(et)<Integer.parseInt(et2)){
+            Toast.makeText(this,"Le nombre de top ne peut pas être plus grand que le nombre de choix",Toast.LENGTH_SHORT);
         }
         else if (name.equals("")){
             Toast.makeText(this,"Veuillez entrer un nom pour votre sondage",Toast.LENGTH_SHORT);
