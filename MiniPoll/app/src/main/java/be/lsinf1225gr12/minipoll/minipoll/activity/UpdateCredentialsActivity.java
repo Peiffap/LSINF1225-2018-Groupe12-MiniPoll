@@ -47,22 +47,29 @@ public class UpdateCredentialsActivity extends Activity implements TextView.OnEd
         EditText newPasswordConfirmationEditText = findViewById(R.id.credentials_update_new_password_confirmation);
         String newPasswordConfirmation = newPasswordConfirmationEditText.getText().toString();
 
+        String currentLogin = User.getConnectedUser().getLogin();
+        User usr = User.getConnectedUser();
+
         if (isValidField(login)) {
             ArrayList<User> users = User.getUsers();
             boolean existing = false;
             for (User u : users) {
                 existing = u.getLogin().equals(login);
-                if (existing && !login.equals(User.getConnectedUser().getLogin())) {
+                if (existing && !login.equals(currentLogin)) {
                     MiniPollApp.notifyShort(R.string.credentials_update_existing_login_msg);
                     break;
                 }
             }
             if (!existing) {
-                if (oldPassword.equals(User.getConnectedUser().getPassword())) {
+                if (oldPassword.equals(usr.getPassword())) {
                     if (newPassword.equals(newPasswordConfirmation)) {
                         if (newPassword.length() > 2 && !isNullOrWhitespace(newPassword)) {
-                            User.getConnectedUser().setLogin(login);
-                            User.getConnectedUser().setPassword(newPassword);
+                            usr.setLogin(login);
+                            usr.setPassword(newPassword);
+                            MiniPollApp.notifyShort(R.string.credentials_update_updated_msg);
+                        } else if (newPassword.length() == 0) {
+                            usr.setLogin(login);
+                            MiniPollApp.notifyShort(R.string.credentials_update_updated_msg);
                         } else {
                             MiniPollApp.notifyShort(R.string.credentials_update_password_invalid_msg);
                         }
