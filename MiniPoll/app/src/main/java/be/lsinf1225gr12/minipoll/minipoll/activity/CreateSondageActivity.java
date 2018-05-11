@@ -3,6 +3,7 @@ package be.lsinf1225gr12.minipoll.minipoll.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,6 +48,7 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
         String et = ET.getText().toString();
         String et2 = ET2.getText().toString();
         String name = Name.getText().toString();
+        Log.d("Crash?",name);
         if (et.equals("")||(et2.equals(""))){
             Toast.makeText(this,"Veuillez entrer un nombre",Toast.LENGTH_SHORT);
         }
@@ -70,6 +72,7 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
             intent.putExtra(NameMemoryPoll,name);
             intent.putExtra(TopMemoryPoll,j);
             startActivity(intent);
+
         }
     }
 

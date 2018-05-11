@@ -26,9 +26,7 @@ public class AddFriendFragment extends Fragment {
     TextView viewMail;
     TextView hiddenText;
     ImageButton viewAdd;
-    static List<User> friendlist=User.getFriends(User.getConnectedUser());
-    static List<User> Nfriend=getNonFriend();
-    static int f=friendlist.size();
+    static List<User> Nfriend=User.getNonFriend(User.getConnectedUser());
     static int n=Nfriend.size();
 
     public AddFriendFragment() {
@@ -49,6 +47,7 @@ public class AddFriendFragment extends Fragment {
         String m = "";
         for(int i=0; i<n;i++){
             m+=(Nfriend.get(i).getLogin()+"-");
+            Log.d("Nfriend",m);
         }
         String[]Login = m.split("-");
         m = "";
@@ -75,19 +74,10 @@ public class AddFriendFragment extends Fragment {
     }
 
     public void add(View v){
-        hiddenText=(TextView) v.findViewById(R.id.hiddenAdd);
+        /*hiddenText=(TextView) v.findViewById(R.id.hiddenAdd);
         hiddenText.getText();
         int i=Integer.parseInt(hiddenText.toString());
-        User.addFriend(User.getConnectedUser(),Nfriend.get(i));
-    }
-
-    public static List<User> getNonFriend(){
-        List<User> Appui = User.getUsers();
-        Appui.remove(User.getConnectedUser());
-        for(int i=0;i<f;i++){
-            Appui.remove(friendlist.get(i));
-        }
-        return Appui;
+        User.addFriend(User.getConnectedUser(),Nfriend.get(i));*/
     }
 
 }
