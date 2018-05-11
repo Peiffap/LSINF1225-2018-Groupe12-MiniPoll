@@ -13,6 +13,7 @@
     <string name="manque_champs">Veuillez renseigner tous les champs</string>
     <string name="mcq_titre">Choisissez un titre</string>
     <string name="mcq_alert">Donnez un titre et un nombre de questions</string>
+    <string name="well_done">Questionnaire enregistré avec succès !</string>
 
     <!-- ChooseFriend -->
     <string name="list_error">Veuillez sélectionner au moins un ami</string>

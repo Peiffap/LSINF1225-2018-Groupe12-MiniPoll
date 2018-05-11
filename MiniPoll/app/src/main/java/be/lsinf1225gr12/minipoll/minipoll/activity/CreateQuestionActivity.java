@@ -22,6 +22,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 public class CreateQuestionActivity extends AppCompatActivity {
 
+    private static long timeBackPressed;
     private MCQ mcq;
     private ArrayList<User> user;
     private int numberChoice;
@@ -30,6 +31,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        timeBackPressed= System.currentTimeMillis()-2000;
         super.onCreate(savedInstanceState);
         actualNumber = getIntent().getIntExtra("InfosQuestion",1);
         setContentView(R.layout.activity_create_question);
@@ -97,6 +99,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
             registerQuestion();
             if (actualNumber==1)
             {
+                MiniPollApp.notifyShort(R.string.well_done);
                 Intent intent = new Intent(this, MainActivity.class);
                 //intent.putExtra("ArrayList<Question>", questions); //passe le tableau de Questions en arguments
                 startActivity(intent);
@@ -104,5 +107,24 @@ public class CreateQuestionActivity extends AppCompatActivity {
             resetQuestion();
             actualNumber--;
         }
+
     }
+
+    @Override
+    public void onBackPressed() {
+        if (timeBackPressed + 2000 > System.currentTimeMillis()) //déjà appuyé sur back il y a moins de 2 secondes
+        {
+            moveTaskToBack(true);
+            Intent intent = new Intent (this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            MiniPollApp.notifyShort(R.string.menu_logout);
+        }
+        timeBackPressed= System.currentTimeMillis();
+
+    }
+
+
+
+
 }

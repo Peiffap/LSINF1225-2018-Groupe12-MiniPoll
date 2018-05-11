@@ -21,7 +21,6 @@ import be.lsinf1225gr12.minipoll.minipoll.R;
 public class MainActivity extends Activity {
     // Tous les noms d'activites sont a changer
 
-    private static int countBackPressed=0; //nombre le nombre de fois qu'on a appuyé sur le bouton de retour
     private static long timeBackPressed;
 
     @Override
