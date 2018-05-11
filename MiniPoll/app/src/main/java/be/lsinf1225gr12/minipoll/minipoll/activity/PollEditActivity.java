@@ -8,8 +8,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.Poll;
+import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 public class PollEditActivity extends AppCompatActivity {
 
@@ -20,8 +23,7 @@ public class PollEditActivity extends AppCompatActivity {
     public static final String QuestionMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.QuestionMemoryPoll";
     public static final String ChoiceMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.ChoiceMemoryPoll";
     EditText Title;
-    EditText Choice1;
-    EditText Choice2;
+    EditText Choice;
     EditText ChoiceToErase;
 
     ImageView Back;
@@ -82,6 +84,31 @@ public class PollEditActivity extends AppCompatActivity {
             Toast.makeText(this,"Un champ n'est pas rempli",Toast.LENGTH_SHORT);
         }
         else{
+            Title = (EditText) findViewById(R.id.ETQuestion);
+            Poll P = new Poll(pintent.getIntExtra(CreateSondageActivity.TopMemoryPoll,1),c,System.currentTimeMillis(), User.getConnectedUser(),pintent.getStringExtra(NameMemoryPoll),false,"Text",Title.getText().toString());
+            Poll.addPoll(P);
+            Choice=(EditText) findViewById(R.id.editText3);
+            P.addChoicePoll(Choice.getText().toString(),1);
+            Choice=(EditText) findViewById(R.id.editText5);
+            P.addChoicePoll(Choice.getText().toString(),2);
+            if(c>2){
+                Choice=(EditText) findViewById(R.id.hideET1);
+                P.addChoicePoll(Choice.getText().toString(),3);
+            }
+            if(c>3){
+                Choice=(EditText) findViewById(R.id.hideET2);
+                P.addChoicePoll(Choice.getText().toString(),4);
+            }
+            if(c>4){
+                Choice=(EditText) findViewById(R.id.hideET3);
+                P.addChoicePoll(Choice.getText().toString(),5);
+            }
+            if(c>5){
+                Choice=(EditText) findViewById(R.id.hideET4);
+                P.addChoicePoll(Choice.getText().toString(),6);
+            }
+
+
         }
     }
 

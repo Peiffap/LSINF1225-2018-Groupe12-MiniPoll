@@ -21,8 +21,10 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
     public static final String FriendMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.FriendMemoryPoll";
     public static final String FormatMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.FormatMemoryPoll";
     public static final String NameMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.NameMemoryPoll";
+    public static final String TopMemoryPoll = "be.lsinf1225gr12.minipoll.minipoll.activity.TopMemoryPoll";
     String text="";
     EditText ET;
+    EditText ET2;
     Spinner S;
     EditText Name;
 
@@ -41,25 +43,32 @@ public class CreateSondageActivity extends AppCompatActivity implements AdapterV
 
         ET = (EditText) findViewById(R.id.giveNumber);
         Name = (EditText) findViewById(R.id.PollName);
+        ET2 = (EditText) findViewById(R.id.giveNumber2);
         String et = ET.getText().toString();
+        String et2 = ET2.getText().toString();
         String name = Name.getText().toString();
-        if (et.equals("")){
-            Toast.makeText(getBaseContext(),"Veuillez entrer un nombre",Toast.LENGTH_SHORT);
+        if (et.equals("")||(et2.equals(""))){
+            Toast.makeText(this,"Veuillez entrer un nombre",Toast.LENGTH_SHORT);
         }
         else if(Integer.parseInt(et)<2||Integer.parseInt(et)>6){
-            Toast.makeText(getBaseContext(),"Veuillez entrer un nombre entre 2 et 6",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Veuillez entrer un nombre entre 2 et 6 pour le nombre de choix",Toast.LENGTH_SHORT);
+        }
+        else if(Integer.parseInt(et2)<1||Integer.parseInt(et2)>6){
+            Toast.makeText(this,"Veuillez entrer un nombre entre 1 et 6 pour le nombre de top",Toast.LENGTH_SHORT);
         }
         else if (name.equals("")){
-            Toast.makeText(getBaseContext(),"Veuillez entrer un nom pour votre sondage",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Veuillez entrer un nom pour votre sondage",Toast.LENGTH_SHORT);
         }
         else {
             Intent pIntent = getIntent();
             int i = Integer.parseInt(et);
+            int j = Integer.parseInt(et2);
             Intent intent = new Intent(this, PollEditActivity.class);
             intent.putExtra(NumberChoice,i);
             intent.putExtra(FriendMemoryPoll,pIntent.getStringArrayExtra(ChooseFriendActivity.FriendMemory));
             intent.putExtra(FormatMemoryPoll,text);
             intent.putExtra(NameMemoryPoll,name);
+            intent.putExtra(TopMemoryPoll,j);
             startActivity(intent);
         }
     }

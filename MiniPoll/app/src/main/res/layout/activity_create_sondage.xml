@@ -7,24 +7,38 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/giveNumber"
+        android:id="@+id/giveNumber2"
         android:layout_width="243dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="number"
-        android:text="Nombre de choix possible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Nombre de top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PollName"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintTop_toBottomOf="@+id/giveNumber" />
+
+    <EditText
+        android:id="@+id/giveNumber"
+        android:layout_width="243dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Nombre de choix possible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PollName" />
 
     <TextView
         android:id="@+id/textView6"
@@ -75,11 +89,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="36dp"
         android:text="Format"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/giveNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/giveNumber2" />
 
     <EditText
         android:id="@+id/PollName"
