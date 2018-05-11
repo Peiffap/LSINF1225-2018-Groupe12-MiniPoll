@@ -8,6 +8,7 @@ import android.view.View;
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
+import be.lsinf1225gr12.minipoll.minipoll.R;
 
 /**
  * Gere la navigation a travers les fonctionnalites de l'application
@@ -68,7 +69,7 @@ public class MainActivity extends Activity {
         if (timeBackPressed + 2000 > System.currentTimeMillis()) //déjà appuyé sur back il y a moins de 2 secondes
         {
             finish();
-            User.getConnectedUser().logout();
+            User.logout();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {

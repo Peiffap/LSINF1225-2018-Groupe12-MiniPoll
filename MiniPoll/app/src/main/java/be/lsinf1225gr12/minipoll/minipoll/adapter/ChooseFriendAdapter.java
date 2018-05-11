@@ -40,6 +40,12 @@ public class ChooseFriendAdapter extends BaseAdapter {
         return selectedUser;
     }
 
+    public void downdate()
+    {
+        User test = user.get(position);
+        selectedUser.remove(test);
+    }
+
     public void update()
     {
         User test = user.get(position);
@@ -87,14 +93,16 @@ public class ChooseFriendAdapter extends BaseAdapter {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                //MiniPollApp.notifyShort(R.string.list_error);
 
                 final boolean isChecked = checkBox.isChecked();
                 final User myUser1 = myUser;
                 if (isChecked)
                 {
-                    MiniPollApp.notifyShort(R.string.list_error);
                     update();
+                }
+                else
+                {
+                    downdate();
                 }
             }
         });

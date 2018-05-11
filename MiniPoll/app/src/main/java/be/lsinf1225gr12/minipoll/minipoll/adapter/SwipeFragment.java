@@ -28,8 +28,8 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
     ImageButton IBFav;
     ImageButton IBRem;
     ImageButton HiddenButton;
-    static List<User> friendlist=User.getFriends(User.getConnectedUser());
-    static int f=friendlist.size();
+    List<User> friendlist=User.getFriends(User.getConnectedUser());
+    int f=friendlist.size();
 
     public SwipeFragment() {
         // Required empty public constructor
@@ -65,7 +65,7 @@ public class SwipeFragment extends android.support.v4.app.Fragment {
         }
         Bundle bdl = getArguments();
 
-        IBFav.setImageMatrix(HiddenButton.getImageMatrix());
+        //IBFav.setImageMatrix(HiddenButton.getImageMatrix());
         Hidden.setText(String.valueOf(bdl.getInt("count")-1));
         viewID.setText(Login[bdl.getInt("count") - 1]);
         viewName.setText(Name[bdl.getInt("count") - 1]);

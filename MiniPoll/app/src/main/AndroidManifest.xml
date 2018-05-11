@@ -30,6 +30,7 @@
         <activity android:name=".activity.FriendMenuActivity" />
         <activity android:name=".activity.AddFriendActivity" />
         <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.CreateQuestionActivity" />
         <activity android:name=".activity.PollEditActivity"></activity>
     </application>
 
