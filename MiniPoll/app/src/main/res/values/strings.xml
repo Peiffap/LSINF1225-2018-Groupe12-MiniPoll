@@ -80,6 +80,11 @@
     <string name="poll">Sondage</string>
     <string name="menu_logout">Pour quitter l\'application, appuyez deux fois sur retour</string>
 
+    <!-- Show -->
+    <string name="show_list_no_result">Aucun résultat ne correspond à votre recherche</string>
+    <string name="show_list_error_no_item">Aucun élément dans votre collection. Commencez par en ajouter.</string>
+
+
     <!-- validate friend-->
     <string name="select_friend">Sélectionnez des amis</string>
 

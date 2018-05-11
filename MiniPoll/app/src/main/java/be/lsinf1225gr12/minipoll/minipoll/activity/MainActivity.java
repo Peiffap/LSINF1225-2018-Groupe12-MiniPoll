@@ -7,6 +7,7 @@ import android.view.View;
 
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
+import be.lsinf1225gr12.minipoll.minipoll.adapter.MyListViewAdapter;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
     }
 
     public void choice(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ShowListActivity.class);
         startActivity(intent);
     }
 
