@@ -291,8 +291,8 @@ public class User {
      * @param utilisateur, l'user dont on veut la liste d'amis
      * @return une ArrayList<User> contenant la liste des amis de utilisateur
      */
-    public static ArrayList<User> getFriends(User utilisateur){
-        if(utilisateur==null)
+    public static ArrayList<User> getFriends(User utilisateur) {
+        if (utilisateur == null)
             return null;
         int thisId = utilisateur.getId();
 
@@ -309,7 +309,7 @@ public class User {
 
         // Placement du curseur sur la première ligne.
         boolean cond = !cursor.moveToFirst();
-        if(!cond){
+        if (!cond) {
             // Tant qu'il y a des lignes.
             while (!cursor.isAfterLast()) {
                 // Récupération des informations de l'utilisateur pour chaque ligne.
@@ -333,8 +333,9 @@ public class User {
 
         // Placement du curseur sur la première ligne
         //boolean cond2 = cursor2.isNull(0);//cursor2.getColumnIndex(MySQLiteHelper.getKeyFriendrelationSender())
-        boolean cond2 = !cursor2.moveToFirst();;
-        if(!cond2) {
+        boolean cond2 = !cursor2.moveToFirst();
+        ;
+        if (!cond2) {
 
             // Tant qu'il y a des lignes.
             while (!cursor2.isAfterLast()) {
@@ -356,7 +357,7 @@ public class User {
         ArrayList<User> users = new ArrayList<>();
 
 
-        if(!(cond && cond2)) {
+        if (!(cond && cond2)) {
             String selection3 = createCommand(ids.size());
             String[] selectionArgs3 = new String[ids.size()];
             selectionArgs3 = ids.toArray(selectionArgs3);
@@ -391,14 +392,16 @@ public class User {
 
             // Fermeture du curseur et de la base de données.
             cursor3.close();
+
+
         }
-
-        // Fermeture du curseur et de la base de données.
-
         db3.close();
 
         return users;
+
+        // Fermeture du curseur et de la base de données.
     }
+
 
     public static ArrayList<User> getNonFriend(User user){
         ArrayList<User> all = getUsers();
@@ -802,7 +805,7 @@ public class User {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
         String[] colonnes = {MySQLiteHelper.getKeyUserId(), MySQLiteHelper.getKeyUserSurname(), MySQLiteHelper.getKeyUserFirstname(),MySQLiteHelper.getKeyUserLogin(),MySQLiteHelper.getKeyUserPassword(),MySQLiteHelper.getKeyUserMail(),MySQLiteHelper.getKeyUserPicture(),MySQLiteHelper.getKeyUserBestfriend()};
-        String selection = MySQLiteHelper.getKeyUserLogin() + " = ?";
+        String selection = MySQLiteHelper.getKeyUserId() + " = ?";
         String[] selectionArgs = new String[]{String.valueOf(id)};
         Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
 
