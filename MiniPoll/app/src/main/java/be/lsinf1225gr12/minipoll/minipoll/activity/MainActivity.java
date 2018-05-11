@@ -7,6 +7,7 @@ import android.view.View;
 
 import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.R;
+import be.lsinf1225gr12.minipoll.minipoll.adapter.MyListViewAdapter;
 import be.lsinf1225gr12.minipoll.minipoll.model.User;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 
@@ -20,7 +21,6 @@ import be.lsinf1225gr12.minipoll.minipoll.R;
 public class MainActivity extends Activity {
     // Tous les noms d'activites sont a changer
 
-    private static int countBackPressed=0; //nombre le nombre de fois qu'on a appuyé sur le bouton de retour
     private static long timeBackPressed;
 
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     }
 
     public void choice(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ShowListActivity.class);
         startActivity(intent);
     }
 

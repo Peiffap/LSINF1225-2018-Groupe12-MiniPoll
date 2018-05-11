@@ -13,6 +13,7 @@
     <string name="manque_champs">Veuillez renseigner tous les champs</string>
     <string name="mcq_titre">Choisissez un titre</string>
     <string name="mcq_alert">Donnez un titre et un nombre de questions</string>
+    <string name="well_done">Questionnaire enregistré avec succès !</string>
 
     <!-- ChooseFriend -->
     <string name="list_error">Veuillez sélectionner au moins un ami</string>
@@ -81,6 +82,11 @@
     <string name="my_friends">Mes amis</string>
     <string name="poll">Sondage</string>
     <string name="menu_logout">Pour quitter l\'application, appuyez deux fois sur retour</string>
+
+    <!-- Show -->
+    <string name="show_list_no_result">Aucun résultat ne correspond à votre recherche</string>
+    <string name="show_list_error_no_item">Aucun élément dans votre collection. Commencez par en ajouter.</string>
+
 
     <!-- validate friend-->
     <string name="select_friend">Sélectionnez des amis</string>

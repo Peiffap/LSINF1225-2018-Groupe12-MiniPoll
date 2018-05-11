@@ -13,6 +13,8 @@ import be.lsinf1225gr12.minipoll.minipoll.MiniPollApp;
 import be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper;
 import be.lsinf1225gr12.minipoll.minipoll.R;
 
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyParticipationpollAuthor;
+import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyParticipationpollDate;
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollAuthor;
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollDate;
 import static be.lsinf1225gr12.minipoll.minipoll.MySQLiteHelper.getKeyPollFormat;
@@ -251,8 +253,8 @@ public class Poll extends PollAbstract {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             // Id de l'élément.
-            int idauthor = c.getInt(0);
-            int date = c.getInt(0);
+            int idauthor = c.getInt(c.getColumnIndex(getKeyParticipationpollAuthor()));
+            long date = c.getLong(c.getColumnIndex(getKeyParticipationpollDate()));
             // L'instance de l'élément de collection est récupéré avec la méthode get(ciId)
             // (Si l'instance n'existe pas encore, elle est créée par la méthode get)
             Poll poll = Poll.getPollWithidAuthorDate(User.getUserWithId(idauthor),date);
@@ -274,7 +276,7 @@ public class Poll extends PollAbstract {
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
 
         String[] colonnes = {MySQLiteHelper.getKeyPollNumbertop(), MySQLiteHelper.getKeyPollNumberchoice(), MySQLiteHelper.getKeyPollTitle(),MySQLiteHelper.getKeyPollIspoll(),MySQLiteHelper.getKeyPollFormat(),MySQLiteHelper.getKeyPollQuestion()};
-        String selection = MySQLiteHelper.getKeyUserMail() + " = ?";
+        String selection = MySQLiteHelper.getKeyPollAuthor() + " = ? AND " + MySQLiteHelper.getKeyPollDate() + " = ?";
         String[] selectionArgs = new String[]{String.valueOf(author.getId()),String.valueOf(date)};
         Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
 

@@ -22,6 +22,7 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
 
 public class CreateQuestionActivity extends AppCompatActivity {
 
+    private static long timeBackPressed;
     private MCQ mcq;
     private ArrayList<User> user;
     private int numberChoice;
@@ -30,6 +31,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        timeBackPressed= System.currentTimeMillis()-2000;
         super.onCreate(savedInstanceState);
         actualNumber = getIntent().getIntExtra("InfosQuestion",1);
         setContentView(R.layout.activity_create_question);
@@ -38,10 +40,10 @@ public class CreateQuestionActivity extends AppCompatActivity {
         //Extract the data…
         ArrayList<String> credentials = bundle.getStringArrayList("credentials");
 
-        int author = Integer.parseInt(credentials.get(0));
-        long date = Long.parseLong(credentials.get(1));
+        int author = Integer.parseInt(credentials.get(1));
+        long date = Long.parseLong(credentials.get(0));
         actualNumber = Integer.parseInt(credentials.get(2));
-       // mcq = getMCQ(author,date);
+        mcq = MCQ.get(author,date);
     }
 
     private void resetQuestion()
@@ -64,7 +66,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
      */
     private void registerQuestion()
     {
-        EditText loginEditText[] = new EditText[5];
+        EditText loginEditText[] = new EditText[4];
         loginEditText[0] = findViewById(R.id.editText6);
         loginEditText[1] = findViewById(R.id.editText7);
         loginEditText[2] = findViewById(R.id.editText8);
@@ -97,16 +99,32 @@ public class CreateQuestionActivity extends AppCompatActivity {
             registerQuestion();
             if (actualNumber==1)
             {
-                registerQuestion();
+                MiniPollApp.notifyShort(R.string.well_done);
                 Intent intent = new Intent(this, MainActivity.class);
                 //intent.putExtra("ArrayList<Question>", questions); //passe le tableau de Questions en arguments
                 startActivity(intent);
             }
-            for (int i=0;i<5;++i) {
-                loginEditText[i].setText("");
-            }
             resetQuestion();
             actualNumber--;
         }
+
     }
+
+    @Override
+    public void onBackPressed() {
+        if (timeBackPressed + 2000 > System.currentTimeMillis()) //déjà appuyé sur back il y a moins de 2 secondes
+        {
+            moveTaskToBack(true);
+            Intent intent = new Intent (this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            MiniPollApp.notifyShort(R.string.menu_logout);
+        }
+        timeBackPressed= System.currentTimeMillis();
+
+    }
+
+
+
+
 }

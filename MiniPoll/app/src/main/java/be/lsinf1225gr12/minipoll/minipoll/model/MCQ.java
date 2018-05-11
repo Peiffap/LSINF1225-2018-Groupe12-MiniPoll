@@ -21,6 +21,9 @@ public class MCQ extends PollAbstract implements Serializable {
     public MCQ(String format, String name, User author, long date, int numberQuestion){
         super(format,name,author,date);
 
+        this.question = new ArrayList<>();
+
+
         this.numberQuestion = numberQuestion;
 
     }
@@ -62,7 +65,7 @@ public class MCQ extends PollAbstract implements Serializable {
         cv.put(MySQLiteHelper.getKeyQuestionDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyQuestionDescription(),title);
         cv.put(MySQLiteHelper.getKeyQuestionPosition(),position);
-        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),0);
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(), 1);
         int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
         if (result==-1)
         {
@@ -98,14 +101,14 @@ public class MCQ extends PollAbstract implements Serializable {
         String selection = MySQLiteHelper.getKeyMcqAuthor() + " = ? AND " + MySQLiteHelper.getKeyMcqDate() + " = ?";
         String[] colonnes = {MySQLiteHelper.getKeyMcqFormat(), MySQLiteHelper.getKeyMcqIsclosed(), MySQLiteHelper.getKeyMcqNumberquestion(),MySQLiteHelper.getKeyMcqTitle()};
         String[] selectionArgs = {String.valueOf(author),String.valueOf(date)};
-        Cursor cursor = db.query(MySQLiteHelper.getTableUser(), colonnes, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query(MySQLiteHelper.getTableMcq(), colonnes, selection, selectionArgs, null, null, null);
 
         // Placement du curseur sur la première ligne.
         if(!cursor.moveToFirst())
             return null;
 
         int numberQuestion = cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqNumberquestion()));
-        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyUserSurname()));
+        String name = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqTitle()));
         String format = cursor.getString(cursor.getColumnIndex(MySQLiteHelper.getKeyMcqFormat()));
 
         MCQ mcq = new MCQ(format,name,User.getUserWithId(author),date,numberQuestion);

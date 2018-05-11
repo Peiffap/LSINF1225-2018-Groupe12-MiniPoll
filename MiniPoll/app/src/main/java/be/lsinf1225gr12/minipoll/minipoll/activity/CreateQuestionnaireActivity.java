@@ -60,10 +60,16 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
     {
 
         numberChoice = (Integer) choiceSpinner.getSelectedItem();
-        EditText title = findViewById(R.id.login_password);
+        EditText title = findViewById(R.id.editText42);
         String name = title.getText().toString();
         if (name==null || name.equals(""))
         {
+            MiniPollApp.notifyShort(R.string.mcq_alert);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             MiniPollApp.notifyShort(R.string.mcq_alert);
         }
         else {
@@ -98,6 +104,7 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
             //Add the bundle to the intent
             Intent intent = new Intent(this, CreateQuestionActivity.class);
             intent.putExtras(bundle);
+
             startActivity(intent);
         }
     }
