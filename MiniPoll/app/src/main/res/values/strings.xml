@@ -3,7 +3,8 @@
     <string name="my_error">Erreur avec la db</string>
 
     <!-- ChooseFriend -->
-    <string name="list_error">Pas d\'item sélectionné</string>
+    <string name="list_error">Veuillez sélectionner au moins un ami</string>
+
     <!-- Sondage -->
     <string name="my_nopollerror">Pas d\'item sélectionné</string>
     <string name="show_list_name_title">Nom de l\'élément de collection</string>

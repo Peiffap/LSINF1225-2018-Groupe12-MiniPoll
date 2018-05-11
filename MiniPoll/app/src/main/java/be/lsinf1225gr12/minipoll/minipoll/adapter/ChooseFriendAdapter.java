@@ -40,6 +40,12 @@ public class ChooseFriendAdapter extends BaseAdapter {
         return selectedUser;
     }
 
+    public void downdate()
+    {
+        User test = user.get(position);
+        selectedUser.remove(test);
+    }
+
     public void update()
     {
         User test = user.get(position);
@@ -93,6 +99,10 @@ public class ChooseFriendAdapter extends BaseAdapter {
                 if (isChecked)
                 {
                     update();
+                }
+                else
+                {
+                    downdate();
                 }
             }
         });

@@ -94,12 +94,19 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
     public void validate(View view)
     {
         ArrayList<User> user = chooseFriendAdapter.getSelectedUser();
-        int id[] = new int[user.size()];
-        for (int i=0;i<user.size();++i)
-            id[i]=user.get(i).getId();
-        Intent intent = new Intent(this, CreateQuestionnaireActivity.class);
-        for (int i=0;i<user.size();++i)
-            intent.putExtra(MySQLiteHelper.getKeyUserId(), id);
-        startActivity(intent);
+        if (user.size()==0)
+        {
+            MiniPollApp.notifyShort(R.string.list_error);
+        }
+        else
+        {
+            int id[] = new int[user.size()];
+            for (int i=0;i<user.size();++i)
+                id[i]=user.get(i).getId();
+            Intent intent = new Intent(this, CreateQuestionnaireActivity.class);
+            for (int i=0;i<user.size();++i)
+                intent.putExtra(MySQLiteHelper.getKeyUserId(), id);
+            startActivity(intent);
+        }
     }
 }
