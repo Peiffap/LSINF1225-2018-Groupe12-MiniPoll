@@ -2,6 +2,15 @@
     <string name="app_name">MiniPoll</string>
     <string name="my_error">Erreur avec la db</string>
 
+    <!-- CreateQuestion-->
+    <string name="create_question_instruction">Saissez un titre</string>
+    <string name="reponse1">Réponse 1</string>
+    <string name="reponse2">Réponse 2</string>
+    <string name="reponse3">Réponse 3</string>
+    <string name="reponse4">Réponse 4</string>
+    <string name="valide">Valider</string>
+    <string name="manque_champs">Veuillez renseigner tous les champs</string>
+
     <!-- ChooseFriend -->
     <string name="list_error">Veuillez sélectionner au moins un ami</string>
 

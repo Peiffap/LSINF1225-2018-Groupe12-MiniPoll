@@ -25,7 +25,6 @@ import be.lsinf1225gr12.minipoll.minipoll.model.User;
  */
 public class LoginActivity extends Activity implements TextView.OnEditorActionListener {
 
-    private Spinner userSpinner;
     private ArrayList<User> users;
 
     @Override
