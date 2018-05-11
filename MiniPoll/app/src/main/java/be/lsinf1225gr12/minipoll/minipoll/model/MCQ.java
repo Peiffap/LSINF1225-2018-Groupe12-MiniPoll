@@ -21,6 +21,9 @@ public class MCQ extends PollAbstract implements Serializable {
     public MCQ(String format, String name, User author, long date, int numberQuestion){
         super(format,name,author,date);
 
+        this.question = new ArrayList<>();
+
+
         this.numberQuestion = numberQuestion;
 
     }
@@ -62,7 +65,7 @@ public class MCQ extends PollAbstract implements Serializable {
         cv.put(MySQLiteHelper.getKeyQuestionDate(),this.getDate());
         cv.put(MySQLiteHelper.getKeyQuestionDescription(),title);
         cv.put(MySQLiteHelper.getKeyQuestionPosition(),position);
-        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(),0);
+        cv.put(MySQLiteHelper.getKeyQuestionRightanswer(), 1);
         int result = (int) db.insert(MySQLiteHelper.getTableQuestion(), null, cv);
         if (result==-1)
         {

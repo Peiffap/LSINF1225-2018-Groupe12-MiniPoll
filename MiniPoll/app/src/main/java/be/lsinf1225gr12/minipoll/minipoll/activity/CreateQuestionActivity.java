@@ -64,7 +64,7 @@ public class CreateQuestionActivity extends AppCompatActivity {
      */
     private void registerQuestion()
     {
-        EditText loginEditText[] = new EditText[5];
+        EditText loginEditText[] = new EditText[4];
         loginEditText[0] = findViewById(R.id.editText6);
         loginEditText[1] = findViewById(R.id.editText7);
         loginEditText[2] = findViewById(R.id.editText8);
