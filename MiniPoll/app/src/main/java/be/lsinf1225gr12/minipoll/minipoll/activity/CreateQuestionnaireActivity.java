@@ -85,7 +85,7 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
             }
             db.close();
 
-            MCQ mcq = new MCQ("Text", name, User.getConnectedUser(), dateCreation, numberChoice);
+            MCQ mcq = MCQ.createNewMCQ("Text", name, User.getConnectedUser(), dateCreation, numberChoice); //crée un MCQ dans la DB
             Bundle bundle = new Bundle();
 
             //Add your data to bundle

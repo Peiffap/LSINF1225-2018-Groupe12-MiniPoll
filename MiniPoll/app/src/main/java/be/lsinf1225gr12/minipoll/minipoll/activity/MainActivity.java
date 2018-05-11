@@ -70,8 +70,9 @@ public class MainActivity extends Activity {
         {
             finish();
             User.logout();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         } else {
             MiniPollApp.notifyShort(R.string.menu_logout);
         }
