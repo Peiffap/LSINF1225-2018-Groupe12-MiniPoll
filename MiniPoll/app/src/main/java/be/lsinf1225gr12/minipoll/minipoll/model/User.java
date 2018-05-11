@@ -292,6 +292,8 @@ public class User {
      * @return une ArrayList<User> contenant la liste des amis de utilisateur
      */
     public static ArrayList<User> getFriends(User utilisateur){
+        if(utilisateur==null)
+            return null;
         int thisId = utilisateur.getId();
 
         // Récupération du  SQLiteHelper et de la base de données.
