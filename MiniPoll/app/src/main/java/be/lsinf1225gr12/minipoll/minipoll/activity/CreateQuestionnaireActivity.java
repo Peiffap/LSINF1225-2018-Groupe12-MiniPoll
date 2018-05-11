@@ -53,9 +53,9 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
 
     public void confirm(View v)
     {
-
         numberChoice = (Integer) choiceSpinner.getSelectedItem();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, CreateQuestionActivity.class);
+        intent.putExtra("InfosQuestion",numberChoice);
         startActivity(intent);
 
     }

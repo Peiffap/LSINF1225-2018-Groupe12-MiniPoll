@@ -32,6 +32,7 @@
         <activity android:name=".activity.AddFriendActivity" />
         <activity android:name=".activity.NotificationActivity" />
         <activity android:name=".activity.PollEditActivity"></activity>
+        <activity android:name=".activity.PollEditActivity" />
     </application>
 
 </manifest>

@@ -82,9 +82,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/valide"
         android:onClick="anotherQuestion"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:text="@string/valide"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <EditText
         android:id="@+id/editText5"
@@ -94,4 +94,5 @@
         android:hint="@string/create_question_instruction"
         android:inputType="textPersonName"
         android:singleLine="false" />
+
 </android.support.constraint.ConstraintLayout>
