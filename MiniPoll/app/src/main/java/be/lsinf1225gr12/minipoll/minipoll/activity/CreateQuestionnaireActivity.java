@@ -20,20 +20,22 @@ public class CreateQuestionnaireActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        boolean fuck=false;
         user = new ArrayList<>();
-        int id = getIntent().getIntExtra(MySQLiteHelper.getKeyUserId(), -1);
-        user.add(User.getUserWithId(id));
-        /*
-        while (id!=-1) //rajoute les utilisateurs sélectionnés
-        {
-            user.add(User.getUserWithId(id));
-            id = getIntent().getIntExtra(MySQLiteHelper.getKeyUserId(), -1);
-        }
-        */
+        int id[] = getIntent().getIntArrayExtra(MySQLiteHelper.getKeyUserId());
+
+        if (id==null)
+            MiniPollApp.notifyShort(R.string.list_error);
+
+        for (int i=0;i<id.length;++i)
+            user.add(User.getUserWithId(id[i]));
+
         setContentView(R.layout.activity_create_questionnaire);
-        //TextView textView = findViewById(R.id.textView5);
-        //textView.setText("ok");
+        TextView textView = findViewById(R.id.textView5);
+
+        textView.setText(String.valueOf(user.size()));
+        if (fuck)
+            MiniPollApp.notifyShort(R.string.list_error);
 
     }
 }
