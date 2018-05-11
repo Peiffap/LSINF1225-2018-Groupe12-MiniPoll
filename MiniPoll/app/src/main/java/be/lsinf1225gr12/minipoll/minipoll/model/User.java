@@ -270,6 +270,7 @@ public class User {
         if (this.password.equals(passwordToTry)) {
             // Si le mot de passe est correct, modification de l'utilisateur connecté.
             User.connectedUser = this;
+            Log.w(">>>>> Le connecter user",String.valueOf(User.connectedUser.toString()));
             return true;
         }
         return false;
