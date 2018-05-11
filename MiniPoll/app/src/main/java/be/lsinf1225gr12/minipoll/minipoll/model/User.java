@@ -516,6 +516,7 @@ public class User {
      */
     public static ArrayList<User> getDemands(User utilisateur){
         int thisId = utilisateur.getId();
+        Log.w("Le code est passé ici",String.valueOf(thisId));
 
         // Récupération du  SQLiteHelper et de la base de données.
         SQLiteDatabase db = MySQLiteHelper.get().getReadableDatabase();
@@ -532,6 +533,7 @@ public class User {
         ArrayList<String> ids = new ArrayList<>();
 
         boolean cond = !cursor.moveToFirst();
+        Log.w("Le code est passé ici",String.valueOf(cond));
         if(!cond){
 
             // Tant qu'il y a des lignes.
@@ -544,6 +546,7 @@ public class User {
 
                 // Passe à la ligne suivante.
                 cursor.moveToNext();
+                Log.w("Le code est passé ici","boucle");
             }
         }
         cursor.close();
@@ -555,7 +558,7 @@ public class User {
         SQLiteDatabase db3 = MySQLiteHelper.get().getReadableDatabase();
 
 
-        if(cond) {
+        if(!cond) {
             String selection3 = createCommand(ids.size());
             String[] selectionArgs3 = new String[ids.size()];
             selectionArgs3 = ids.toArray(selectionArgs3);
@@ -580,7 +583,7 @@ public class User {
                 int bestFriend = cursor3.getInt(cursor3.getColumnIndex(MySQLiteHelper.getKeyUserBestfriend()));
 
                 User user = new User(id, login, password, picture, mail, firstname, name, bestFriend);
-
+                Log.w("Le code est passé ici","boucle2");
                 // Ajout de l'utilisateur à la liste.
                 users.add(user);
 
