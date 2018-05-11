@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'my-release-key'
-            keyPassword 'Toegangscode99'
-            storeFile file('/Users/admin/Documents/my-release-key.keystore')
-            storePassword 'Toegangscode99'
-        }
-    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "be.lsinf1225gr12.minipoll.minipoll"
@@ -22,13 +14,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:27.1.1'
