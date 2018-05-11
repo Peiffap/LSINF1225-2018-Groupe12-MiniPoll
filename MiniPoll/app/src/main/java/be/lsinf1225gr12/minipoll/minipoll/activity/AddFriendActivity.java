@@ -20,12 +20,4 @@ public class AddFriendActivity extends FragmentActivity {
         AddFriendAdapter AFA= new AddFriendAdapter(getSupportFragmentManager());
         VP.setAdapter(AFA);
     }
-
-    protected  void onResume(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_friend);
-        VP = findViewById(R.id.SwipeAdd);
-        AddFriendAdapter AFA= new AddFriendAdapter(getSupportFragmentManager());
-        VP.setAdapter(AFA);
-    }
 }
