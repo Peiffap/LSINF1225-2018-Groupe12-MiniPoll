@@ -101,7 +101,7 @@ public class ChooseFriendActivity extends Activity implements OnItemClickListene
         else
         {
             Intent pIntent = getIntent();
-            int t = pIntent.getIntExtra(CreateActivity.TypeMemory,0);
+            int t = pIntent.getIntExtra(CreateActivity.TypeMemory,1);
             int id[] = new int[user.size()];
             for (int i=0;i<user.size();++i)
                 id[i]=user.get(i).getId();
